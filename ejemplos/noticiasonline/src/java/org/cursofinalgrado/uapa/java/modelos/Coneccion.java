@@ -1,9 +1,7 @@
 package org.cursofinalgrado.uapa.java.modelos;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.text.MessageFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.Context;
@@ -43,9 +41,7 @@ public class Coneccion {
             con = ds.getConnection();
             Logger.getLogger(getClass().getName()).info(String.format("Connection established !!!"));
         
-        } catch (NamingException ex) {
-            Logger.getLogger(Coneccion.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        } catch (NamingException | SQLException ex) {
             Logger.getLogger(Coneccion.class.getName()).log(Level.SEVERE, null, ex);
         }
 

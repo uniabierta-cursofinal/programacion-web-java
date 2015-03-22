@@ -33,43 +33,26 @@ public class ModeloPais {
 
     public List<Pais> getListadoPais() {
 
-        List<Pais> lista = new ArrayList<Pais>();
+        List<Pais> lista = new ArrayList<>();
 
         String sql = "select * from pais";
 
         Connection con = Coneccion.getInstancia().getConeccion();
-        Statement stmt = null;
-        ResultSet rs = null;
 
-        try {
+        try (Statement stmt = con.createStatement()) {
+            try (ResultSet rs = stmt.executeQuery(sql)) {
 
-            stmt = con.createStatement();
-            rs = stmt.executeQuery(sql);
+                while (rs.next()) {
+                    Pais pais = new Pais();
+                    pais.setId(rs.getInt("codigo_pais"));
+                    pais.setNombre(rs.getString("nombre"));
 
-            while (rs.next()) {
-                Pais pais = new Pais();
-                pais.setId(rs.getInt("codigo_pais"));
-                pais.setNombre(rs.getString("nombre"));
-
-                lista.add(pais);
+                    lista.add(pais);
+                }
             }
 
         } catch (SQLException e) {
             Logger.getLogger(ModeloPais.class.getName()).log(Level.SEVERE, null, e);
-        } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (stmt != null) {
-                    stmt.close();
-                }
-                if (con != null) {
-                    con.close();
-                }
-            } catch (SQLException e) {
-                Logger.getLogger(ModeloPais.class.getName()).log(Level.SEVERE, null, e);
-            }
         }
 
         return lista;
@@ -80,38 +63,22 @@ public class ModeloPais {
         String sql = "select * from pais where codigo_pais=?";
 
         Connection con = Coneccion.getInstancia().getConeccion();
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
+
         Pais pais = null;
 
-        try {
-
-            stmt = con.prepareStatement(sql);
+        try (PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, id);
 
-            rs = stmt.executeQuery();
+            try (ResultSet rs = stmt.executeQuery()) {
 
-            rs.next();
-            pais = new Pais();
-            pais.setId(rs.getInt("codigo_pais"));
-            pais.setNombre(rs.getString("nombre"));
+                rs.next();
+                pais = new Pais();
+                pais.setId(rs.getInt("codigo_pais"));
+                pais.setNombre(rs.getString("nombre"));
+            }
 
         } catch (SQLException e) {
             Logger.getLogger(ModeloPais.class.getName()).log(Level.SEVERE, null, e);
-        } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (stmt != null) {
-                    stmt.close();
-                }
-                if (con != null) {
-                    con.close();
-                }
-            } catch (SQLException e) {
-                Logger.getLogger(ModeloPais.class.getName()).log(Level.SEVERE, null, e);
-            }
         }
 
         return pais;

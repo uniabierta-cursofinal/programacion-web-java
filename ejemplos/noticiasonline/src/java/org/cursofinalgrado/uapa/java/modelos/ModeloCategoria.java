@@ -33,77 +33,52 @@ public class ModeloCategoria {
 
     public boolean crearCategoria(Categoria categoria) {
 
-        boolean estado = false;
-        PreparedStatement stmt = null ;
+        boolean estado;
+
         String sql = "insert into categorias(descripcion) values(?)";
-        
-         Connection con = Coneccion.getInstancia().getConeccion();
 
-        try {
+        Connection con = Coneccion.getInstancia().getConeccion();
 
-            stmt = con.prepareStatement(sql);
+        try (PreparedStatement stmt = con.prepareStatement(sql)) {
+
             stmt.setString(1, categoria.getDescripcion());
 
             stmt.executeUpdate();
-            
+
             estado = true;
 
         } catch (SQLException e) {
             estado = false;
-             Logger.getLogger(ModeloCategoria.class.getName()).log(Level.SEVERE, null, e);
-        }finally{
-            if (stmt != null) {
-                try {
-                    stmt.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(ModeloCategoria.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                }
+            Logger.getLogger(ModeloCategoria.class.getName()).log(Level.SEVERE, null, e);
         }
-        
+
         return estado;
 
     }
 
     public List<Categoria> getListadoCategorias() {
 
-        List<Categoria> lista = new ArrayList<Categoria>();
+        List<Categoria> lista = new ArrayList<>();
 
         String sql = "select * from categorias";
 
-        Connection con = Coneccion.getInstancia().getConeccion();
-        Statement stmt = null;
-        ResultSet rs = null;
+        Connection con = Coneccion.getInstancia().getConeccion();       
 
-        try {
+        try (Statement stmt = con.createStatement()) {
 
-            stmt = con.createStatement();
-            rs = stmt.executeQuery(sql);
+            try (ResultSet rs = stmt.executeQuery(sql)) {
 
-            while (rs.next()) {
-                Categoria categoria = new Categoria();
-                categoria.setId(rs.getInt("codigo_categoria"));
-                categoria.setDescripcion(rs.getString("descripcion"));
+                while (rs.next()) {
+                    Categoria categoria = new Categoria();
+                    categoria.setId(rs.getInt("codigo_categoria"));
+                    categoria.setDescripcion(rs.getString("descripcion"));
 
-                lista.add(categoria);
+                    lista.add(categoria);
+                }
             }
 
         } catch (SQLException e) {
             Logger.getLogger(ModeloCategoria.class.getName()).log(Level.SEVERE, null, e);
-        } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (stmt != null) {
-                    stmt.close();
-                }
-                if (con != null) {
-                    con.close();
-                }
-            } catch (SQLException e) {
-                Logger.getLogger(ModeloCategoria.class.getName()).log(Level.SEVERE, null, e);
-            }
         }
 
         return lista;

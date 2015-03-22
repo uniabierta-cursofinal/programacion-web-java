@@ -3,6 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group name="UAPA"/>
-        <group name="OpenSource"/>
+        <group name="OpenSource">
+            <file>file:/home/ecabrerar/NetBeansProjects/UAPA/2015/programacion-web-java/ejemplos/noticiasonline/src/java/org/cursofinalgrado/uapa/java/controller/CiudadController.java</file>
+            <file>file:/home/ecabrerar/NetBeansProjects/UAPA/2015/programacion-web-java/ejemplos/noticiasonline/src/java/org/cursofinalgrado/uapa/java/modelos/ModeloCiudad.java</file>
+            <file>file:/home/ecabrerar/NetBeansProjects/UAPA/2015/programacion-web-java/ejemplos/noticiasonline/src/java/org/cursofinalgrado/uapa/java/modelos/ModeloCategoria.java</file>
+            <file>file:/home/ecabrerar/NetBeansProjects/UAPA/2015/programacion-web-java/ejemplos/noticiasonline/src/java/org/cursofinalgrado/uapa/java/entidades/Categoria.java</file>
+            <file>file:/home/ecabrerar/NetBeansProjects/UAPA/2015/programacion-web-java/ejemplos/noticiasonline/src/java/org/cursofinalgrado/uapa/java/controller/CategoriaController.java</file>
+        </group>
     </open-files>
 </project-private>
