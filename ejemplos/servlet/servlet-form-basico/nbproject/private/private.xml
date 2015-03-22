@@ -7,5 +7,8 @@
             <file>file:/home/ecabrerar/proyectos/workspaces/labs/taller-desarrollo-web-java/ejemplos/servlet/servlet-form-basico/web/WEB-INF/web.xml</file>
         </group>
         <group name="UAPA"/>
+        <group name="OpenSource">
+            <file>file:/home/ecabrerar/NetBeansProjects/UAPA/2015/programacion-web-java/ejemplos/servlet/servlet-form-basico/src/java/org/cursofinalgrado/uapa/java/servlet/FormServlet.java</file>
+        </group>
     </open-files>
 </project-private>
