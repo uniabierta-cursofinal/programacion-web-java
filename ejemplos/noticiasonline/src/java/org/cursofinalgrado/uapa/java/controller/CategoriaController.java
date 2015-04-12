@@ -6,7 +6,6 @@
 package org.cursofinalgrado.uapa.java.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -33,20 +32,38 @@ public class CategoriaController extends HttpServlet {
             throws ServletException, IOException {
 
         String descripcion = request.getParameter("inputDescripcion");
+        String idCategoria = request.getParameter("idCategoria");       
+      
+        
+        if(null!=idCategoria){
+              Categoria cat = new Categoria();
+              cat.setId(Integer.parseInt(idCategoria));
+              cat.setDescripcion(descripcion);
+              
+              boolean isActualizado = ModeloCategoria.getInstancia().actualizarCategoria(cat);
+              
+              if (isActualizado) {
+                  response.sendRedirect("categoria.jsp");
 
+            } else {
+                response.sendRedirect("editarcategoria.jsp");
+
+            }
+              
+        } else {
+        
         Categoria cat = new Categoria();
         cat.setDescripcion(descripcion);
         boolean isCreado = ModeloCategoria.getInstancia().crearCategoria(cat);
 
         if (isCreado) {
-
             response.sendRedirect("categoria.jsp");
 
         } else {
-
             response.sendRedirect("agregarcategoria.jsp");
 
         }
+      }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

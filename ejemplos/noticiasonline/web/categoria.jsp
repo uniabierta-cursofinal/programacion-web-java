@@ -13,7 +13,9 @@
 <table class="table table-striped">
     <tr><th>#</th><th>Descripcion</th></tr>    
             <c:forEach items="<%=categorias%>" var="categoria">
-        <tr><td>${categoria.getId()}</td><td>${categoria.getDescripcion()}</td></tr>
+        <tr><td>${categoria.getId()}</td><td>${categoria.getDescripcion()}</td>
+            <td><a href="editarcategoria.jsp?id=${categoria.getId()}">Editar</a></td>
+        </tr>
 
     </c:forEach>
 </table>

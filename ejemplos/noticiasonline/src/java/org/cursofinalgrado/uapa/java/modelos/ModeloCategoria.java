@@ -55,6 +55,31 @@ public class ModeloCategoria {
         return estado;
 
     }
+    
+    public boolean actualizarCategoria(Categoria categoria){
+                boolean estado;
+
+        String sql = "update categorias set descripcion=? where codigo_categoria=?";
+
+        Connection con = Coneccion.getInstancia().getConeccion();
+
+        try (PreparedStatement stmt = con.prepareStatement(sql)) {
+
+            stmt.setString(1, categoria.getDescripcion());
+            stmt.setInt(2, categoria.getId());
+
+            stmt.executeUpdate();
+
+            estado = true;
+
+        } catch (SQLException e) {
+            estado = false;
+            Logger.getLogger(ModeloCategoria.class.getName()).log(Level.SEVERE, null, e);
+        }
+
+        return estado;
+
+    }
 
     public List<Categoria> getListadoCategorias() {
 
@@ -82,6 +107,33 @@ public class ModeloCategoria {
         }
 
         return lista;
+    }
+    
+    public Categoria getCategoriaPorId(int idCategoria) {
+
+        String sql = "select * from categorias where codigo_categoria=?";
+
+        Connection con = Coneccion.getInstancia().getConeccion();       
+
+         Categoria categoria = null;
+        
+        try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setInt(1, idCategoria);
+
+            try (ResultSet rs = pstmt.executeQuery()){
+
+                rs.next(); 
+                    categoria = new Categoria();
+                    categoria.setId(rs.getInt("codigo_categoria"));
+                    categoria.setDescripcion(rs.getString("descripcion"));
+                
+            }
+
+        } catch (SQLException e) {
+            Logger.getLogger(ModeloCategoria.class.getName()).log(Level.SEVERE, null, e);
+        }
+        
+        return categoria;
     }
 
 }
