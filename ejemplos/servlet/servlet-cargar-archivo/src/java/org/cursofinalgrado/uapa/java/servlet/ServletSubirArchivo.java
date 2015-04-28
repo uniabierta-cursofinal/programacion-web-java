@@ -8,6 +8,8 @@ package org.cursofinalgrado.uapa.java.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -21,9 +23,10 @@ import javax.servlet.http.Part;
  * @author ecabrerar
  */
 @WebServlet(urlPatterns = {"/ServletSubirArchivo"})
-@MultipartConfig(location = "/tmp")
+@MultipartConfig(location = "/tmp/servlet-cargar-archivo/uploads") //Debe colocar la ruta donde desea colocar la imagen
 public class ServletSubirArchivo extends HttpServlet {    
-    
+    private final static Logger LOGGER =
+            Logger.getLogger(ServletSubirArchivo.class.getCanonicalName());
     /**
      * 
      * @param request
@@ -35,7 +38,7 @@ public class ServletSubirArchivo extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        PrintWriter out = response.getWriter();
+         PrintWriter out = response.getWriter();
         
         try  {
             
@@ -52,7 +55,7 @@ public class ServletSubirArchivo extends HttpServlet {
             String fileName = "";
            
             for (Part part : request.getParts()) {
-                fileName = part.getName();
+                fileName = getFileName(part);
                 out.println("... writing " + fileName + " part<br>");
                 part.write(fileName);
                 out.println("... written<br>");
@@ -89,5 +92,17 @@ public class ServletSubirArchivo extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+    }
+    
+     private String getFileName(final Part part) {
+        final String partHeader = part.getHeader("content-disposition");
+        LOGGER.log(Level.INFO, "Part Header = {0}", partHeader);
+        for (String content : part.getHeader("content-disposition").split(";")) {
+            if (content.trim().startsWith("filename")) {
+                return content.substring(
+                        content.indexOf('=') + 1).trim().replace("\"", "");
+            }
+        }
+        return null;
     }
 }
