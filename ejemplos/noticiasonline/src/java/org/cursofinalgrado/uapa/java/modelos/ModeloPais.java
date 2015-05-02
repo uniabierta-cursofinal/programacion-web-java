@@ -37,17 +37,18 @@ public class ModeloPais {
 
         String sql = "select * from pais";
 
-        Connection con = Coneccion.getInstancia().getConeccion();
+        try (Connection con = Coneccion.getInstancia().getConeccion()) {
 
-        try (Statement stmt = con.createStatement()) {
-            try (ResultSet rs = stmt.executeQuery(sql)) {
+            try (Statement stmt = con.createStatement()) {
+                try (ResultSet rs = stmt.executeQuery(sql)) {
 
-                while (rs.next()) {
-                    Pais pais = new Pais();
-                    pais.setId(rs.getInt("codigo_pais"));
-                    pais.setNombre(rs.getString("nombre"));
+                    while (rs.next()) {
+                        Pais pais = new Pais();
+                        pais.setId(rs.getInt("codigo_pais"));
+                        pais.setNombre(rs.getString("nombre"));
 
-                    lista.add(pais);
+                        lista.add(pais);
+                    }
                 }
             }
 
@@ -62,19 +63,20 @@ public class ModeloPais {
 
         String sql = "select * from pais where codigo_pais=?";
 
-        Connection con = Coneccion.getInstancia().getConeccion();
-
         Pais pais = null;
 
-        try (PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setInt(1, id);
+        try (Connection con = Coneccion.getInstancia().getConeccion()) {
 
-            try (ResultSet rs = stmt.executeQuery()) {
+            try (PreparedStatement stmt = con.prepareStatement(sql)) {
+                stmt.setInt(1, id);
 
-                rs.next();
-                pais = new Pais();
-                pais.setId(rs.getInt("codigo_pais"));
-                pais.setNombre(rs.getString("nombre"));
+                try (ResultSet rs = stmt.executeQuery()) {
+
+                    rs.next();
+                    pais = new Pais();
+                    pais.setId(rs.getInt("codigo_pais"));
+                    pais.setNombre(rs.getString("nombre"));
+                }
             }
 
         } catch (SQLException e) {

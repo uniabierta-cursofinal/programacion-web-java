@@ -37,20 +37,21 @@ public class ModeloCiudad {
 
         String sql = "select * from ciudades";
 
-        Connection con = Coneccion.getInstancia().getConeccion();
+        try (Connection con = Coneccion.getInstancia().getConeccion()) {
 
-        try (Statement stmt = con.createStatement()) {
+            try (Statement stmt = con.createStatement()) {
 
-            try (ResultSet rs = stmt.executeQuery(sql)) {
+                try (ResultSet rs = stmt.executeQuery(sql)) {
 
-                while (rs.next()) {
+                    while (rs.next()) {
 
-                    Ciudad ciudad = new Ciudad();
-                    ciudad.setId(rs.getInt("codigo_ciudad"));
-                    ciudad.setNombre(rs.getString("nombre"));
-                    ciudad.setPais(ModeloPais.getInstancia().getPaisPorId(rs.getInt("codigo_pais")));
+                        Ciudad ciudad = new Ciudad();
+                        ciudad.setId(rs.getInt("codigo_ciudad"));
+                        ciudad.setNombre(rs.getString("nombre"));
+                        ciudad.setPais(ModeloPais.getInstancia().getPaisPorId(rs.getInt("codigo_pais")));
 
-                    lista.add(ciudad);
+                        lista.add(ciudad);
+                    }
                 }
             }
 
@@ -67,16 +68,17 @@ public class ModeloCiudad {
 
         String sql = "insert into ciudades(nombre,codigo_pais) values(?,?)";
 
-        Connection con = Coneccion.getInstancia().getConeccion();
+        try (Connection con = Coneccion.getInstancia().getConeccion()) {
 
-        try (PreparedStatement stmt = con.prepareStatement(sql)) {
+            try (PreparedStatement stmt = con.prepareStatement(sql)) {
 
-            stmt.setString(1, ciudad.getNombre());
-            stmt.setInt(2, ciudad.getPais().getId());
+                stmt.setString(1, ciudad.getNombre());
+                stmt.setInt(2, ciudad.getPais().getId());
 
-            stmt.executeUpdate();
+                stmt.executeUpdate();
 
-            estado = true;
+                estado = true;
+            }
 
         } catch (SQLException e) {
             estado = false;

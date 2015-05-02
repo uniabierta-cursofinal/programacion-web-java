@@ -9,6 +9,9 @@
         <group name="UAPA">
             <file>file:/home/ecabrerar/NetBeansProjects/cursofinalgrado-uapa-diplomado-java/ejemplos/programacion-web-java/ejemplos/jsp/jsp-jdbc/web/ListUsuarios.jsp</file>
         </group>
-        <group name="OpenSource"/>
+        <group name="OpenSource">
+            <file>file:/home/ecabrerar/NetBeansProjects/UAPA/2015/programacion-web-java/ejemplos/jsp/jsp-jdbc/src/java/org/cursofinalgrado/uapa/java/jsp/modelo/Coneccion.java</file>
+            <file>file:/home/ecabrerar/NetBeansProjects/UAPA/2015/programacion-web-java/ejemplos/jsp/jsp-jdbc/src/java/org/cursofinalgrado/uapa/java/jsp/modelo/ModeloUsuario.java</file>
+        </group>
     </open-files>
 </project-private>

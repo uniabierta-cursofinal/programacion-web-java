@@ -37,15 +37,16 @@ public class ModeloCategoria {
 
         String sql = "insert into categorias(descripcion) values(?)";
 
-        Connection con = Coneccion.getInstancia().getConeccion();
+        try (Connection con = Coneccion.getInstancia().getConeccion()) {
 
-        try (PreparedStatement stmt = con.prepareStatement(sql)) {
+            try (PreparedStatement stmt = con.prepareStatement(sql)) {
 
-            stmt.setString(1, categoria.getDescripcion());
+                stmt.setString(1, categoria.getDescripcion());
 
-            stmt.executeUpdate();
+                stmt.executeUpdate();
 
-            estado = true;
+                estado = true;
+            }
 
         } catch (SQLException e) {
             estado = false;
@@ -55,22 +56,23 @@ public class ModeloCategoria {
         return estado;
 
     }
-    
-    public boolean actualizarCategoria(Categoria categoria){
-                boolean estado;
+
+    public boolean actualizarCategoria(Categoria categoria) {
+        boolean estado;
 
         String sql = "update categorias set descripcion=? where codigo_categoria=?";
 
-        Connection con = Coneccion.getInstancia().getConeccion();
+        try (Connection con = Coneccion.getInstancia().getConeccion()) {
 
-        try (PreparedStatement stmt = con.prepareStatement(sql)) {
+            try (PreparedStatement stmt = con.prepareStatement(sql)) {
 
-            stmt.setString(1, categoria.getDescripcion());
-            stmt.setInt(2, categoria.getId());
+                stmt.setString(1, categoria.getDescripcion());
+                stmt.setInt(2, categoria.getId());
 
-            stmt.executeUpdate();
+                stmt.executeUpdate();
 
-            estado = true;
+                estado = true;
+            }
 
         } catch (SQLException e) {
             estado = false;
@@ -87,18 +89,19 @@ public class ModeloCategoria {
 
         String sql = "select * from categorias";
 
-        Connection con = Coneccion.getInstancia().getConeccion();       
+        try (Connection con = Coneccion.getInstancia().getConeccion()) {
 
-        try (Statement stmt = con.createStatement()) {
+            try (Statement stmt = con.createStatement()) {
 
-            try (ResultSet rs = stmt.executeQuery(sql)) {
+                try (ResultSet rs = stmt.executeQuery(sql)) {
 
-                while (rs.next()) {
-                    Categoria categoria = new Categoria();
-                    categoria.setId(rs.getInt("codigo_categoria"));
-                    categoria.setDescripcion(rs.getString("descripcion"));
+                    while (rs.next()) {
+                        Categoria categoria = new Categoria();
+                        categoria.setId(rs.getInt("codigo_categoria"));
+                        categoria.setDescripcion(rs.getString("descripcion"));
 
-                    lista.add(categoria);
+                        lista.add(categoria);
+                    }
                 }
             }
 
@@ -108,31 +111,31 @@ public class ModeloCategoria {
 
         return lista;
     }
-    
+
     public Categoria getCategoriaPorId(int idCategoria) {
 
         String sql = "select * from categorias where codigo_categoria=?";
 
-        Connection con = Coneccion.getInstancia().getConeccion();       
-
-         Categoria categoria = null;
+        Categoria categoria = null;
         
-        try (PreparedStatement pstmt = con.prepareStatement(sql)) {
-            pstmt.setInt(1, idCategoria);
+        try (Connection con = Coneccion.getInstancia().getConeccion()) {
 
-            try (ResultSet rs = pstmt.executeQuery()){
+            try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+                pstmt.setInt(1, idCategoria);
 
-                rs.next(); 
+                try (ResultSet rs = pstmt.executeQuery()) {
+
+                    rs.next();
                     categoria = new Categoria();
                     categoria.setId(rs.getInt("codigo_categoria"));
                     categoria.setDescripcion(rs.getString("descripcion"));
-                
-            }
 
+                }
+            }
         } catch (SQLException e) {
             Logger.getLogger(ModeloCategoria.class.getName()).log(Level.SEVERE, null, e);
         }
-        
+
         return categoria;
     }
 

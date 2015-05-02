@@ -65,8 +65,9 @@ public class ModeloUsuario {
      */
     public Usuario checkUsuario(String usuario, String pass) {
 
-        Connection con = Coneccion.getInstancia().getConeccion();
         Usuario usuario1 = null;
+        
+        try(Connection con = Coneccion.getInstancia().getConeccion()){
 
         try (PreparedStatement pstmt = con.prepareStatement("select * from usuario where usuario = ? and clave= ?")) {
 
@@ -87,6 +88,7 @@ public class ModeloUsuario {
 
                 }
             }
+        }
 
         } catch (SQLException e) {
             Logger.getLogger(getClass().getName()).info(MessageFormat.format("Error en el SQl{0}", e.getMessage()));
