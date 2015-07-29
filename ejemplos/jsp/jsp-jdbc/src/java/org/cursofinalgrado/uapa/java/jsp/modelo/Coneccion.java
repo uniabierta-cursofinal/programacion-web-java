@@ -38,7 +38,7 @@ public class Coneccion {
         
         
         //Establish connection to MySQL database
-        String connectionURL = "jdbc:mysql://127.0.0.1/tallerjavadb";
+        String connectionURL = "jdbc:mysql://localhost:3306/tallerjavadb";
         Connection connection=null;
 
         try {
