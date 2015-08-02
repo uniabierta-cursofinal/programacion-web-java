@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.List"%>
-<%@ page import="org.cursofinalgrado.uapa.java.modelos.ModeloCategoria"%>
+<%@ page import="org.cursofinalgrado.uapa.java.servicios.ServicioCategoria"%>
 <%@ page import="org.cursofinalgrado.uapa.java.entidades.Categoria"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <jsp:include page="template/header.jsp"/>

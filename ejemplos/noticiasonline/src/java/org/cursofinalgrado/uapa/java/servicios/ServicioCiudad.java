@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.cursofinalgrado.uapa.java.modelos;
+package org.cursofinalgrado.uapa.java.servicios;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,15 +20,15 @@ import org.cursofinalgrado.uapa.java.entidades.Ciudad;
  *
  * @author ecabrerar
  */
-public class ModeloCiudad {
+public class ServicioCiudad {
 
-    private static final ModeloCiudad INSTANCIA = new ModeloCiudad();
+    private static final ServicioCiudad INSTANCIA = new ServicioCiudad();
 
-    public static ModeloCiudad getInstancia() {
+    public static ServicioCiudad getInstancia() {
         return INSTANCIA;
     }
 
-    private ModeloCiudad() {
+    private ServicioCiudad() {
     }
 
     public List<Ciudad> getListadoCiudades() {
@@ -48,7 +48,7 @@ public class ModeloCiudad {
                         Ciudad ciudad = new Ciudad();
                         ciudad.setId(rs.getInt("codigo_ciudad"));
                         ciudad.setNombre(rs.getString("nombre"));
-                        ciudad.setPais(ModeloPais.getInstancia().getPaisPorId(rs.getInt("codigo_pais")));
+                        ciudad.setPais(ServicioPais.getInstancia().getPaisPorId(rs.getInt("codigo_pais")));
 
                         lista.add(ciudad);
                     }
@@ -56,7 +56,7 @@ public class ModeloCiudad {
             }
 
         } catch (SQLException e) {
-            Logger.getLogger(ModeloCiudad.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(ServicioCiudad.class.getName()).log(Level.SEVERE, null, e);
         }
 
         return lista;
@@ -82,7 +82,7 @@ public class ModeloCiudad {
 
         } catch (SQLException e) {
             estado = false;
-            Logger.getLogger(ModeloCiudad.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(ServicioCiudad.class.getName()).log(Level.SEVERE, null, e);
         }
 
         return estado;

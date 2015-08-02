@@ -1,4 +1,4 @@
-package org.cursofinalgrado.uapa.java.modelos;
+package org.cursofinalgrado.uapa.java.servicios;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,7 +12,7 @@ import org.cursofinalgrado.uapa.java.entidades.Usuario;
  *
  * @author ecabrerar
  */
-public class ModeloUsuario {
+public class ServicioUsuario {
 
     public List<Usuario> getUsuarios() {
 

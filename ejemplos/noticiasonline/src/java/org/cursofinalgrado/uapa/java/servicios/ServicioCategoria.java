@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.cursofinalgrado.uapa.java.modelos;
+package org.cursofinalgrado.uapa.java.servicios;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,15 +20,15 @@ import org.cursofinalgrado.uapa.java.entidades.Categoria;
  *
  * @author ecabrerar
  */
-public class ModeloCategoria {
+public class ServicioCategoria {
 
-    private static final ModeloCategoria INSTANCIA = new ModeloCategoria();
+    private static final ServicioCategoria INSTANCIA = new ServicioCategoria();
 
-    public static ModeloCategoria getInstancia() {
+    public static ServicioCategoria getInstancia() {
         return INSTANCIA;
     }
 
-    private ModeloCategoria() {
+    private ServicioCategoria() {
     }
 
     public boolean crearCategoria(Categoria categoria) {
@@ -50,7 +50,7 @@ public class ModeloCategoria {
 
         } catch (SQLException e) {
             estado = false;
-            Logger.getLogger(ModeloCategoria.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(ServicioCategoria.class.getName()).log(Level.SEVERE, null, e);
         }
 
         return estado;
@@ -76,7 +76,7 @@ public class ModeloCategoria {
 
         } catch (SQLException e) {
             estado = false;
-            Logger.getLogger(ModeloCategoria.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(ServicioCategoria.class.getName()).log(Level.SEVERE, null, e);
         }
 
         return estado;
@@ -106,7 +106,7 @@ public class ModeloCategoria {
             }
 
         } catch (SQLException e) {
-            Logger.getLogger(ModeloCategoria.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(ServicioCategoria.class.getName()).log(Level.SEVERE, null, e);
         }
 
         return lista;
@@ -133,7 +133,7 @@ public class ModeloCategoria {
                 }
             }
         } catch (SQLException e) {
-            Logger.getLogger(ModeloCategoria.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(ServicioCategoria.class.getName()).log(Level.SEVERE, null, e);
         }
 
         return categoria;

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.cursofinalgrado.uapa.java.entidades.Categoria;
-import org.cursofinalgrado.uapa.java.modelos.ModeloCategoria;
+import org.cursofinalgrado.uapa.java.servicios.ServicioCategoria;
 
 /**
  *
@@ -40,7 +40,7 @@ public class CategoriaController extends HttpServlet {
               cat.setId(Integer.parseInt(idCategoria));
               cat.setDescripcion(descripcion);
               
-              boolean isActualizado = ModeloCategoria.getInstancia().actualizarCategoria(cat);
+              boolean isActualizado = ServicioCategoria.getInstancia().actualizarCategoria(cat);
               
               if (isActualizado) {
                   response.sendRedirect("categoria.jsp");
@@ -54,7 +54,7 @@ public class CategoriaController extends HttpServlet {
         
         Categoria cat = new Categoria();
         cat.setDescripcion(descripcion);
-        boolean isCreado = ModeloCategoria.getInstancia().crearCategoria(cat);
+        boolean isCreado = ServicioCategoria.getInstancia().crearCategoria(cat);
 
         if (isCreado) {
             response.sendRedirect("categoria.jsp");

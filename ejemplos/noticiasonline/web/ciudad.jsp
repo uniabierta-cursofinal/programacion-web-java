@@ -1,12 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.List"%>
-<%@ page import="org.cursofinalgrado.uapa.java.modelos.ModeloCiudad"%>
+<%@ page import="org.cursofinalgrado.uapa.java.servicios.ServicioCiudad"%>
 <%@ page import="org.cursofinalgrado.uapa.java.entidades.Ciudad"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <jsp:include page="template/header.jsp"/>
 
 <%
-    List<Ciudad> ciudades = ModeloCiudad.getInstancia().getListadoCiudades();
+    List<Ciudad> ciudades = ServicioCiudad.getInstancia().getListadoCiudades();
    
 %>
 <h2 class="sub-header">Ciudades</h2>

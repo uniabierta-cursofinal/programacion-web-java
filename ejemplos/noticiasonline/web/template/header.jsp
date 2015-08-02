@@ -69,7 +69,7 @@
           <ul class="nav nav-sidebar">
             <li><a href="categoria.jsp">Categorias</a></li>
             <li><a href="ciudad.jsp">Ciudades</a></li>
-            <li><a href="">One more nav</a></li>
+            <li><a href="ocupacion.jsp">Ocupaciones</a></li>
             <li><a href="">Another nav item</a></li>
             <li><a href="">More navigation</a></li>
           </ul>

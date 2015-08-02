@@ -1,4 +1,4 @@
-package org.cursofinalgrado.uapa.java.modelos;
+package org.cursofinalgrado.uapa.java.servicios;
 
 import java.sql.Connection;
 import java.sql.SQLException;

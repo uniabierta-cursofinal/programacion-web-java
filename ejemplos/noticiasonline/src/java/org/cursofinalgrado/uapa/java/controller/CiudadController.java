@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.cursofinalgrado.uapa.java.entidades.Ciudad;
 import org.cursofinalgrado.uapa.java.entidades.Pais;
-import org.cursofinalgrado.uapa.java.modelos.ModeloCiudad;
-import org.cursofinalgrado.uapa.java.modelos.ModeloPais;
+import org.cursofinalgrado.uapa.java.servicios.ServicioCiudad;
+import org.cursofinalgrado.uapa.java.servicios.ServicioPais;
 
 /**
  *
@@ -37,13 +37,13 @@ public class CiudadController extends HttpServlet {
         String nombre = request.getParameter("inputNombre");
         String inputPais = request.getParameter("inputPais");
 
-        Pais pais =  ModeloPais.getInstancia().getPaisPorId(Integer.valueOf(inputPais));
+        Pais pais =  ServicioPais.getInstancia().getPaisPorId(Integer.valueOf(inputPais));
         
         Ciudad ciudad = new Ciudad();
         ciudad.setNombre(nombre);
         ciudad.setPais(pais);
         
-        boolean isCreado = ModeloCiudad.getInstancia().crearCiudad(ciudad);
+        boolean isCreado = ServicioCiudad.getInstancia().crearCiudad(ciudad);
 
         if (isCreado) {
 

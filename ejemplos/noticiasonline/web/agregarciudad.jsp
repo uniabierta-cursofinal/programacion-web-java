@@ -1,12 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.List"%>
-<%@ page import="org.cursofinalgrado.uapa.java.modelos.ModeloPais"%>
+<%@ page import="org.cursofinalgrado.uapa.java.servicios.ServicioPais"%>
 <%@ page import="org.cursofinalgrado.uapa.java.entidades.Pais"%>
 
 <%@ page contentType="text/html;charset=UTF-8"%>
 <jsp:include page="template/header.jsp"/>
 <%
-    List<Pais> pais = ModeloPais.getInstancia().getListadoPais();
+    List<Pais> pais = ServicioPais.getInstancia().getListadoPais();
 
 %>
 <form class="form-horizontal" action="/noticiasonline/CiudadController" method="post">
