@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package org.cursofinalgrado.uapa.java.entidades;
 
 import java.util.Date;
@@ -13,23 +12,22 @@ import java.util.Date;
  * @author ecabrerar
  */
 public class Usuario {
-    
-    
-  private int id;  
-private Date fechaIngreso;
-private String nombre ;          
-private Date fechaNacimiento; 
-private String foto;             
-private String correo  ;         
-private String sexo  ;           
-private String identificacion ;  
-private Profesion profesion; 
-private Ocupacion ocupacion; 
-private TipoNoticia tipoNoticia ;    
-private String clave;            
-private Ubicacion ubicacion;
-private String usuario_login;    
-private String rol;         
+
+    private int id;
+    private Date fechaIngreso;
+    private String nombre;
+    private Date fechaNacimiento;
+    private String foto;
+    private String correo;
+    private String sexo;
+    private String identificacion;
+    private Profesion profesion;
+    private Ocupacion ocupacion;
+    private TipoNoticia tipoNoticia;
+    private String clave;
+    private Ubicacion ubicacion;
+    private String usuario_login;
+    private String rol;
 
     /**
      * @return the id
@@ -240,7 +238,5 @@ private String rol;
     public void setRol(String rol) {
         this.rol = rol;
     }
-
-
 
 }

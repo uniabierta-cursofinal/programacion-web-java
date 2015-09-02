@@ -27,6 +27,20 @@ public class Noticia {
     private String visitas;
     private String desc_corta;
 
+    public Noticia(int id, String descripcion, Date fecha, Usuario usuario, Ubicacion ubicacion, Time hora, TipoNoticia tipoNoticia, Categoria categoria, String foto, String video, String desc_corta) {
+        this.id = id;
+        this.descripcion = descripcion;
+        this.fecha = fecha;
+        this.usuario = usuario;
+        this.ubicacion = ubicacion;
+        this.hora = hora;
+        this.tipoNoticia = tipoNoticia;
+        this.categoria = categoria;
+        this.foto = foto;
+        this.video = video;
+        this.desc_corta = desc_corta;
+    }
+
     /**
      * @return the id
      */

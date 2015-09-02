@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package org.cursofinalgrado.uapa.java.entidades;
 
 /**
@@ -11,8 +10,17 @@ package org.cursofinalgrado.uapa.java.entidades;
  * @author ecabrerar
  */
 public class Pais {
+
     private int id;
     private String nombre;
+
+    public Pais() {
+    }
+
+    public Pais(int id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
+    }
 
     /**
      * @return the id

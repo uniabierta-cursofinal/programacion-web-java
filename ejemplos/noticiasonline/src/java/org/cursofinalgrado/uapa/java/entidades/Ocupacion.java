@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package org.cursofinalgrado.uapa.java.entidades;
 
 /**
@@ -11,8 +10,17 @@ package org.cursofinalgrado.uapa.java.entidades;
  * @author ecabrerar
  */
 public class Ocupacion {
+
     private int id;
     private String descripcion;
+
+    public Ocupacion(int id, String descripcion) {
+        this.id = id;
+        this.descripcion = descripcion;
+    }
+
+    public Ocupacion() {
+    }
 
     /**
      * @return the id
@@ -41,5 +49,5 @@ public class Ocupacion {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-    
+
 }

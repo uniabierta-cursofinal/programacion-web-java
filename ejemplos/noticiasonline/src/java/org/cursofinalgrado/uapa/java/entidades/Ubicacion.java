@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package org.cursofinalgrado.uapa.java.entidades;
 
 /**
@@ -11,9 +10,19 @@ package org.cursofinalgrado.uapa.java.entidades;
  * @author ecabrerar
  */
 public class Ubicacion {
+
     private int id;
     private String nombre;
     private Ciudad ciudad;
+
+    public Ubicacion() {
+    }
+
+    public Ubicacion(int id, String nombre, Ciudad ciudad) {
+        this.id = id;
+        this.nombre = nombre;
+        this.ciudad = ciudad;
+    }
 
     /**
      * @return the id
@@ -56,6 +65,5 @@ public class Ubicacion {
     public void setCiudad(Ciudad ciudad) {
         this.ciudad = ciudad;
     }
-    
-    
+
 }
