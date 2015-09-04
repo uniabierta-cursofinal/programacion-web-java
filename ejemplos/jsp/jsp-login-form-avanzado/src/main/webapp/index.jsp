@@ -70,19 +70,6 @@
     </head>
     <body>
         <div id="wrapper">
-            <%
-//allow access only if session exists
-String user = (String) session.getAttribute("user");
-String userName = null;
-String sessionID = null;
-Cookie[] cookies = request.getCookies();
-if(cookies !=null){
-for(Cookie cookie : cookies){
-    if(cookie.getName().equals("user")) userName = cookie.getValue();
-    if(cookie.getName().equals("JSESSIONID")) sessionID = cookie.getValue();
-}
-}
-%>
             
             <% Usuario currentUser =  (Usuario) session.getAttribute("currentSessionUser");%>
             <div id="top">
@@ -97,19 +84,16 @@ for(Cookie cookie : cookies){
                          
                         <li>
                             <% if (session.getAttribute("currentSessionUser").equals("")){%>
-                            <a href="/LoginServlet"> Login</a>
+                            <a href="<%=request.getContextPath()%>/LoginServlet"> Login</a>
                             <%}
                                 else{%>
-                            <a href="/LogoutServlet"> 
+                            <a href="<%=request.getContextPath()%>/LogoutServlet"> 
                                 <b>Logout</b></a>
                             <%}
                             %>
                         </li>
                     </ul>
-                </div>
-                        <h3>Hi <%=userName %>, Login successful. Your Session ID=<%=sessionID %></h3>
-<br>
-User=<%=user %>
+                </div>                      
                 <!-- .content_pad -->
             </div>
         </div>

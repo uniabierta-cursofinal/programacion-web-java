@@ -74,8 +74,18 @@
     </head>
     <body>
         <div id="login">
+        
+            <% if(session.getAttribute("loginFailed") !=null) { %>
+             
+            <h1>
+                <%=session.getAttribute("loginFailed")%>
+            </h1>
+             
+            <% 
+        		}
+            %>
                 <div id="login_panel">
-                <form action="/LoginServlet" method="post" accept-charset="utf-8">
+                <form action="<%=request.getContextPath()%>/LoginServlet" method="post" accept-charset="utf-8">
                     <div class="login_fields">
                         <div class="field">
                             <label for="email">Usuario</label>

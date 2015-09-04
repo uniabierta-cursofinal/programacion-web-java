@@ -6,7 +6,7 @@
 package org.cursofinalgrado.uapa.java.servlet.session;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import org.cursofinalgrado.uapa.java.servlet.entidades.Usuario;
 import org.cursofinalgrado.uapa.servlet.servicios.ModeloUsuario;
 
@@ -24,7 +25,8 @@ import org.cursofinalgrado.uapa.servlet.servicios.ModeloUsuario;
  */
 @WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
 public class LoginServlet extends HttpServlet {
-    private Object password;
+
+	private static final long serialVersionUID = 1L;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,36 +39,42 @@ public class LoginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // get request parameters for userID and password
-       String usuario = request.getParameter("usuario");
-     String pass = request.getParameter("pass");
 
+      String usuario = request.getParameter("usuario");
+      String pass = request.getParameter("pass");
 
-    //Hacer una consulta a la base de datos para determinar si el usuario esta registrado       
+    //Hacer una consulta a la base de datos para determinar si el usuario esta registrado
      ModeloUsuario m = new ModeloUsuario();
      Usuario  usu =  m.checkUsuario(usuario,pass);
-         
-   
-        
+
+     HttpSession session = request.getSession();
+
      if(usu instanceof Usuario){
-            HttpSession session = request.getSession();
+
+    	 //guardar el usuario en session
             session.setAttribute("currentSessionUser",usu);
             //setting session to expiry in 30 mins
             session.setMaxInactiveInterval(30*60);
+
             Cookie userName = new Cookie("user", usuario);
             userName.setMaxAge(30*60);
+
             response.addCookie(userName);
             response.sendRedirect("index.jsp");
+
         }else{
+
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.jsp");
-             
-            PrintWriter out= response.getWriter();
-            out.println("<font color=red>Either user name or password is wrong.</font>");
-            rd.include(request, response);
+
+            //Enviando mensaje a la pagina de login
+             session.setAttribute("loginFailed","Usuario no registrado");
+             response.sendRedirect("login.jsp");
+
+             rd.include(request, response);
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -78,7 +86,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+    	 doPost(request, response);
     }
 
     /**
@@ -103,6 +111,6 @@ public class LoginServlet extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
 }
