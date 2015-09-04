@@ -5,6 +5,7 @@
  */
 package org.cursofinalgrado.java.petcare.cfg.uapa.entidades;
 
+import java.sql.ResultSet;
 import java.util.Date;
 
 /**
@@ -55,8 +56,12 @@ public class PacienteBuilder {
         this.peso = peso;
          return this;
     }
-    
+
     public Paciente crearPaciente(){
+        return Paciente.crearPaciente(id, cliente, nombre, genero, raza, fecha_nacimiento, peso);
+    }
+
+    public Paciente crearPaciente(ResultSet rs){
         return Paciente.crearPaciente(id, cliente, nombre, genero, raza, fecha_nacimiento, peso);
     }
 

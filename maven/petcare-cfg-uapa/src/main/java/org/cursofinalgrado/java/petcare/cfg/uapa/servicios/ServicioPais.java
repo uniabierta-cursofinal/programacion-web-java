@@ -26,7 +26,7 @@ public class ServicioPais extends ServicioPersistenciaBase {
 
     public List<Pais> getListadoPais() {
 
-        return consultarTodas("select * from petcare.pais", new PaisBuilder()::crearPais);
+        return consultarTodas("select * from petcare.pais order by id asc", new PaisBuilder()::crearPais);
     }
 
     public Optional<Pais> getPaisPorId(int id) {

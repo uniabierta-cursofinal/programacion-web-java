@@ -20,7 +20,7 @@ public class Cita {
         this.doctor = doctor;
         this.razon = razon;
     }
-   
+
    static Cita crearCita(Integer id, Date fecha, Paciente paciente, Doctor doctor, String razon){
        return new Cita(id, fecha, paciente, doctor, razon);
    }
@@ -64,6 +64,6 @@ public class Cita {
     public void setRazon(String razon) {
         this.razon = razon;
     }
-   
-   
+
+
 }

@@ -5,6 +5,8 @@
  */
 package org.cursofinalgrado.java.petcare.cfg.uapa.entidades;
 
+import java.sql.ResultSet;
+
 /**
  *
  * @author ecabrerar
@@ -31,6 +33,10 @@ public class DoctorBuilder {
     }
 
     public Doctor crearDoctor() {
+        return Doctor.crearDoctor(id, nombre, apellido);
+    }
+
+    public Doctor crearDoctor(ResultSet rs) {
         return Doctor.crearDoctor(id, nombre, apellido);
     }
 }

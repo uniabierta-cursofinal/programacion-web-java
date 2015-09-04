@@ -23,15 +23,14 @@ public class ServicioEspecie extends ServicioPersistenciaBase{
     public static ServicioEspecie getInstancia(){
         return INSTANCIA;
     }
-    
-    public List<Especie> getListadoEspecie() {        
-       return consultarTodas("select * from petcare.especie", new EspecieBuilder()::crearEspecie);
+
+    public List<Especie> getListadoEspecie() {
+       return consultarTodas("select * from petcare.especie order by id asc", new EspecieBuilder()::crearEspecie);
     }
-    
-    
-    public Optional<Especie> getEspeciePorId(int id){        
+
+    public Optional<Especie> getEspeciePorId(int id){
       return  consultarPorId("select * from petcare.especie where id=?",
-                              id, 
+                              id,
                               new EspecieBuilder()::crearEspecie);
     }
 

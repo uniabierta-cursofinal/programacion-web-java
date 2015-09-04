@@ -5,6 +5,7 @@
  */
 package org.cursofinalgrado.java.petcare.cfg.uapa.entidades;
 
+import java.sql.ResultSet;
 import java.util.Date;
 
 /**
@@ -47,5 +48,10 @@ public class CitaBuilder {
     public Cita crearCita() {
         return Cita.crearCita(id, fecha, paciente, doctor, razon);
     }
+
+    public Cita crearCita(ResultSet rs) {
+        return Cita.crearCita(id, fecha, paciente, doctor, razon);
+    }
+
 
 }

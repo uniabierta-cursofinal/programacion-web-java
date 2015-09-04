@@ -5,6 +5,8 @@
  */
 package org.cursofinalgrado.java.petcare.cfg.uapa.entidades;
 
+import java.sql.ResultSet;
+
 /**
  *
  * @author ecabrerar
@@ -75,4 +77,9 @@ public class ClienteBuilder {
     public Cliente crearCliente() {
         return Cliente.crearCliente(id, nombre, apellido, telefono, calle, apartamento, ciudad, pais, usuario, clave);
     }
+
+    public Cliente creaCliente(ResultSet rs){
+    	 return Cliente.crearCliente(id, nombre, apellido, telefono, calle, apartamento, ciudad, pais, usuario, clave);
+    }
+
 }

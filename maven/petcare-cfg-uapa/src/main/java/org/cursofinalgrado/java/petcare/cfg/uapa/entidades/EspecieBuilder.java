@@ -34,12 +34,15 @@ public class EspecieBuilder {
     }
 
     public Especie crearEspecie(ResultSet rs) {
+
+    	Especie especie = null;
+
         try {
-            return Especie.crearEspecie(rs.getInt("id"), rs.getString("nombre"));
+        	especie = Especie.crearEspecie(rs.getInt("id"), rs.getString("nombre"));
         } catch (SQLException ex) {
             Logger.getLogger(EspecieBuilder.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+        return especie;
     }
 
 }
