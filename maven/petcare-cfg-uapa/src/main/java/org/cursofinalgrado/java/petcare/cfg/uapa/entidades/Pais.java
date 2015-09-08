@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.cursofinalgrado.java.petcare.cfg.uapa.entidades;
 
 /**
@@ -16,12 +11,12 @@ public class Pais {
     private Pais(Integer id, String descripcion) {
         this.id = id;
         this.descripcion = descripcion;
-    }   
-   
+    }
+
     static Pais crearPais(Integer id, String descripcion){
         return new Pais(id, descripcion);
     }
-    
+
     /**
      * @return the id
      */
@@ -49,6 +44,6 @@ public class Pais {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-    
-    
+
+
 }

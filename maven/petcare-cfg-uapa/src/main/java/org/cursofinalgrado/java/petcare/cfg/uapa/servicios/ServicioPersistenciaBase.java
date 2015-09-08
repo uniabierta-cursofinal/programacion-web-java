@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.cursofinalgrado.java.petcare.cfg.uapa.servicios;
 
 import java.sql.Connection;
@@ -16,10 +11,13 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+
+import org.cursofinalgrado.java.petcare.cfg.uapa.utilidades.PetCareException;
 
 /**
  *
@@ -27,28 +25,31 @@ import javax.sql.DataSource;
  */
 public abstract class ServicioPersistenciaBase {
 
-    protected Connection getConeccion() {
+    protected Connection getConeccion() throws PetCareException {
 
-        Context ctx;
-
+    	Connection con = null;
         try {
 
-            ctx = new InitialContext();
-            DataSource ds = (DataSource) ctx.lookup("java:/comp/env/jdbc/PetCare");
+	        	  Context ctx = new InitialContext();
+	              DataSource ds = (DataSource) ctx.lookup("java:/comp/env/jdbc/PetCare");
 
-            try (Connection con = ds.getConnection()) {
-                Logger.getLogger(getClass().getName()).info(String.format("Connection established !!!"));
-                return con;
-            }
+	              con = ds.getConnection();
+
+	              if(con==null){
+	            	  throw new PetCareException("No pudo establecer conexion con la base de datos");
+	              }
+
+	              Logger.getLogger(getClass().getName()).info(String.format("Connection established !!!"));
+
 
         } catch (NamingException | SQLException ex) {
             Logger.getLogger(ServicioPersistenciaBase.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return null;
+        return con;
     }
 
-    public <T> List<T> consultarTodas(String sql, Function<ResultSet,T> function) {
+    protected <T> List<T> consultarTodas(String sql, Function<ResultSet,T> function) {
 
         final List<T> list = new ArrayList<>();
         try (Connection con = getConeccion()) {
@@ -62,14 +63,14 @@ public abstract class ServicioPersistenciaBase {
                 }
 
             }
-        } catch (SQLException ex) {
+        } catch (SQLException | PetCareException ex) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
         }
 
         return list;
     }
 
-    public <T> Optional<T> consultarPorId(String sql, Integer idEntidad, Function<ResultSet, T> function) {
+    protected <T> Optional<T> consultarPorId(String sql, Integer idEntidad, Function<ResultSet, T> function) {
 
         T entidad = null ;
         try (Connection con = getConeccion()) {
@@ -83,10 +84,10 @@ public abstract class ServicioPersistenciaBase {
                       entidad =  function.apply(rs);
                 }
             }
-        } catch (SQLException ex) {           
+        } catch (SQLException | PetCareException ex) {
             Logger.getLogger(ServicioPersistenciaBase.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return Optional.of(entidad);
 
     }

@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 
 import org.cursofinalgrado.java.petcare.cfg.uapa.entidades.Cliente;
 import org.cursofinalgrado.java.petcare.cfg.uapa.entidades.ClienteBuilder;
+import org.cursofinalgrado.java.petcare.cfg.uapa.utilidades.PetCareException;
 
 /**
  *
@@ -56,7 +57,7 @@ public class ServicioCliente extends ServicioPersistenciaBase{
 		            }
 		        }
 
-	        } catch (SQLException e) {
+	        } catch (SQLException | PetCareException e) {
 	            Logger.getLogger(getClass().getName()).info(MessageFormat.format("Error en el SQl{0}", e.getMessage()));
 	            return opUsuario;
 	        }

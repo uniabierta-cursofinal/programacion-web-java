@@ -56,7 +56,7 @@ public class AuthenticationFilter implements Filter {
         req.getSession(false);
 
         if (req.getSession().getAttribute("currentSessionUser") == null
-        	&& !(uri.endsWith("index.jsp") || uri.endsWith("LoginServlet")
+        	&& !(uri.endsWith("index.jsp") || uri.endsWith("LoginServlet") || uri.endsWith("signup.jsp")
         			|| uri.matches(".*(css|jpg|png|gif|js|eot|svg|ttf|woff|woff2)"))) {
 
         	this.context.log("Unauthorized access request");

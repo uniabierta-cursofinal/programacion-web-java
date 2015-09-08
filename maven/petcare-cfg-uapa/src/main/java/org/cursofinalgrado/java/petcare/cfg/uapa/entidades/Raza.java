@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.cursofinalgrado.java.petcare.cfg.uapa.entidades;
 
 /**
@@ -19,8 +14,8 @@ public class Raza {
         this.nombre = nombre;
         this.especie = especie;
     }
-    
-    
+
+
     static Raza crearRaza(Integer id, String nombre, Especie especie){
         return new Raza(id, nombre, especie);
     }
@@ -66,6 +61,6 @@ public class Raza {
     public void setEspecie(Especie especie) {
         this.especie = especie;
     }
-    
-    
+
+
 }

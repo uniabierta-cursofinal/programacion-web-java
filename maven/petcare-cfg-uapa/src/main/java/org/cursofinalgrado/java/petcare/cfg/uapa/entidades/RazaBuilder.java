@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.cursofinalgrado.java.petcare.cfg.uapa.entidades;
 
 import java.sql.ResultSet;
@@ -21,7 +16,7 @@ public class RazaBuilder {
 
     /**
      * @param id the id to set
-     * @return 
+     * @return
      */
     public RazaBuilder setId(Integer id) {
         this.id = id;
@@ -30,7 +25,7 @@ public class RazaBuilder {
 
     /**
      * @param nombre the nombre to set
-     * @return 
+     * @return
      */
     public RazaBuilder setNombre(String nombre) {
         this.nombre = nombre;
@@ -39,28 +34,28 @@ public class RazaBuilder {
 
     /**
      * @param especie the especie to set
-     * @return 
+     * @return
      */
     public RazaBuilder setEspecie(Especie especie) {
         this.especie = especie;
         return this;
     }
-    
+
     public Raza crearRaza(){
         return Raza.crearRaza(id, nombre, especie);
     }
-    
+
      public Raza crearRaza(ResultSet rs){
-         
+
         Raza raza = null;
-        
+
         try {
             raza = Raza.crearRaza(rs.getInt("id"), rs.getString("nombre"), especie);
         } catch (SQLException ex) {
             Logger.getLogger(RazaBuilder.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return raza;
-    }     
-    
+    }
+
 }

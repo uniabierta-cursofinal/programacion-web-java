@@ -1,11 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.cursofinalgrado.java.petcare.cfg.uapa.entidades;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -37,6 +35,17 @@ public class DoctorBuilder {
     }
 
     public Doctor crearDoctor(ResultSet rs) {
-        return Doctor.crearDoctor(id, nombre, apellido);
+
+    	Doctor doctor = null;
+
+		try {
+
+			 doctor = Doctor.crearDoctor(rs.getInt("id"), rs.getString("doctor"), rs.getString("apellido") );
+
+		} catch (SQLException ex) {
+			 Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+		}
+
+        return doctor;
     }
 }

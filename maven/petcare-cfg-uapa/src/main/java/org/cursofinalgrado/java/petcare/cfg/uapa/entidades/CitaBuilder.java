@@ -1,12 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.cursofinalgrado.java.petcare.cfg.uapa.entidades;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
+import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.cursofinalgrado.java.petcare.cfg.uapa.servicios.ServicioDoctor;
+import org.cursofinalgrado.java.petcare.cfg.uapa.servicios.ServicioPaciente;
 
 /**
  *
@@ -50,7 +52,20 @@ public class CitaBuilder {
     }
 
     public Cita crearCita(ResultSet rs) {
-        return Cita.crearCita(id, fecha, paciente, doctor, razon);
+
+    	Cita cita = null;
+
+    	try {
+
+    		Optional<Paciente> paciente = ServicioPaciente.getInstancia().getPacientePorId(rs.getInt("paciente_id"));
+    		Optional<Doctor> doctor = ServicioDoctor.getInstancia().getDoctorPorId(rs.getInt("doctor_id"));
+
+			cita = Cita.crearCita(rs.getInt("id"), rs.getDate("fecha"), paciente.get(), doctor.get(), rs.getString("razon"));
+		} catch (SQLException ex) {
+			 Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+		}
+
+        return cita;
     }
 
 
