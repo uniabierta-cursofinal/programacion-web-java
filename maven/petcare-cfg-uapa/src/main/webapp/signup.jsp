@@ -49,7 +49,7 @@
 			</div>
 			<div class="form-group">
 			  <label for="pais">País:</label>
-			  <select class="form-control" id="pais" tabindex="8">
+			  <select class="form-control" id="pais" name="pais" tabindex="8">
 			  <c:forEach items="<%=paises%>" var="pais">
                  <option value="${pais.getId()}">${pais.getDescripcion()}</option>        
                </c:forEach>

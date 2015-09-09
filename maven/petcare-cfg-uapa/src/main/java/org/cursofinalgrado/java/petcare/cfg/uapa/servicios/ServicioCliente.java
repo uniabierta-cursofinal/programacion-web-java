@@ -1,5 +1,6 @@
 package org.cursofinalgrado.java.petcare.cfg.uapa.servicios;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,11 +8,13 @@ import java.sql.SQLException;
 import java.text.MessageFormat;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.cursofinalgrado.java.petcare.cfg.uapa.entidades.Cliente;
 import org.cursofinalgrado.java.petcare.cfg.uapa.entidades.ClienteBuilder;
 import org.cursofinalgrado.java.petcare.cfg.uapa.utilidades.PetCareException;
+import org.cursofinalgrado.java.petcare.cfg.uapa.utilidades.Util;
 
 /**
  *
@@ -64,4 +67,28 @@ public class ServicioCliente extends ServicioPersistenciaBase{
 
 	        return opUsuario;
 	    }
+
+	 public void registrarCliente(Cliente cliente){
+			String sql= "";
+
+			try (Connection con = getConeccion()) {
+	            try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+	            	pstmt.setString(1, cliente.getNombre());
+	            	pstmt.setString(2, cliente.getApellido());
+	            	pstmt.setString(3, cliente.getTelefono());
+	            	pstmt.setString(4, cliente.getCalle());
+	            	pstmt.setString(5, cliente.getApartamento());
+	            	pstmt.setString(6, cliente.getCiudad());
+	            	pstmt.setInt(7, cliente.getPais().getId());
+	            	pstmt.setString(8, cliente.getUsuario());
+
+					pstmt.setString(9, Util.toMD5(cliente.getClave()));
+
+	            	pstmt.execute();
+
+	            }
+	        } catch (SQLException | NoSuchAlgorithmException | PetCareException ex) {
+	            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+	        }
+	 }
 }
