@@ -48,8 +48,9 @@ public class ServicioCliente extends ServicioPersistenciaBase{
 
 		        try (PreparedStatement pstmt = con.prepareStatement("select * from petcare.cliente where usuario = ? and clave= ?")) {
 
-		            pstmt.setString(1, usuario);
-		            pstmt.setString(2, pass);
+		                pstmt.setString(1, usuario);
+						pstmt.setString(2, Util.toMD5(pass));
+
 
 		            try (ResultSet rs = pstmt.executeQuery()) {
 
@@ -60,7 +61,7 @@ public class ServicioCliente extends ServicioPersistenciaBase{
 		            }
 		        }
 
-	        } catch (SQLException | PetCareException e) {
+	        } catch (SQLException | NoSuchAlgorithmException | PetCareException e) {
 	            Logger.getLogger(getClass().getName()).info(MessageFormat.format("Error en el SQl{0}", e.getMessage()));
 	            return opUsuario;
 	        }
@@ -68,8 +69,10 @@ public class ServicioCliente extends ServicioPersistenciaBase{
 	        return opUsuario;
 	    }
 
-	 public void registrarCliente(Cliente cliente){
-			String sql= "";
+	 public boolean registrarCliente(Cliente cliente){
+			String sql= "insert into petcare.cliente (nombre,apellido,telefono,calle,apartamento,ciudad,pais_id,usuario,clave) values (?,?,?,?,?,?,?,?,?)";
+
+			boolean estado;
 
 			try (Connection con = getConeccion()) {
 	            try (PreparedStatement pstmt = con.prepareStatement(sql)) {
@@ -86,9 +89,14 @@ public class ServicioCliente extends ServicioPersistenciaBase{
 
 	            	pstmt.execute();
 
+	            	estado = true;
+
 	            }
 	        } catch (SQLException | NoSuchAlgorithmException | PetCareException ex) {
+	        	estado = false;
 	            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
 	        }
+
+			return estado;
 	 }
 }

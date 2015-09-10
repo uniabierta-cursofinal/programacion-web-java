@@ -5,13 +5,12 @@
 <%@page import="org.cursofinalgrado.java.petcare.cfg.uapa.servicios.ServicioDoctor"%>
 <%
 
-
 List<Doctor> listadoDoctores = ServicioDoctor.getInstancia().getListadoDoctores();
 
 %>
-<jsp:include page="template/header.jsp"/>
+<jsp:include page="../template/header.jsp"/>
+<h1 class="page-header">Registrar Cita</h1>
 
-<div class="container">
 <form>
   <div class="form-group">
     <label for="inputFecha">Fecha</label>
@@ -26,12 +25,11 @@ List<Doctor> listadoDoctores = ServicioDoctor.getInstancia().getListadoDoctores(
 	 </select>
   </div>
   <div class="form-group">
-     <label for="inputDoctor">Razon:</label>
+     <label for="inputRazon">Razon:</label>
      <textarea class="form-control" rows="3" name="inputRazon"></textarea>
    </div>
   <button type="submit" class="btn btn-default">Aceptar</button>
 </form>
 
-<!--</div>-->
- <script src="js/signup.js"></script>
-<jsp:include page="template/footer.jsp"/>
+
+<jsp:include page="../template/footer.jsp"/>

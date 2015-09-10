@@ -9,9 +9,9 @@
 List<Doctor> listadoDoctores = ServicioDoctor.getInstancia().getListadoDoctores();
 
 %>
-<jsp:include page="template/header.jsp"/>
+<jsp:include page="../template/header.jsp"/>
+ <h1 class="page-header">Mostrar Cita</h1>
 
-<div class="container">
 <form>
   <div class="form-group">
     <label for="inputFecha">Fecha</label>
@@ -31,6 +31,5 @@ List<Doctor> listadoDoctores = ServicioDoctor.getInstancia().getListadoDoctores(
    </div>  
 </form>
 
-<!--</div>-->
- <script src="js/signup.js"></script>
-<jsp:include page="template/footer.jsp"/>
+
+<jsp:include page="../template/footer.jsp"/>

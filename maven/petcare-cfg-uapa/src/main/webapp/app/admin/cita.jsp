@@ -7,9 +7,8 @@
 <%
 List<Cita> listadoCitas = ServicioCita.getInstancia().getListadoCitas();
 %>
-<jsp:include page="template/header.jsp"/>
-
-<div class="container">
+<jsp:include page="../template/header.jsp"/>
+<h1 class="page-header">Citas Registradas</h1>
 
 <table class="table table-bordered">
  
@@ -24,6 +23,5 @@ List<Cita> listadoCitas = ServicioCita.getInstancia().getListadoCitas();
                 </tr>        
             </c:forEach>
 </table>
-<!--</div>-->
- <script src="js/signup.js"></script>
-<jsp:include page="template/footer.jsp"/>
+
+<jsp:include page="../template/footer.jsp"/>

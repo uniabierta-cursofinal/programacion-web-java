@@ -11,45 +11,45 @@
 <div class="container">
 <div class="row">
     <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-		<form role="form">
+		<form method="post" action="<%=request.getContextPath()%>/ClienteController" role="form">
 			<h2>Por favor regístrese <small>Es gratis y siempre lo será.</small></h2>
 			<hr class="colorgraph">
 			<div class="row">
 				<div class="col-xs-12 col-sm-6 col-md-6">
 					<div class="form-group">
-                        <input type="text" name="nombre" id="nombre" class="form-control input-lg" placeholder="Nombre" tabindex="1">
+                        <input type="text" name="inputNombre" id="inputNombre" class="form-control input-lg" placeholder="Nombre" tabindex="1">
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-6 col-md-6">
 					<div class="form-group">
-						<input type="text" name="apellido" id="apellido" class="form-control input-lg" placeholder="Apellido" tabindex="2">
+						<input type="text" name="inputApellido" id="inputApellido" class="form-control input-lg" placeholder="Apellido" tabindex="2">
 					</div>
 				</div>
 			</div>
 			<div class="form-group">
-				<input type="text" name="usuario" id="usuario" class="form-control input-lg" placeholder="Usuario" tabindex="3">
+				<input type="text" name="inputUsuario" id="inputUsuario" class="form-control input-lg" placeholder="Usuario" tabindex="3">
 			</div>
 			<div class="form-group">
-				<input type="tel" name="telefono" id="telefono" class="form-control input-lg" placeholder="Teléfono" tabindex="4">
+				<input type="tel" name="inputTelefono" id="inputTelefono" class="form-control input-lg" placeholder="Teléfono" tabindex="4">
 			</div>
 			<div class="row">
 				<div class="col-xs-12 col-sm-6 col-md-6">
 					<div class="form-group">
-                        <input type="text" name="calle" id="calle" class="form-control input-lg" placeholder="Calle" tabindex="5">
+                        <input type="text" name="inputCalle" id="inputCalle" class="form-control input-lg" placeholder="Calle" tabindex="5">
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-6 col-md-6">
 					<div class="form-group">
-						<input type="text" name="apt" id="apt" class="form-control input-lg" placeholder="Apartamento" tabindex="6">
+						<input type="text" name="inputApt" id="inputApt" class="form-control input-lg" placeholder="Apartamento" tabindex="6">
 					</div>
 				</div>
 			</div>
 			<div class="form-group">
-				<input type="text" name="ciudad" id="ciudad" class="form-control input-lg" placeholder="Ciudad" tabindex="7">
+				<input type="text" name="inputCiudad" id="inputCiudad" class="form-control input-lg" placeholder="Ciudad" tabindex="7">
 			</div>
 			<div class="form-group">
 			  <label for="pais">País:</label>
-			  <select class="form-control" id="pais" name="pais" tabindex="8">
+			  <select class="form-control" id="inputPais" name="inputPais" tabindex="8">
 			  <c:forEach items="<%=paises%>" var="pais">
                  <option value="${pais.getId()}">${pais.getDescripcion()}</option>        
                </c:forEach>
@@ -59,7 +59,7 @@
 			<div class="row">
 				<div class="col-xs-12 col-sm-6 col-md-6">
 					<div class="form-group">
-						<input type="password" name="password" id="password" class="form-control input-lg" placeholder="Contraseña" tabindex="9">
+						<input type="password" name="inputPassword" id="inputPassword" class="form-control input-lg" placeholder="Contraseña" tabindex="9">
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-6 col-md-6">

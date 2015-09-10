@@ -7,8 +7,8 @@
   List<Especie> especies = ServicioEspecie.getInstancia().getListadoEspecie();
  %>
 
-<jsp:include page="template/header.jsp"/>
-<br/><br/>
+<jsp:include page="../template/header.jsp"/>
+<h1 class="page-header">Especies Registradas</h1>
 
 <table class="table table-striped">
     <tr><th>#</th><th>Descripcion</th></tr>
@@ -17,5 +17,5 @@
             </c:forEach>
 </table>
 
-<jsp:include page="template/footer.jsp"/>
+<jsp:include page="../template/footer.jsp"/>
 

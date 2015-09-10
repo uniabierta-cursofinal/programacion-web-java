@@ -31,15 +31,22 @@ public class ServicioPaciente extends ServicioPersistenciaBase{
 		return consultarTodas("select * from petcare.paciente order by id asc", new PacienteBuilder()::crearPaciente);
 	}
 
+	public List<Paciente> getPacientesPorClienteId(int idCliente){
+		return consultarTodasPorId("select * from petcare.paciente where cliente_id=? order by id asc",
+				 idCliente,
+				 new PacienteBuilder()::crearPaciente);
+	}
+
 	public Optional<Paciente> getPacientePorId(int id){
         return  consultarPorId("select * from petcare.paciente where id=?",
                                 id,
                                 new PacienteBuilder()::crearPaciente);
 	}
 
-	public void crearPaciente(Paciente paciente){
+	public boolean crearPaciente(Paciente paciente){
 
 		String sql= "";
+		boolean estado;
 
 		try (Connection con = getConeccion()) {
             try (PreparedStatement pstmt = con.prepareStatement(sql)) {
@@ -52,12 +59,15 @@ public class ServicioPaciente extends ServicioPersistenciaBase{
 	            	pstmt.setInt(6, paciente.getPeso());
 
             	pstmt.execute();
+            	estado = true;
 
             }
         } catch (SQLException | PetCareException ex) {
+        	estado = false;
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
         }
 
+		return estado;
 	 }
 
 }

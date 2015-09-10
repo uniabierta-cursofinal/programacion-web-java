@@ -2,14 +2,19 @@
 <%@page import="java.util.List"%>
 <%@page import="org.cursofinalgrado.java.petcare.cfg.uapa.entidades.Paciente"%>
 <%@page import="org.cursofinalgrado.java.petcare.cfg.uapa.entidades.Raza"%>
+<%@page import="org.cursofinalgrado.java.petcare.cfg.uapa.entidades.Cliente"%>
 <%@page import="org.cursofinalgrado.java.petcare.cfg.uapa.servicios.ServicioPaciente"%>
 
 <%
-List<Paciente> listadoPacientes = ServicioPaciente.getInstancia().getListadoPacientes();
-%>
-<jsp:include page="template/header.jsp"/>
 
-<div class="container">
+Cliente clienteLoggeado = (Cliente)session.getAttribute("currentSessionUser");
+
+List<Paciente> listadoPacientes = ServicioPaciente.getInstancia().getPacientesPorClienteId(clienteLoggeado.getId());
+
+
+%>
+<jsp:include page="../template/header.jsp"/>
+<h1 class="page-header">Pacientes Registrados por cliente</h1>
 
 <table class="table table-bordered">
  
@@ -26,6 +31,5 @@ List<Paciente> listadoPacientes = ServicioPaciente.getInstancia().getListadoPaci
             </c:forEach>
 
 </table>
-<!--</div>-->
- <script src="js/signup.js"></script>
-<jsp:include page="template/footer.jsp"/>
+
+<jsp:include page="../template/footer.jsp"/>

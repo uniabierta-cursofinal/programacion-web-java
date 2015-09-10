@@ -26,7 +26,7 @@ public class ServicioPais extends ServicioPersistenciaBase {
 
     public Optional<Pais> getPaisPorId(int id) {
 
-        return consultarPorId("select * from pais where codigo_pais=?",
+        return consultarPorId("select * from pais where id=?",
                 id,
                 new PaisBuilder()::crearPais);
 

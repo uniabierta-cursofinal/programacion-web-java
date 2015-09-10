@@ -25,7 +25,7 @@ public class ServicioRaza extends ServicioPersistenciaBase{
     }
 
     public Optional<Raza> getRazaPorId(int id) {
-         return consultarPorId("select * from petcare.raza where id=?", id, new RazaBuilder()::crearRaza);
+         return consultarPorId("select * from petcare.raza where id=? ", id, new RazaBuilder()::crearRaza);
     }
 
 }

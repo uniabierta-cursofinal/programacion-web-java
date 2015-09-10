@@ -57,15 +57,15 @@ public class LoginServlet extends HttpServlet {
             userName.setMaxAge(30*60);
 
             response.addCookie(userName);
-            response.sendRedirect("index.jsp");
+            response.sendRedirect("app/index.jsp");
 
         }else{
 
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.jsp");
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
 
             //Enviando mensaje a la pagina de login
              session.setAttribute("loginFailed","Usuario no registrado");
-             response.sendRedirect("login.jsp");
+             response.sendRedirect("index.jsp");
 
              rd.include(request, response);
         }

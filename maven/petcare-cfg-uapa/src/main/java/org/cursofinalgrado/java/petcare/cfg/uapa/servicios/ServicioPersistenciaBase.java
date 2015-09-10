@@ -70,6 +70,30 @@ public abstract class ServicioPersistenciaBase {
         return list;
     }
 
+    protected <T> List<T> consultarTodasPorId(String sql, Integer idEntidad, Function<ResultSet, T> function) {
+
+    	 final List<T> list = new ArrayList<>();
+
+    	 try (Connection con = getConeccion()) {
+
+             try (PreparedStatement stmt = con.prepareStatement(sql)) {
+            	 	stmt.setInt(1, idEntidad);
+
+                 try (ResultSet rs = stmt.executeQuery()) {
+
+                     while (rs.next()) {
+
+                         list.add(function.apply(rs));
+                     }
+                 }
+             }
+         } catch (SQLException | PetCareException ex) {
+             Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+         }
+
+        return list;
+    }
+
     protected <T> Optional<T> consultarPorId(String sql, Integer idEntidad, Function<ResultSet, T> function) {
 
         T entidad = null ;
@@ -78,7 +102,7 @@ public abstract class ServicioPersistenciaBase {
             try (PreparedStatement stmt = con.prepareStatement(sql)) {
                 stmt.setInt(1, idEntidad);
 
-                try (ResultSet rs = stmt.executeQuery(sql)) {
+                try (ResultSet rs = stmt.executeQuery()) {
 
                       rs.next();
                       entidad =  function.apply(rs);

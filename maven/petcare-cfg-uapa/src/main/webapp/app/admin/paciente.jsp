@@ -8,11 +8,8 @@
 List<Paciente> listadoPacientes = ServicioPaciente.getInstancia().getListadoPacientes();
 
 %>
-<jsp:include page="template/header.jsp"/>
-
-<div class="container">
-
-<br/><br/>
+<jsp:include page="../template/header.jsp"/>
+ <h1 class="page-header">Pacientes Registrados</h1>
 
 <table class="table table-bordered">
  
@@ -30,6 +27,5 @@ List<Paciente> listadoPacientes = ServicioPaciente.getInstancia().getListadoPaci
             </c:forEach>
 
 </table>
-<!--</div>-->
- <script src="js/signup.js"></script>
-<jsp:include page="template/footer.jsp"/>
+
+<jsp:include page="../template/footer.jsp"/>

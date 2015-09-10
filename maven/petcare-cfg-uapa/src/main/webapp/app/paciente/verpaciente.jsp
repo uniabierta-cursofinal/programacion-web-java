@@ -9,9 +9,9 @@
 List<Raza> razas = ServicioRaza.getInstancia().getListadoRaza();
 
 %>
-<jsp:include page="template/header.jsp"/>
+<jsp:include page="../template/header.jsp"/>
+<h1 class="page-header">Mostrar Paciente</h1>
 
-<div class="container">
 <form>
   <div class="form-group">
     <label for="inputNombre">Nombre</label>
@@ -42,6 +42,4 @@ List<Raza> razas = ServicioRaza.getInstancia().getListadoRaza();
    </div>
 </form>
 
-<!--</div>-->
- <script src="js/signup.js"></script>
-<jsp:include page="template/footer.jsp"/>
+<jsp:include page="../template/footer.jsp"/>

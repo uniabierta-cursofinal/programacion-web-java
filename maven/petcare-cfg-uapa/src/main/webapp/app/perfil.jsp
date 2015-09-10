@@ -8,7 +8,8 @@
 <%
   List<Pais> paises = ServicioPais.getInstancia().getListadoPais();
  %>
-<div class="container">
+<h1 class="page-header">Mi Cuenta</h1>
+
 	<form role="form">			
 
 		<div class="form-group">
@@ -52,9 +53,8 @@
 			  </select>
      </div>		
 		
-	<div class="row">
-			<div class="col-xs-12 col-md-6"><input type="submit" value="Registrarse" class="btn btn-primary btn-block btn-lg" tabindex="12"></div>
-			<!-- <div class="col-xs-12 col-md-6"><a href="#" class="btn btn-success btn-block btn-lg">Sign In</a></div> -->
+	<div class="row">			
+	 <div class="col-xs-12 col-md-6"><a href="<%=request.getContextPath()%>/app/editar.jsp" class="btn btn-success btn-block btn-lg">Editar Cuenta</a></div>
 	</div>
 	</form>
 

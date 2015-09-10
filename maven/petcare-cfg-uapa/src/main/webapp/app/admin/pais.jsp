@@ -7,7 +7,9 @@
   List<Pais> paises = ServicioPais.getInstancia().getListadoPais();
  %>
 
-<jsp:include page="template/header.jsp"/>
+<jsp:include page="../template/header.jsp"/>
+ <h1 class="page-header">Listado de Paises</h1>
+
 <table class="table table-striped">
     <tr><th>#</th><th>Descripcion</th></tr>
             <c:forEach items="<%=paises%>" var="pais">
@@ -16,5 +18,5 @@
             </c:forEach>
 </table>
 
-<jsp:include page="template/footer.jsp"/>
+<jsp:include page="../template/footer.jsp"/>
 

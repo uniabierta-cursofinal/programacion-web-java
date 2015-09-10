@@ -37,9 +37,24 @@ public class ServicioCita extends ServicioPersistenciaBase{
                                 new CitaBuilder()::crearCita);
     }
 
-    public void registrarCita(Cita cita) {
+    public List<Cita> getCitasPorPacienteId(int idPaciente){
+		return consultarTodasPorId("select * from petcare.cita where paciente_id=?",
+									idPaciente,
+									new CitaBuilder()::crearCita);
+
+    }
+
+    public List<Cita> getCitasPorDoctorId(int idDoctor){
+		return consultarTodasPorId("select * from petcare.cita where doctor_id=?",
+									idDoctor,
+									new CitaBuilder()::crearCita);
+    }
+
+    public boolean registrarCita(Cita cita) {
 
     	String sql= "";
+
+    	boolean estado;
 
 		try (Connection con = getConeccion()) {
             try (PreparedStatement pstmt = con.prepareStatement(sql)) {
@@ -51,11 +66,15 @@ public class ServicioCita extends ServicioPersistenciaBase{
 
             	pstmt.execute();
 
+            	estado = true;
+
             }
         } catch (SQLException | PetCareException ex) {
+        	estado = false;
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
         }
 
+		return estado;
 	}
 
 }

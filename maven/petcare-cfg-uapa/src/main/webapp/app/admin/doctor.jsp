@@ -8,9 +8,8 @@
 List<Doctor> listadoDoctores = ServicioDoctor.getInstancia().getListadoDoctores();
 
 %>
-<jsp:include page="template/header.jsp"/>
-
-<div class="container">
+<jsp:include page="../template/header.jsp"/>
+ <h1 class="page-header">Registro de  Doctores</h1>
 <form>
   <div class="form-group">
     <label for="inputNombre">Nombre</label>
@@ -24,8 +23,7 @@ List<Doctor> listadoDoctores = ServicioDoctor.getInstancia().getListadoDoctores(
   <button type="submit" class="btn btn-default">Aceptar</button>
 </form>
 
-<br/><br/>
-
+<h2 class="sub-header">Doctores Registrados </h2>
 <table class="table table-bordered">
  
     <tr><th>#</th><th>Nombre</th><th>Apellido</th></tr>
@@ -39,5 +37,4 @@ List<Doctor> listadoDoctores = ServicioDoctor.getInstancia().getListadoDoctores(
 
 </table>
 <!--</div>-->
- <script src="js/signup.js"></script>
-<jsp:include page="template/footer.jsp"/>
+<jsp:include page="../template/footer.jsp"/>

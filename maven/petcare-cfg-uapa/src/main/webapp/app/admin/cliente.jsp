@@ -8,8 +8,8 @@
   List<Cliente> clientes = ServicioCliente.getInstancia().getListadoClientes();  
  %>
 
-<jsp:include page="template/header.jsp"/>
-<br/><br/>
+<jsp:include page="../template/header.jsp"/>
+ <h1 class="page-header">Clientes Registrados</h1>
 
 <table class="table table-striped">
     <tr><th>#</th><th>Nombre</th><th>Apellido</th><th>Usuario</th></tr>
@@ -23,4 +23,4 @@
             </c:forEach>
 </table>
 
-<jsp:include page="template/footer.jsp"/>
+<jsp:include page="../template/footer.jsp"/>

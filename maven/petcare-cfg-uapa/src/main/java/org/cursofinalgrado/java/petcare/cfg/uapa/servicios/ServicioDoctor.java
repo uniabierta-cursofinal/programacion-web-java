@@ -37,9 +37,10 @@ public class ServicioDoctor extends ServicioPersistenciaBase{
                                 new DoctorBuilder()::crearDoctor);
 	}
 
-	public void registrarDoctor(Doctor doctor){
+	public boolean registrarDoctor(Doctor doctor){
 
 		String sql= "";
+		boolean estado;
 
 		try (Connection con = getConeccion()) {
             try (PreparedStatement pstmt = con.prepareStatement(sql)) {
@@ -47,10 +48,15 @@ public class ServicioDoctor extends ServicioPersistenciaBase{
             	pstmt.setString(1, doctor.getApellido());
             	pstmt.execute();
 
+            	estado = true;
+
             }
         } catch (SQLException | PetCareException ex) {
+        	estado = false;
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
         }
+
+		return estado;
 
 	}
 
