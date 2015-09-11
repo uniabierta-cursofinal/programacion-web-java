@@ -1,14 +1,16 @@
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="java.util.List"%>
 <%@page import="org.cursofinalgrado.java.petcare.cfg.uapa.entidades.Pais"%>
 <%@page import="org.cursofinalgrado.java.petcare.cfg.uapa.servicios.ServicioPais"%>
 
-<jsp:include page="template/header.jsp"/>
-
 <%
   List<Pais> paises = ServicioPais.getInstancia().getListadoPais();
  %>
-<h1 class="page-header">Mi Cuenta</h1>
+ <t:page>
+ <jsp:attribute name="title">Mi Cuenta</jsp:attribute>
+ <jsp:body>
 
 	<form role="form">			
 
@@ -28,7 +30,7 @@
 		</div>
 		<div class="form-group">
 		   <label>Telefono:</label>
-			<input type="tel" name="telefono" id="telefono" disabled="disabled" class="form-control input-lg" placeholder="Teléfono" tabindex="4">
+			<input type="tel" name="telefono" id="telefono" disabled="disabled" class="form-control input-lg" placeholder="TelÃ©fono" tabindex="4">
 		</div>
 		
 		<div class="form-group">
@@ -45,7 +47,7 @@
 		<input type="text" name="ciudad" id="ciudad" disabled="disabled" class="form-control input-lg" placeholder="Ciudad" tabindex="7">
 	  </div>
 	   <div class="form-group">
-			  <label for="pais">País:</label>
+			  <label for="pais">PaÃ­s:</label>
 			  <select class="form-control" id="pais" name="pais" tabindex="8">
 			  <c:forEach items="<%=paises%>" var="pais">
                  <option value="${pais.getId()}">${pais.getDescripcion()}</option>        
@@ -54,9 +56,8 @@
      </div>		
 		
 	<div class="row">			
-	 <div class="col-xs-12 col-md-6"><a href="<%=request.getContextPath()%>/app/editar.jsp" class="btn btn-success btn-block btn-lg">Editar Cuenta</a></div>
+	 <div class="col-xs-12 col-md-6"><a href="<%=request.getContextPath()%>/app/editarperfil.jsp" class="btn btn-success btn-block btn-lg">Editar Cuenta</a></div>
 	</div>
 	</form>
-
- <script src="js/signup.js"></script>
-<jsp:include page="template/footer.jsp"/>
+</jsp:body>
+</t:page>

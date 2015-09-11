@@ -1,6 +1,7 @@
 package org.cursofinalgrado.java.petcare.cfg.uapa.controllers;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.ServletException;
@@ -66,7 +67,10 @@ public class ClienteController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		processRequest(request, response);
+		   List<Pais> paises = ServicioPais.getInstancia().getListadoPais();
+
+		    request.getSession().setAttribute("paises", paises);
+		    request.getRequestDispatcher("app/perfil.jsp").forward(request, response);
 	}
 
 	@Override
