@@ -2,7 +2,7 @@ package org.cursofinalgrado.java.petcare.cfg.uapa.entidades;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,7 +21,7 @@ public class PacienteBuilder {
     private String nombre;
     private String genero;
     private Raza raza;
-    private Date fecha_nacimiento;
+    private LocalDate fechaNacimiento;
     private Integer peso;
 
     public PacienteBuilder setId(Integer id) {
@@ -49,8 +49,8 @@ public class PacienteBuilder {
          return this;
     }
 
-    public PacienteBuilder setFecha_nacimiento(Date fecha_nacimiento) {
-        this.fecha_nacimiento = fecha_nacimiento;
+    public PacienteBuilder setFechaNacimiento(LocalDate fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
          return this;
     }
 
@@ -60,7 +60,7 @@ public class PacienteBuilder {
     }
 
     public Paciente crearPaciente(){
-        return Paciente.crearPaciente(id, cliente, nombre, genero, raza, fecha_nacimiento, peso);
+        return Paciente.crearPaciente(id, cliente, nombre, genero, raza, fechaNacimiento, peso);
     }
 
     public Paciente crearPaciente(ResultSet rs){
@@ -72,7 +72,8 @@ public class PacienteBuilder {
     		Optional<Raza> raza = ServicioRaza.getInstancia().getRazaPorId(rs.getInt("raza_id"));
     		Optional<Cliente> cliente = ServicioCliente.getInstancia().getClientePorId(rs.getInt("cliente_id"));
 
-			paciente = Paciente.crearPaciente(rs.getInt("id"), cliente.get(), rs.getString("nombre"), rs.getString("genero"), raza.get(), rs.getDate("fecha_nacimiento"), rs.getInt("peso"));
+                  LocalDate fechaNac = rs.getDate("fecha_nacimiento").toLocalDate();
+			paciente = Paciente.crearPaciente(rs.getInt("id"), cliente.get(), rs.getString("nombre"), rs.getString("genero"), raza.get(), fechaNac, rs.getInt("peso"));
 
 		} catch (SQLException ex) {
 			 Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);

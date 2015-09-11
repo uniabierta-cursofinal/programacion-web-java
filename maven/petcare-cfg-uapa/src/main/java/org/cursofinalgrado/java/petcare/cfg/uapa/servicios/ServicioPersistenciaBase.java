@@ -5,11 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.naming.Context;
@@ -43,7 +43,7 @@ public abstract class ServicioPersistenciaBase {
 
 
         } catch (NamingException | SQLException ex) {
-            Logger.getLogger(ServicioPersistenciaBase.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServicioPersistenciaBase.class.getName()).info(MessageFormat.format("Error en el SQl{0}", ex.getMessage()));
         }
 
         return con;
@@ -64,7 +64,7 @@ public abstract class ServicioPersistenciaBase {
 
             }
         } catch (SQLException | PetCareException ex) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(getClass().getName()).info(MessageFormat.format("Error en el SQl{0}", ex.getMessage()));
         }
 
         return list;
@@ -72,7 +72,8 @@ public abstract class ServicioPersistenciaBase {
 
     protected <T> Optional<T> consultarPorId(String sql, Integer idEntidad, Function<ResultSet, T> function) {
 
-        T entidad = null ;
+       Optional<T> opEntidad = Optional.empty();
+       
         try (Connection con = getConeccion()) {
 
             try (PreparedStatement stmt = con.prepareStatement(sql)) {
@@ -81,14 +82,15 @@ public abstract class ServicioPersistenciaBase {
                 try (ResultSet rs = stmt.executeQuery(sql)) {
 
                       rs.next();
-                      entidad =  function.apply(rs);
+                      opEntidad  =  Optional.of(function.apply(rs));
                 }
             }
         } catch (SQLException | PetCareException ex) {
-            Logger.getLogger(ServicioPersistenciaBase.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServicioPersistenciaBase.class.getName()).info(MessageFormat.format("Error en el SQl{0}", ex.getMessage()));
+            return opEntidad;
         }
 
-        return Optional.of(entidad);
+        return opEntidad;
 
     }
 }

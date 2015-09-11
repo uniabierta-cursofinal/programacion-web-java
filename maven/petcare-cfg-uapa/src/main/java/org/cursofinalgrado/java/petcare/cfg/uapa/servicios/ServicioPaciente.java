@@ -4,9 +4,9 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.MessageFormat;
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.cursofinalgrado.java.petcare.cfg.uapa.entidades.Paciente;
@@ -49,14 +49,14 @@ public class ServicioPaciente extends ServicioPersistenciaBase {
                 pstmt.setString(2, paciente.getNombre());
                 pstmt.setString(3, paciente.getGenero());
                 pstmt.setInt(4, paciente.getRaza().getId());
-                pstmt.setDate(5, (Date) paciente.getFecha_nacimiento());
+                pstmt.setDate(5, Date.valueOf(paciente.getFechaNacimiento()));
                 pstmt.setInt(6, paciente.getPeso());
 
                 pstmt.execute();
 
             }
         } catch (SQLException | PetCareException ex) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(getClass().getName()).info(MessageFormat.format("Error en el SQl{0}", ex.getMessage()));
         }
 
     }
@@ -72,7 +72,7 @@ public class ServicioPaciente extends ServicioPersistenciaBase {
                 pstmt.setString(2, paciente.getNombre());
                 pstmt.setString(3, paciente.getGenero());
                 pstmt.setInt(4, paciente.getRaza().getId());
-                pstmt.setDate(5, (Date) paciente.getFecha_nacimiento());
+                pstmt.setDate(5, Date.valueOf(paciente.getFechaNacimiento()));
                 pstmt.setInt(6, paciente.getPeso());
                 pstmt.setInt(7, paciente.getId());
 
@@ -80,7 +80,7 @@ public class ServicioPaciente extends ServicioPersistenciaBase {
 
             }
         } catch (SQLException | PetCareException ex) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(getClass().getName()).info(MessageFormat.format("Error en el SQl{0}", ex.getMessage()));
         }
 
     }

@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.text.MessageFormat;
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.cursofinalgrado.java.petcare.cfg.uapa.entidades.Cliente;
@@ -88,7 +87,7 @@ public class ServicioCliente extends ServicioPersistenciaBase{
 
 	            }
 	        } catch (SQLException | NoSuchAlgorithmException | PetCareException ex) {
-	            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+	            Logger.getLogger(getClass().getName()).info(MessageFormat.format("Error en el SQl{0}", ex.getMessage()));
 	        }
 	 }
          
@@ -97,8 +96,8 @@ public class ServicioCliente extends ServicioPersistenciaBase{
                  String sql = new StringBuilder(65)
                         .append(" UPDATE petcare.cliente ")
                         .append(" SET ")
-                        .append(" nombre = ?,apellido = ?,telefono = ?,calle = ?, ")
-                        .append(" apartamento = ?,ciudad = ?,pais_id = ?,usuario = ?,")
+                        .append(" nombre = ?, apellido = ?,telefono = ?, calle = ?, ")
+                        .append(" apartamento = ?, ciudad = ?, pais_id = ?, usuario = ?,")
                         .append(" clave = ? ")
                         .append(" WHERE id = ?")
                         .toString();
@@ -119,7 +118,7 @@ public class ServicioCliente extends ServicioPersistenciaBase{
 
 	            }
 	        } catch (SQLException | PetCareException ex) {
-	            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+	            Logger.getLogger(getClass().getName()).info(MessageFormat.format("Error en el SQl{0}", ex.getMessage()));
 	        }
 	 }
 }

@@ -1,12 +1,12 @@
 package org.cursofinalgrado.java.petcare.cfg.uapa.servicios;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.MessageFormat;
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.cursofinalgrado.java.petcare.cfg.uapa.entidades.Cita;
@@ -45,7 +45,7 @@ public class ServicioCita extends ServicioPersistenciaBase {
         try (Connection con = getConeccion()) {
             try (PreparedStatement pstmt = con.prepareStatement(sql)) {
 
-                pstmt.setDate(1, (Date) cita.getFecha());
+                pstmt.setTimestamp(1, Timestamp.valueOf(cita.getFecha()));
                 pstmt.setInt(2, cita.getPaciente().getId());
                 pstmt.setInt(3, cita.getDoctor().getId());
                 pstmt.setString(4, cita.getRazon());
@@ -54,7 +54,7 @@ public class ServicioCita extends ServicioPersistenciaBase {
 
             }
         } catch (SQLException | PetCareException ex) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(getClass().getName()).info(MessageFormat.format("Error en el SQl{0}", ex.getMessage()));
         }
 
     }
@@ -65,7 +65,7 @@ public class ServicioCita extends ServicioPersistenciaBase {
         try (Connection con = getConeccion()) {
             try (PreparedStatement pstmt = con.prepareStatement(sql)) {
 
-                pstmt.setDate(1, (Date) cita.getFecha());
+                pstmt.setTimestamp(1, Timestamp.valueOf(cita.getFecha()));
                 pstmt.setInt(2, cita.getPaciente().getId());
                 pstmt.setInt(3, cita.getDoctor().getId());
                 pstmt.setString(4, cita.getRazon());
@@ -75,7 +75,7 @@ public class ServicioCita extends ServicioPersistenciaBase {
 
             }
         } catch (SQLException | PetCareException ex) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(getClass().getName()).info(MessageFormat.format("Error en el SQl{0}", ex.getMessage()));
         }
 
     }
