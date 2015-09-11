@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.text.MessageFormat;
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.cursofinalgrado.java.petcare.cfg.uapa.entidades.Cliente;
@@ -94,7 +93,44 @@ public class ServicioCliente extends ServicioPersistenciaBase{
 	            }
 	        } catch (SQLException | NoSuchAlgorithmException | PetCareException ex) {
 	        	estado = false;
-	            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+	            Logger.getLogger(getClass().getName()).info(MessageFormat.format("Error en el SQl{0}", ex.getMessage()));
+	        }
+
+			return estado;
+	 }
+
+    public boolean editarCliente(Cliente cliente){
+
+                 String sql = new StringBuilder(65)
+                        .append(" UPDATE petcare.cliente ")
+                        .append(" SET ")
+                        .append(" nombre = ?, apellido = ?,telefono = ?, calle = ?, ")
+                        .append(" apartamento = ?, ciudad = ?, pais_id = ?, usuario = ?,")
+                        .append(" clave = ? ")
+                        .append(" WHERE id = ?")
+                        .toString();
+
+           boolean estado;
+
+            try (Connection con = getConeccion()) {
+	            try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+	            	pstmt.setString(1, cliente.getNombre());
+	            	pstmt.setString(2, cliente.getApellido());
+	            	pstmt.setString(3, cliente.getTelefono());
+	            	pstmt.setString(4, cliente.getCalle());
+	            	pstmt.setString(5, cliente.getApartamento());
+	            	pstmt.setString(6, cliente.getCiudad());
+	            	pstmt.setInt(7, cliente.getPais().getId());
+	            	pstmt.setString(8, cliente.getUsuario());
+                    pstmt.setInt(9, cliente.getId());
+
+	            	pstmt.execute();
+	            	estado = true;
+
+	            }
+	        } catch (SQLException | PetCareException ex) {
+	        	estado = false;
+	            Logger.getLogger(getClass().getName()).info(MessageFormat.format("Error en el SQl{0}", ex.getMessage()));
 	        }
 
 			return estado;

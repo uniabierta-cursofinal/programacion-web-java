@@ -2,7 +2,7 @@ package org.cursofinalgrado.java.petcare.cfg.uapa.entidades;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,7 +17,7 @@ import org.cursofinalgrado.java.petcare.cfg.uapa.servicios.ServicioPaciente;
 public class CitaBuilder {
 
     private Integer id;
-    private Date fecha;
+    private LocalDateTime fecha;
     private Paciente paciente;
     private Doctor doctor;
     private String razon;
@@ -27,7 +27,7 @@ public class CitaBuilder {
         return this;
     }
 
-    public CitaBuilder setFecha(Date fecha) {
+    public CitaBuilder setFecha(LocalDateTime fecha) {
         this.fecha = fecha;
         return this;
     }
@@ -60,7 +60,9 @@ public class CitaBuilder {
     		Optional<Paciente> paciente = ServicioPaciente.getInstancia().getPacientePorId(rs.getInt("paciente_id"));
     		Optional<Doctor> doctor = ServicioDoctor.getInstancia().getDoctorPorId(rs.getInt("doctor_id"));
 
-			cita = Cita.crearCita(rs.getInt("id"), rs.getDate("fecha"), paciente.get(), doctor.get(), rs.getString("razon"));
+                LocalDateTime fechaCita = rs.getTimestamp("fecha").toLocalDateTime();
+
+			cita = Cita.crearCita(rs.getInt("id"), fechaCita, paciente.get(), doctor.get(), rs.getString("razon"));
 		} catch (SQLException ex) {
 			 Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
 		}

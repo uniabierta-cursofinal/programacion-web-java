@@ -1,6 +1,6 @@
 package org.cursofinalgrado.java.petcare.cfg.uapa.entidades;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  *
@@ -13,21 +13,21 @@ public class Paciente {
     private String nombre;
     private String genero;
     private Raza raza;
-    private Date fecha_nacimiento;
+    private LocalDate fechaNacimiento;
     private Integer peso;
 
-    private Paciente(Integer id, Cliente cliente, String nombre, String genero, Raza raza, Date fecha_nacimiento, Integer peso) {
+    private Paciente(Integer id, Cliente cliente, String nombre, String genero, Raza raza, LocalDate fechaNacimiento, Integer peso) {
         this.id = id;
         this.cliente = cliente;
         this.nombre = nombre;
         this.genero = genero;
         this.raza = raza;
-        this.fecha_nacimiento = fecha_nacimiento;
+        this.fechaNacimiento = fechaNacimiento;
         this.peso = peso;
     }
     
-    static Paciente crearPaciente(Integer id, Cliente cliente, String nombre, String genero, Raza raza, Date fecha_nacimiento, Integer peso){
-        return new Paciente(id, cliente, nombre, genero, raza, fecha_nacimiento, peso);
+    static Paciente crearPaciente(Integer id, Cliente cliente, String nombre, String genero, Raza raza, LocalDate fechaNacimiento, Integer peso){
+        return new Paciente(id, cliente, nombre, genero, raza, fechaNacimiento, peso);
     }
 
     public Integer getId() {
@@ -70,12 +70,12 @@ public class Paciente {
         this.raza = raza;
     }
 
-    public Date getFecha_nacimiento() {
-        return fecha_nacimiento;
+    public LocalDate getFechaNacimiento() {
+        return fechaNacimiento;
     }
 
-    public void setFecha_nacimiento(Date fecha_nacimiento) {
-        this.fecha_nacimiento = fecha_nacimiento;
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
     }
 
     public Integer getPeso() {

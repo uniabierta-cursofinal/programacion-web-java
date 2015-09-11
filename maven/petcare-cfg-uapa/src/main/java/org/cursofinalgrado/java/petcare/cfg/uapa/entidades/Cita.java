@@ -1,6 +1,6 @@
 package org.cursofinalgrado.java.petcare.cfg.uapa.entidades;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -8,12 +8,12 @@ import java.util.Date;
  */
 public class Cita {
    private Integer id;
-   private Date fecha;
+   private LocalDateTime fecha;
    private Paciente paciente;
    private Doctor doctor;
    private String razon;
 
-    private Cita(Integer id, Date fecha, Paciente paciente, Doctor doctor, String razon) {
+    private Cita(Integer id, LocalDateTime fecha, Paciente paciente, Doctor doctor, String razon) {
         this.id = id;
         this.fecha = fecha;
         this.paciente = paciente;
@@ -21,7 +21,7 @@ public class Cita {
         this.razon = razon;
     }
 
-   static Cita crearCita(Integer id, Date fecha, Paciente paciente, Doctor doctor, String razon){
+   static Cita crearCita(Integer id, LocalDateTime fecha, Paciente paciente, Doctor doctor, String razon){
        return new Cita(id, fecha, paciente, doctor, razon);
    }
 
@@ -33,11 +33,11 @@ public class Cita {
         this.id = id;
     }
 
-    public Date getFecha() {
+    public LocalDateTime getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDateTime fecha) {
         this.fecha = fecha;
     }
 
