@@ -17,45 +17,67 @@ import org.cursofinalgrado.java.petcare.cfg.uapa.utilidades.PetCareException;
  *
  * @author ecabrerar
  */
-public class ServicioCita extends ServicioPersistenciaBase{
+public class ServicioCita extends ServicioPersistenciaBase {
 
     private static final ServicioCita INSTANCIA = new ServicioCita();
 
-    private ServicioCita() {   }
+    private ServicioCita() {
+    }
 
-    public static ServicioCita getInstancia(){
+    public static ServicioCita getInstancia() {
         return INSTANCIA;
     }
 
-    public List<Cita> getListadoCitas(){
-    	return consultarTodas("select * from petcare.cita order by id asc", new CitaBuilder()::crearCita);
+    public List<Cita> getListadoCitas() {
+        return consultarTodas("select * from petcare.cita order by id asc", new CitaBuilder()::crearCita);
     }
 
-    public Optional<Cita> getCitaPorId(int id){
-        return  consultarPorId("select * from petcare.cita where id=?",
-                                id,
-                                new CitaBuilder()::crearCita);
+    public Optional<Cita> getCitaPorId(int id) {
+        return consultarPorId("select * from petcare.cita where id=?",
+                id,
+                new CitaBuilder()::crearCita);
     }
 
     public void registrarCita(Cita cita) {
 
-    	String sql= "";
+        String sql = "INSERT INTO petcare.cita(fecha,paciente_id,doctor_id,razon) VALUES (?,?,?,?)";
 
-		try (Connection con = getConeccion()) {
+        try (Connection con = getConeccion()) {
             try (PreparedStatement pstmt = con.prepareStatement(sql)) {
 
-	            	pstmt.setDate(1, (Date) cita.getFecha());
-	            	pstmt.setInt(2, cita.getPaciente().getId());
-	            	pstmt.setInt(3, cita.getDoctor().getId());
-	            	pstmt.setString(4, cita.getRazon());
+                pstmt.setDate(1, (Date) cita.getFecha());
+                pstmt.setInt(2, cita.getPaciente().getId());
+                pstmt.setInt(3, cita.getDoctor().getId());
+                pstmt.setString(4, cita.getRazon());
 
-            	pstmt.execute();
+                pstmt.execute();
 
             }
         } catch (SQLException | PetCareException ex) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
         }
 
-	}
+    }
+
+    public void editarCita(Cita cita) {
+        String sql = "UPDATE petcare.cita SET fecha = ?,paciente_id = ?,doctor_id = ?,razon = ? WHERE id = ?";
+
+        try (Connection con = getConeccion()) {
+            try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+                pstmt.setDate(1, (Date) cita.getFecha());
+                pstmt.setInt(2, cita.getPaciente().getId());
+                pstmt.setInt(3, cita.getDoctor().getId());
+                pstmt.setString(4, cita.getRazon());
+                pstmt.setInt(5, cita.getId());
+
+                pstmt.execute();
+
+            }
+        } catch (SQLException | PetCareException ex) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
 
 }

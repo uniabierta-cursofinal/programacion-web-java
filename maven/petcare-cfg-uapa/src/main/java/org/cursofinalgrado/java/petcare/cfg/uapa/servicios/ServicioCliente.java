@@ -91,4 +91,35 @@ public class ServicioCliente extends ServicioPersistenciaBase{
 	            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
 	        }
 	 }
+         
+         public void editarCliente(Cliente cliente){
+			
+                 String sql = new StringBuilder(65)
+                        .append(" UPDATE petcare.cliente ")
+                        .append(" SET ")
+                        .append(" nombre = ?,apellido = ?,telefono = ?,calle = ?, ")
+                        .append(" apartamento = ?,ciudad = ?,pais_id = ?,usuario = ?,")
+                        .append(" clave = ? ")
+                        .append(" WHERE id = ?")
+                        .toString();
+            
+            try (Connection con = getConeccion()) {
+	            try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+	            	pstmt.setString(1, cliente.getNombre());
+	            	pstmt.setString(2, cliente.getApellido());
+	            	pstmt.setString(3, cliente.getTelefono());
+	            	pstmt.setString(4, cliente.getCalle());
+	            	pstmt.setString(5, cliente.getApartamento());
+	            	pstmt.setString(6, cliente.getCiudad());
+	            	pstmt.setInt(7, cliente.getPais().getId());
+	            	pstmt.setString(8, cliente.getUsuario());
+                        pstmt.setInt(9, cliente.getId());
+
+	            	pstmt.execute();
+
+	            }
+	        } catch (SQLException | PetCareException ex) {
+	            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+	        }
+	 }
 }
