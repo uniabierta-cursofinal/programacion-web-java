@@ -53,13 +53,12 @@ public class LogoutServlet extends HttpServlet {
         HttpSession session = request.getSession(false);
         System.out.println("User="+session.getAttribute("user"));
 
-        if(session != null){
-        	//invalidar session
-            session.invalidate();
-        }
+       	//invalidar session
+         session.invalidate();
+    
 
       //Enviando mensaje a la pagina de login
-        response.sendRedirect("login.jsp");
+        response.sendRedirect("index.jsp");
     }
 
 

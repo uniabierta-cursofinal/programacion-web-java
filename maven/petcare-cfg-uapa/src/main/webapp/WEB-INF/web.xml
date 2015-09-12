@@ -7,17 +7,17 @@
         <filter-name>RequestLoggingFilter</filter-name>
         <filter-class>org.cursofinalgrado.java.petcare.cfg.uapa.filtros.RequestLoggingFilter</filter-class>
     </filter>
-<!--     <filter> -->
-<!--         <filter-name>AuthenticationFilter</filter-name> -->
-<!--         <filter-class>org.cursofinalgrado.java.petcare.cfg.uapa.filtros.AuthenticationFilter</filter-class> -->
-<!--     </filter> -->
+<!--     <filter> 
+         <filter-name>AuthenticationFilter</filter-name> 
+         <filter-class>org.cursofinalgrado.java.petcare.cfg.uapa.filtros.AuthenticationFilter</filter-class> 
+     </filter> -->
     <filter-mapping>
         <filter-name>RequestLoggingFilter</filter-name>
         <url-pattern>/*</url-pattern>
         <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
-<!--     <filter-mapping> -->
-<!--         <filter-name>AuthenticationFilter</filter-name> -->
-<!--         <url-pattern>/*</url-pattern> -->
-<!--     </filter-mapping> -->
+<!--     <filter-mapping> 
+         <filter-name>AuthenticationFilter</filter-name> 
+         <url-pattern>/*</url-pattern> 
+     </filter-mapping> -->
 </web-app>

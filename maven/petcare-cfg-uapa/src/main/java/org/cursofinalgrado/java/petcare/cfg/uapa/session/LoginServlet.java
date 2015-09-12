@@ -61,7 +61,7 @@ public class LoginServlet extends HttpServlet {
 
         }else{
 
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("index.jsp");
 
             //Enviando mensaje a la pagina de login
              session.setAttribute("loginFailed","Usuario no registrado");

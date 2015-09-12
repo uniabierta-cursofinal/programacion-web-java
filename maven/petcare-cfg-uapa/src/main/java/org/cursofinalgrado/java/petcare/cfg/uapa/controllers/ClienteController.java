@@ -38,28 +38,37 @@ public class ClienteController extends HttpServlet {
 
 	        String clave = request.getParameter("inputPassword");
 
-	        Optional<Pais> paisOptional =  ServicioPais.getInstancia().getPaisPorId(Integer.valueOf(pais));
 
+                 if(nombre == null || apellido==null || usuario ==null 
+                     || calle==null || ciudad == null || clave ==null 
+                     || pais == null){
+                     
+                     response.sendRedirect("signup.jsp");                     
+                     
+                 } else {
+	            
+                    Optional<Pais> paisOptional =  ServicioPais.getInstancia().getPaisPorId(Integer.valueOf(pais));
+                    
+                    Cliente cliente =  new ClienteBuilder()
+                                   .setNombre(nombre)
+                                   .setApellido(apellido)
+                                   .setUsuario(usuario)
+                                   .setTelefono(telefono)
+                                   .setCalle(calle)
+                                   .setApartamento(apt)
+                                   .setCiudad(ciudad)
+                                   .setPais(paisOptional.get())
+                                   .setClave(clave)
+                                   .crearCliente();
 
-	     Cliente cliente =  new ClienteBuilder()
-	                    .setNombre(nombre)
-	                    .setApellido(apellido)
-	                    .setUsuario(usuario)
-	                    .setTelefono(telefono)
-	                    .setCalle(calle)
-	                    .setApartamento(apt)
-	                    .setCiudad(ciudad)
-	                    .setPais(paisOptional.get())
-	                    .setClave(clave)
-	                    .crearCliente();
+                    boolean isCreado = ServicioCliente.getInstancia().registrarCliente(cliente);
 
-	     boolean isCreado = ServicioCliente.getInstancia().registrarCliente(cliente);
-
-	     if(isCreado){
-	    	 response.sendRedirect("index.jsp");
-	     } else {
-	    	 response.sendRedirect("signup.jsp");
-	     }
+                    if(isCreado){
+                        response.sendRedirect("app/index.jsp");
+                    } else {
+                        response.sendRedirect("signup.jsp");
+                    }
+               }
 
 	 }
 

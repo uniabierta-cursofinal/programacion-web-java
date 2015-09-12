@@ -46,10 +46,10 @@
         <div id="navbar" class="navbar-collapse collapse">
           <form action="<%=request.getContextPath()%>/LoginServlet" method="post" class="navbar-form navbar-right">
             <div class="form-group">
-              <input type="text" name="usuario" placeholder="Usuario" class="form-control">
+                <input type="text" name="usuario" placeholder="Usuario" class="form-control" required>
             </div>
             <div class="form-group">
-              <input type="password" name="pass" placeholder="Contraseña" class="form-control">
+              <input type="password" name="pass" placeholder="Contraseña" class="form-control" required>
             </div>
             <button type="submit" class="btn btn-success">Sign in</button>
           </form>
