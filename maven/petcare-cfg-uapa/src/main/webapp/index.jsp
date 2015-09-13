@@ -21,7 +21,7 @@
             <div class="carousel-caption">
               <h1>Example headline.</h1>
               <p>Note: If you're viewing this page via a <code>file://</code> URL, the "next" and "previous" Glyphicon buttons on the left and right might not load/display properly due to web browser security rules.</p>
-              <p><a class="btn btn-lg btn-primary" href="<%=request.getContextPath()%>/signup.jsp" role="button">Sign up today</a></p>
+              <p><a class="btn btn-lg btn-primary" href="${pageContext.request.contextPath}/signup.jsp" role="button">Sign up today</a></p>
             </div>
           </div>
         </div>
@@ -65,7 +65,7 @@
         <div class="col-md-4">
           <h2>Sign up today</h2>
           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-lg btn-primary" href="<%=request.getContextPath()%>/signup.jsp" role="button">Register</a></p>
+          <p><a class="btn btn-lg btn-primary" href="${pageContext.request.contextPath}/signup.jsp" role="button">Register</a></p>
         </div>
         <div class="col-md-4">
           <h2>About us</h2>

@@ -41,10 +41,10 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="<%=request.getContextPath()%>/index.jsp">PetCate</a>
+          <a class="navbar-brand" href="${pageContext.request.contextPath}/index.jsp">PetCate</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-          <form action="<%=request.getContextPath()%>/LoginServlet" method="post" class="navbar-form navbar-right">
+          <form action="${pageContext.request.contextPath}/LoginServlet" method="post" class="navbar-form navbar-right">
             <div class="form-group">
                 <input type="text" name="usuario" placeholder="Usuario" class="form-control" required>
             </div>

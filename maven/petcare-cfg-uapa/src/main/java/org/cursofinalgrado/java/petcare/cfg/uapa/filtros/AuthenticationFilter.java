@@ -29,6 +29,7 @@ public class AuthenticationFilter implements Filter {
      */
     @Override
     public void init(FilterConfig filterConfig) {
+         this.filterConfig = filterConfig;
     	this.context = filterConfig.getServletContext();
     	this.context.log("AuthenticationFilter initialized");
     }
@@ -75,7 +76,9 @@ public class AuthenticationFilter implements Filter {
      */
     @Override
     public void destroy() {
-    	filterConfig.getServletContext().log("Destroying AuthenticationFilter");
+        if(null != filterConfig){
+            filterConfig.getServletContext().log("Destroying AuthenticationFilter");
+        }    	
     }
 
     /**

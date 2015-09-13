@@ -29,9 +29,11 @@ public class RequestLoggingFilter implements Filter {
 
     /**
      * Init method for this filter
+     * @param filterConfig
      */
     @Override
     public void init(FilterConfig filterConfig) {
+        this.filterConfig = filterConfig;
     	this.context = filterConfig.getServletContext();
     	this.context.log("RequestLoggingFilter initialized");
 
@@ -74,12 +76,14 @@ public class RequestLoggingFilter implements Filter {
 
 	@Override
 	public void destroy() {
+            if(null != filterConfig){
 		filterConfig.getServletContext().log("Destroying RequestLoggingFilter");
-
+            }
 	}
 
 	 /**
      * Return the filter configuration object for this filter.
+     * @return 
      */
     public FilterConfig getFilterConfig() {
         return (this.filterConfig);

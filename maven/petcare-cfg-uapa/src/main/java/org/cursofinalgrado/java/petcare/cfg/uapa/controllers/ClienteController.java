@@ -1,6 +1,7 @@
 package org.cursofinalgrado.java.petcare.cfg.uapa.controllers;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.cursofinalgrado.java.petcare.cfg.uapa.entidades.Cliente;
 import org.cursofinalgrado.java.petcare.cfg.uapa.entidades.ClienteBuilder;
@@ -75,11 +77,38 @@ public class ClienteController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		   List<Pais> paises = ServicioPais.getInstancia().getListadoPais();
-
-		    request.getSession().setAttribute("paises", paises);
-		    request.getRequestDispatcher("app/perfil.jsp").forward(request, response);
+            
+            String cmd = request.getParameter("cmd");
+            
+            List<String> acciones = Arrays.asList("show","edit","chpass");            
+            
+            if(acciones.contains(cmd)){
+                
+		 List<Pais> paises = ServicioPais.getInstancia().getListadoPais();
+		 HttpSession session = request.getSession();
+                 
+                 Cliente cliente =  (Cliente) session.getAttribute("currentSessionUser");
+                 
+                 request.setAttribute("paises", paises);
+                 request.setAttribute("cliente", cliente);
+                 
+                 if("show".equals(cmd)){
+                     request.getRequestDispatcher("app/perfil.jsp").forward(request, response);
+                 }
+                 
+                 if("edit".equals(cmd)){
+                     request.getRequestDispatcher("app/editarperfil.jsp").forward(request, response);
+                 }
+                 
+                 
+                 if("chpass".equals(cmd)){
+                     request.getRequestDispatcher("app/cambiarcontrasena.jsp").forward(request, response);
+                 }
+                 
+                 
+		 
+            }
+            
 	}
 
 	@Override

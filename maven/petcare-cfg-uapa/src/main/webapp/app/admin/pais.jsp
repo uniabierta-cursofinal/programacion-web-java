@@ -1,22 +1,22 @@
+<%@ page session="false"%>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="java.util.List"%>
 <%@page import="org.cursofinalgrado.java.petcare.cfg.uapa.entidades.Pais"%>
-<%@page import="org.cursofinalgrado.java.petcare.cfg.uapa.servicios.ServicioPais"%>
 
-<%
-  List<Pais> paises = ServicioPais.getInstancia().getListadoPais();
- %>
+<t:page>
+ <jsp:attribute name="title">Listado de Paises</jsp:attribute>
+ <jsp:body>
 
-<jsp:include page="../template/header.jsp"/>
- <h1 class="page-header">Listado de Paises</h1>
 
 <table class="table table-striped">
     <tr><th>#</th><th>Descripcion</th></tr>
-            <c:forEach items="<%=paises%>" var="pais">
+            <c:forEach items="${paises}" var="pais">
          <tr><td>${pais.getId()}</td><td>${pais.getDescripcion()}</td></tr>
         
             </c:forEach>
 </table>
 
-<jsp:include page="../template/footer.jsp"/>
+</jsp:body>
+</t:page>
 

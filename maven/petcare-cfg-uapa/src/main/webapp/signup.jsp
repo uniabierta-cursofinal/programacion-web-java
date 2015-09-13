@@ -11,7 +11,7 @@
 <div class="container">
     <div class="row">
         <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-            <form method="post" action="<%=request.getContextPath()%>/ClienteController" role="form" data-toggle="validator">
+            <form method="post" action="${pageContext.request.contextPath}/ClienteController" role="form" data-toggle="validator">
                 <h2>Por favor regístrese <small>Es gratis y siempre lo será.</small></h2>
                 <hr class="colorgraph">
                 <div class="row">

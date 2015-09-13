@@ -1,16 +1,13 @@
+<%@ page session="false"%>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="java.util.List"%>
 <%@page import="org.cursofinalgrado.java.petcare.cfg.uapa.entidades.Paciente"%>
 <%@page import="org.cursofinalgrado.java.petcare.cfg.uapa.entidades.Raza"%>
 <%@page import="org.cursofinalgrado.java.petcare.cfg.uapa.servicios.ServicioRaza"%>
-<%
-
-
-List<Raza> razas = ServicioRaza.getInstancia().getListadoRaza();
-
-%>
-<jsp:include page="../template/header.jsp"/>
-<h1 class="page-header">Mostrar Paciente</h1>
+<t:page>
+ <jsp:attribute name="title">Mostrar Paciente</jsp:attribute>
+ <jsp:body>
 
 <form>
   <div class="form-group">
@@ -35,11 +32,11 @@ List<Raza> razas = ServicioRaza.getInstancia().getListadoRaza();
   <div class="form-group">
 	<label for="inputRaza">Raza:</label>
 	<select class="form-control" id="inputRaza" name="inputRaza">
-		<c:forEach items="<%=razas%>" var="raza">
+		<c:forEach items="${razas}" var="raza">
               <option value="${raza.getId()}">${pais.getNombre()}</option>        
         </c:forEach>
 	 </select>
    </div>
 </form>
-
-<jsp:include page="../template/footer.jsp"/>
+</jsp:body>
+</t:page>

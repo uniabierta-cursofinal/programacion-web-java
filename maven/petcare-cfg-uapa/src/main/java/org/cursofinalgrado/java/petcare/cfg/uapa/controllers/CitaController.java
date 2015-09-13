@@ -2,6 +2,7 @@ package org.cursofinalgrado.java.petcare.cfg.uapa.controllers;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.ServletException;
@@ -24,51 +25,53 @@ import org.cursofinalgrado.java.petcare.cfg.uapa.servicios.ServicioPaciente;
  * @author ecabrerar
  * @date Sep 4, 2015
  */
-@WebServlet(urlPatterns = { "/CitaController" })
+@WebServlet(urlPatterns = {"/CitaController"})
 public class CitaController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
 
-	@Override
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+    private static final long serialVersionUID = 1L;
 
-		processRequest(request, response);
-	}
+    @Override
+    protected void doGet(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
 
-	@Override
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+        List<Doctor> listadoDoctores = ServicioDoctor.getInstancia().getListadoDoctores();
+        List<Paciente> listadoPacientes = ServicioPaciente.getInstancia().getListadoPacientes();
+    }
 
-		processRequest(request, response);
-	}
+    @Override
+    protected void doPost(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
 
-	protected void processRequest(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+        processRequest(request, response);
+    }
 
-		 String fecha = request.getParameter("inputFecha");
+    protected void processRequest(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
 
-		 String doctorId = request.getParameter("inputDoctor");
-		 String pacienteId = request.getParameter("inputPaciente");
+        String fecha = request.getParameter("inputFecha");
 
-		 Optional<Doctor> doctor = ServicioDoctor.getInstancia().getDoctorPorId(Integer.valueOf(doctorId));
+        String doctorId = request.getParameter("inputDoctor");
+        String pacienteId = request.getParameter("inputPaciente");
 
-		 String razon = request.getParameter("inputRazon");
+        Optional<Doctor> doctor = ServicioDoctor.getInstancia().getDoctorPorId(Integer.valueOf(doctorId));
 
-		 Optional<Paciente> paciente  = ServicioPaciente.getInstancia().getPacientePorId(Integer.valueOf(pacienteId));
+        String razon = request.getParameter("inputRazon");
 
-		Cita cita = new CitaBuilder()
-					     .setRazon(razon)
-					     .setDoctor(doctor.get())
-					     .setPaciente(paciente.get())
-					     .crearCita();
+        Optional<Paciente> paciente = ServicioPaciente.getInstancia().getPacientePorId(Integer.valueOf(pacienteId));
 
-		boolean isCreado = ServicioCita.getInstancia().registrarCita(cita);
+        Cita cita = new CitaBuilder()
+                .setRazon(razon)
+                .setDoctor(doctor.get())
+                .setPaciente(paciente.get())
+                .crearCita();
 
-		if(isCreado){
-			response.sendRedirect("app/cita/consultacitas.jsp");
-		}else {
-			response.sendRedirect("app/cita/crearcita.jsp");
-		}
+        boolean isCreado = ServicioCita.getInstancia().registrarCita(cita);
 
-	}
+        if (isCreado) {
+            response.sendRedirect("app/cita/consultacitas.jsp");
+        } else {
+            response.sendRedirect("app/cita/crearcita.jsp");
+        }
+
+    }
 }

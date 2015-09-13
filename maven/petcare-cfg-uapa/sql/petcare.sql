@@ -221,6 +221,28 @@ ALTER TABLE paciente CHANGE COLUMN id id INT(11) NOT NULL AUTO_INCREMENT FIRST;
 ALTER TABLE cita CHANGE COLUMN id id INT(11) NOT NULL AUTO_INCREMENT FIRST;
 ALTER TABLE doctor CHANGE COLUMN id id INT(11) NOT NULL AUTO_INCREMENT FIRST;
 
+ALTER TABLE `petcare`.`cliente` 
+ADD COLUMN `acceso_cliente` TINYINT(1) NULL DEFAULT 0 AFTER `acceso_administrativo`;
+
+ALTER TABLE `petcare`.`cliente` 
+ADD COLUMN `acceso_doctor` TINYINT(1) NULL DEFAULT 0 AFTER `acceso_cliente`;
+
+ALTER TABLE `petcare`.`cliente` 
+MODIFY `acceso_administrativo` TINYINT(1) NOT NULL ;
+
+ALTER TABLE `petcare`.`cliente` 
+MODIFY `acceso_cliente` TINYINT(1) NOT NULL ;
+
+ALTER TABLE `petcare`.`cliente` 
+MODIFY `acceso_doctor` TINYINT(1) NOT NULL ;
+
+LOCK TABLES `cliente` WRITE;
+/*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
+INSERT INTO `cliente` VALUES (1,'Eudris','Cabrera','','Rosa Duarte #26','Ramona II 3-1','Santo Domingo',1,'ecabrerar','781E5E245D69B566979B86E28D23F2C7',1,0,0);
+/*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;

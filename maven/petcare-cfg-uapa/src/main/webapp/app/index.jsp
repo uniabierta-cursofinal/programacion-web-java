@@ -1,4 +1,10 @@
-<jsp:include page="template/header.jsp"/>
+<%@ page session="false"%>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<t:page>
+ <jsp:attribute name="title">Dashboard</jsp:attribute>
+ <jsp:body>
+
           <div class="row placeholders">
             <div class="col-xs-6 col-sm-3 placeholder">
               <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail">
@@ -150,4 +156,5 @@
               </tbody>
             </table>
           </div>
-<jsp:include page="template/footer.jsp"/>
+</jsp:body>
+</t:page>

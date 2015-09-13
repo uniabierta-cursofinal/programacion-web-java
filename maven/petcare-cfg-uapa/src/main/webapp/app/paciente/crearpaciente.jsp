@@ -1,41 +1,39 @@
+<%@ page session="false"%>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="java.util.List"%>
 <%@page import="org.cursofinalgrado.java.petcare.cfg.uapa.entidades.Paciente"%>
 <%@page import="org.cursofinalgrado.java.petcare.cfg.uapa.entidades.Raza"%>
 <%@page import="org.cursofinalgrado.java.petcare.cfg.uapa.servicios.ServicioRaza"%>
-<%
 
-
-List<Raza> razas = ServicioRaza.getInstancia().getListadoRaza();
-
-%>
-<jsp:include page="../template/header.jsp"/>
-<h1 class="page-header">Registrar Paciente</h1>
+<t:page>
+ <jsp:attribute name="title">Registrar Paciente</jsp:attribute>
+ <jsp:body>
 
 <form>
   <div class="form-group">
     <label for="inputNombre">Nombre</label>
-      <input type="text" class="form-control" id="inputNombre" name="inputNombre" placeholder="Nombre">
+      <input type="text" class="form-control" id="inputNombre" name="inputNombre" placeholder="Nombre" required>
   </div>
   <div class="form-group">
     <label for="inputGenero">Genero</label>
-    <select class="form-control" name="inputGenero">
+    <select class="form-control" name="inputGenero" required>
 	  <option value="M">Masculino</option>
 	  <option value="F">Femenino</option>	  
    </select>
   </div>
    <div class="form-group">
     <label for="inputPeso">Peso</label>
-    <input type="number" class="form-control" id="inputPeso" name="inputPeso" placeholder="Peso">
+    <input type="number" class="form-control" id="inputPeso" name="inputPeso" placeholder="Peso" required>
   </div>
   <div class="form-group">
     <label for="inputFechaNac">Fecha Nacimiento</label>
-    <input type="date" class="form-control" id="inputFechaNac" name="inputFechaNac" placeholder="Fecha Nacimiento">
+    <input type="date" class="form-control" id="inputFechaNac" name="inputFechaNac" required>
   </div>
   <div class="form-group">
 	<label for="inputRaza">Raza:</label>
-	<select class="form-control" id="inputRaza" name="inputRaza">
-		<c:forEach items="<%=razas%>" var="raza">
+	<select class="form-control" id="inputRaza" name="inputRaza" required>
+		<c:forEach items="${razas}" var="raza">
               <option value="${raza.getId()}">${pais.getNombre()}</option>        
         </c:forEach>
 	 </select>
@@ -43,6 +41,5 @@ List<Raza> razas = ServicioRaza.getInstancia().getListadoRaza();
   
   <button type="submit" class="btn btn-default">Aceptar</button>
 </form>
-
-
-<jsp:include page="../template/footer.jsp"/>
+</jsp:body>
+</t:page>

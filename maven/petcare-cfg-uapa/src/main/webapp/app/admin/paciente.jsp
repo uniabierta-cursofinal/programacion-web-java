@@ -1,20 +1,18 @@
+<%@ page session="false"%>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="java.util.List"%>
 <%@page import="org.cursofinalgrado.java.petcare.cfg.uapa.entidades.Paciente"%>
-<%@page import="org.cursofinalgrado.java.petcare.cfg.uapa.servicios.ServicioPaciente"%>
 
-<%
+<t:page>
+ <jsp:attribute name="title">Pacientes Registrados</jsp:attribute>
+ <jsp:body>
 
-List<Paciente> listadoPacientes = ServicioPaciente.getInstancia().getListadoPacientes();
-
-%>
-<jsp:include page="../template/header.jsp"/>
- <h1 class="page-header">Pacientes Registrados</h1>
 
 <table class="table table-bordered">
  
     <tr><th>#</th><th>Nombre</th><th>Genero</th><th>Raza</th><th>Peso</th><th>Fecha Nacimiento</th><th>Dueño</th></tr>
-            <c:forEach items="<%=listadoPacientes%>" var="paciente">
+            <c:forEach items="${pacientes}" var="paciente">
                 <tr>
                 <td>${paciente.getId()}</td>
                 <td>${paciente.getNombre()}</td>
@@ -27,5 +25,5 @@ List<Paciente> listadoPacientes = ServicioPaciente.getInstancia().getListadoPaci
             </c:forEach>
 
 </table>
-
-<jsp:include page="../template/footer.jsp"/>
+</jsp:body>
+</t:page>
