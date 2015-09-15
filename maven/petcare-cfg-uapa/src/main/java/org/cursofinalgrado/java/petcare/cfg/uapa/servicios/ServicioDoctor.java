@@ -38,27 +38,32 @@ public class ServicioDoctor extends ServicioPersistenciaBase {
                 new DoctorBuilder()::crearDoctor);
     }
 
-    public void registrarDoctor(Doctor doctor) {
-
+    public boolean registrarDoctor(Doctor doctor) {
+        
         String sql = "INSERT INTO petcare.doctor (nombre,apellido) VALUES(?,?)";
-
+        boolean estado;
+        
         try (Connection con = getConeccion()) {
             try (PreparedStatement pstmt = con.prepareStatement(sql)) {
                 pstmt.setString(1, doctor.getNombre());
                 pstmt.setString(2, doctor.getApellido());
                 pstmt.execute();
+                
+                estado = true;
 
             }
         } catch (SQLException | PetCareException ex) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+            estado = false;
         }
-
+        
+       	return estado;
      }
 
     public boolean editarDoctor(Doctor doctor) {
 
         String sql = "UPDATE petcare.doctor SET nombre = ?,apellido = ? WHERE id = ?";
-		boolean estado;
+	boolean estado;
 
         try (Connection con = getConeccion()) {
             try (PreparedStatement pstmt = con.prepareStatement(sql)) {

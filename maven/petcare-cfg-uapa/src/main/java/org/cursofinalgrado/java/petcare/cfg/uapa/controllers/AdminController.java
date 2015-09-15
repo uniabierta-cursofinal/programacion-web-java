@@ -40,9 +40,8 @@ public class AdminController extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
             
-               String cmd = request.getParameter("cmd"); 
-               
-               
+               String cmd = request.getParameter("cmd");           
+              
                
                switch(cmd){
                    case "doctor":
@@ -112,12 +111,22 @@ public class AdminController extends HttpServlet {
 					     	.setNombre(nombre)
 					     	.setApellido(apellido)
 					     	.crearDoctor();
-
-	    ServicioDoctor.getInstancia().registrarDoctor(doctor);
-
-
-	    response.sendRedirect("admin/doctor.jsp");
-
+            
+           
+            String mensajeOperacion;
+            
+            if(nombre==null || apellido ==null){
+                mensajeOperacion  = "Campos en blanco";         
+            }else {
+                 boolean isCreado = ServicioDoctor.getInstancia().registrarDoctor(doctor);
+                 
+                 mensajeOperacion = isCreado? "Registro agregado exitosamente":"No se pudo agregar el registro";
+            }
+    
+            request.setAttribute("mensajeOperacion", mensajeOperacion);              
+            setInfomacionPagina(request, response, "doctores",
+                                 ADMIN_PAGE_DOCTOR, 
+                                 ServicioDoctor.getInstancia().getListadoDoctores());                    
 
 	}
 

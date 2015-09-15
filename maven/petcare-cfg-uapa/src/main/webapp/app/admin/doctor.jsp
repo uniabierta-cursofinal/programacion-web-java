@@ -7,8 +7,12 @@
 <t:page>
  <jsp:attribute name="title">Registro de  Doctores</jsp:attribute>
  <jsp:body>
-
-<form>
+ <c:if test="${!empty mensajeOperacion}">
+     <div class="alert alert-info" role="alert">
+         <c:out value="${mensajeOperacion}"/>
+     </div>
+ </c:if>
+ <form method="post" action="${pageContext.request.contextPath}/AdminController">
   <div class="form-group">
     <label for="inputNombre">Nombre</label>
       <input type="text" class="form-control" id="inputNombre" name="inputNombre" placeholder="Nombre">

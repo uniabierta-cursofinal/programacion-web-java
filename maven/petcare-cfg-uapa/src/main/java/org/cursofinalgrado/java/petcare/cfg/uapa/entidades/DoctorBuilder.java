@@ -40,7 +40,7 @@ public class DoctorBuilder {
 
 		try {
 
-			 doctor = Doctor.crearDoctor(rs.getInt("id"), rs.getString("doctor"), rs.getString("apellido") );
+			 doctor = Doctor.crearDoctor(rs.getInt("id"), rs.getString("nombre"), rs.getString("apellido") );
 
 		} catch (SQLException ex) {
 			 Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);

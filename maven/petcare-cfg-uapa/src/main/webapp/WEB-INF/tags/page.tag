@@ -49,8 +49,8 @@
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             <li><a href="${pageContext.request.contextPath}/app/index.jsp">Dashboard</a></li>
-            <li><a href="${pageContext.request.contextPath}/app/cita/consultacitas.jsp">Cita</a></li>
-            <li><a href="${pageContext.request.contextPath}/app/paciente/consultapacientes.jsp">Paciente</a></li>
+            <li><a href="${pageContext.request.contextPath}/CitaController?cmd=list">Cita</a></li>
+            <li><a href="${pageContext.request.contextPath}/PacienteController?cmd=list">Paciente</a></li>
             <li><a href="${pageContext.request.contextPath}/ClienteController?cmd=show">Mi Cuenta</a></li>
           </ul>
           <form class="navbar-form navbar-right">
