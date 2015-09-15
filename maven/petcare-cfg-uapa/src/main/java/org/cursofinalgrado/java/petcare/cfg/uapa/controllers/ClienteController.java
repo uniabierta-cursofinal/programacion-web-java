@@ -1,9 +1,12 @@
 package org.cursofinalgrado.java.petcare.cfg.uapa.controllers;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,6 +20,7 @@ import org.cursofinalgrado.java.petcare.cfg.uapa.entidades.ClienteBuilder;
 import org.cursofinalgrado.java.petcare.cfg.uapa.entidades.Pais;
 import org.cursofinalgrado.java.petcare.cfg.uapa.servicios.ServicioCliente;
 import org.cursofinalgrado.java.petcare.cfg.uapa.servicios.ServicioPais;
+import org.cursofinalgrado.java.petcare.cfg.uapa.utilidades.Util;
 
 /**
  * @author ecabrerar
@@ -39,11 +43,13 @@ public class ClienteController extends HttpServlet {
 	        String pais = request.getParameter("inputPais");
 
 	        String clave = request.getParameter("inputPassword");
+                String claveActual = request.getParameter("current_password");
+                String id = request.getParameter("id");
 
 
-                 if(nombre == null || apellido==null || usuario ==null 
-                     || calle==null || ciudad == null || clave ==null 
-                     || pais == null){
+                 if(id ==null && (nombre == null || apellido==null || usuario ==null 
+                     || calle==null || ciudad == null || clave ==null  
+                     || pais == null)){
                      
                      response.sendRedirect("signup.jsp");                     
                      
@@ -51,27 +57,65 @@ public class ClienteController extends HttpServlet {
 	            
                     Optional<Pais> paisOptional =  ServicioPais.getInstancia().getPaisPorId(Integer.valueOf(pais));
                     
-                    Cliente cliente =  new ClienteBuilder()
-                                   .setNombre(nombre)
-                                   .setApellido(apellido)
-                                   .setUsuario(usuario)
-                                   .setTelefono(telefono)
-                                   .setCalle(calle)
-                                   .setApartamento(apt)
-                                   .setCiudad(ciudad)
-                                   .setPais(paisOptional.get())
-                                   .setClave(clave)
-                                   .crearCliente();
-
-                    boolean isCreado = ServicioCliente.getInstancia().registrarCliente(cliente);
-
-                    if(isCreado){
-                        response.sendRedirect("app/index.jsp");
+                        Cliente cliente =  new ClienteBuilder()
+                                       .setNombre(nombre)
+                                       .setApellido(apellido)
+                                       .setUsuario(usuario)
+                                       .setTelefono(telefono)
+                                       .setCalle(calle)
+                                       .setApartamento(apt)
+                                       .setCiudad(ciudad)
+                                       .setPais(paisOptional.get())
+                                       .setClave(clave)
+                                       .crearCliente();
+                    if(id==null){
+                    
+                        boolean isCreado = ServicioCliente.getInstancia().registrarCliente(cliente);
+                        
+                        String pageRedirect = isCreado? "app/index.jsp" : "signup.jsp";                     
+                     
+                        response.sendRedirect(pageRedirect);
+                        
                     } else {
-                        response.sendRedirect("signup.jsp");
+                        cliente.setId(Integer.valueOf(id));
+                        boolean isActualizado = false;
+                        String pathView;
+                        String mensajeOperacion = null;                      
+                        
+                         Optional<Cliente> clientePorId = ServicioCliente.getInstancia().getClientePorId(Integer.valueOf(id));
+                            
+                        if(clientePorId.isPresent()){                           
+                        
+                            if(claveActual==null){
+                               isActualizado =  ServicioCliente.getInstancia().editarCliente(cliente);
+
+                               pathView = isActualizado? "app/perfil.jsp" : "app/editarperfil.jsp";  
+                               mensajeOperacion = isActualizado? "Perfil actualizado exitosamente" : "No pudo actualizarse el perfil";                           
+
+                            } else {
+                            
+                                 try {
+                                    
+                                    if(Util.toMD5(claveActual).equals(clientePorId.get().getClave())){
+                                          isActualizado =  ServicioCliente.getInstancia().cambiarContrasena(cliente);
+                                          mensajeOperacion = isActualizado? "Contraseña cambiada exitosamente" : "No pudo realizar el cambio de contraseña"; 
+                                    } else {
+                                        mensajeOperacion = "La clave registrada no coincide con la clave actual digitada";
+                                    }
+                                } catch (NoSuchAlgorithmException ex) {
+                                    Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, ex);
+                                }            
+                                
+                                pathView = isActualizado? "app/perfil.jsp" : "app/cambiarcontrasena.jsp";                          
+                            }                            
+                         
+                            request.setAttribute("mensajeOperacion", mensajeOperacion);
+                            request.setAttribute("cliente", ServicioCliente.getInstancia().getClientePorId(Integer.valueOf(id)).get());
+                            request.getRequestDispatcher(pathView).forward(request, response);                       
+                        }                        
+                       
                     }
                }
-
 	 }
 
 	@Override
@@ -90,8 +134,8 @@ public class ClienteController extends HttpServlet {
                  Cliente cliente =  (Cliente) session.getAttribute("currentSessionUser");
                  
                  request.setAttribute("paises", paises);
-                 request.setAttribute("cliente", cliente);
-                 
+                 request.setAttribute("cliente", cliente);              
+                  
                  if("show".equals(cmd)){
                      request.getRequestDispatcher("app/perfil.jsp").forward(request, response);
                  }

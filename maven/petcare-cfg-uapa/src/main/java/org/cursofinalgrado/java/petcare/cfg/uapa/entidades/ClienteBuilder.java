@@ -81,16 +81,20 @@ public class ClienteBuilder {
 
     public Cliente creaCliente(ResultSet rs){
 
-    	Cliente cliente = null;
-
-    	Optional<Pais> pais;
+    	Cliente cliente = null;    	
 
 		try {
-				pais = ServicioPais.getInstancia().getPaisPorId(rs.getInt("pais_id"));
-				cliente = Cliente.crearCliente(rs.getInt("id"), rs.getString("nombre"), rs.getString("apellido"), rs.getString("telefono"), rs.getString("calle"), rs.getString("apartamento"), rs.getString("ciudad"), pais.get(), rs.getString("usuario"), rs.getString("clave"));
+				Optional<Pais> opPais = ServicioPais.getInstancia().getPaisPorId(rs.getInt("pais_id"));
+                                
+				cliente = Cliente.crearCliente(rs.getInt("id"), 
+                                                            rs.getString("nombre"), rs.getString("apellido"), 
+                                                            rs.getString("telefono"), rs.getString("calle"),
+                                                            rs.getString("apartamento"), rs.getString("ciudad"),
+                                                            opPais.get(), rs.getString("usuario"),
+                                                            rs.getString("clave"));
 
 		} catch (SQLException ex) {
-			 Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+		    Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
 		}
 
 

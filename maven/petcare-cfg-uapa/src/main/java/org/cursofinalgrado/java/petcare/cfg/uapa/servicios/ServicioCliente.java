@@ -105,8 +105,7 @@ public class ServicioCliente extends ServicioPersistenciaBase{
                         .append(" UPDATE petcare.cliente ")
                         .append(" SET ")
                         .append(" nombre = ?, apellido = ?,telefono = ?, calle = ?, ")
-                        .append(" apartamento = ?, ciudad = ?, pais_id = ?,")
-                        .append(" clave = ? ")
+                        .append(" apartamento = ?, ciudad = ?, pais_id = ?")
                         .append(" WHERE id = ?")
                         .toString();
 
@@ -132,6 +131,35 @@ public class ServicioCliente extends ServicioPersistenciaBase{
 	            Logger.getLogger(getClass().getName()).info(MessageFormat.format("Error en el SQl{0}", ex.getMessage()));
 	        }
 
-			return estado;
+		return estado;
+	 }
+    
+     public boolean cambiarContrasena(Cliente cliente){
+
+                 String sql = new StringBuilder(65)
+                        .append(" UPDATE petcare.cliente ")
+                        .append(" SET ")                       
+                        .append(" clave = ? ")
+                        .append(" WHERE id = ?")
+                        .toString();
+
+           boolean estado;
+
+            try (Connection con = getConeccion()) {
+	            try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+	            	
+                        pstmt.setString(1, Util.toMD5(cliente.getClave()));	         
+	            	pstmt.setInt(2, cliente.getId());
+                        
+	            	pstmt.execute();
+	            	estado = true;
+
+	            }
+	        } catch (SQLException | NoSuchAlgorithmException| PetCareException ex) {
+	        	estado = false;
+	            Logger.getLogger(getClass().getName()).info(MessageFormat.format("Error en el SQl{0}", ex.getMessage()));
+	        }
+
+		return estado;
 	 }
 }

@@ -2,15 +2,19 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="java.util.List"%>
-<%@page import="org.cursofinalgrado.java.petcare.cfg.uapa.entidades.Pais"%>
-<%@page import="org.cursofinalgrado.java.petcare.cfg.uapa.servicios.ServicioPais"%>
+<%@page import="org.cursofinalgrado.java.petcare.cfg.uapa.entidades.Cliente"%>
 
  <t:page>
  <jsp:attribute name="title">Cambiar Contraseña</jsp:attribute>
  <jsp:body>
-
+ <c:if test="${!empty mensajeOperacion}">
+     <div class="alert alert-info" role="alert">
+         <c:out value="${mensajeOperacion}"/>
+     </div>
+ </c:if>
    	<form role="form" method="post" action="${pageContext.request.contextPath}/ClienteController">
-		<div class="form-group">
+            <input type="hidden" name="id" value="${cliente.getId()}"/>
+            <div class="form-group">
 			<label for="current_password">Contraseña Actual:</label>
 			<input type="password" name="current_password" id="current_password" class="form-control input-lg" placeholder="Contraseña" tabindex="9">
 		</div>			

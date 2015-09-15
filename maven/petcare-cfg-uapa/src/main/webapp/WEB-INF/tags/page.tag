@@ -51,7 +51,7 @@
             <li><a href="${pageContext.request.contextPath}/app/index.jsp">Dashboard</a></li>
             <li><a href="${pageContext.request.contextPath}/app/cita/consultacitas.jsp">Cita</a></li>
             <li><a href="${pageContext.request.contextPath}/app/paciente/consultapacientes.jsp">Paciente</a></li>
-            <li><a href="${pageContext.request.contextPath}/ClienteController">Mi Cuenta</a></li>
+            <li><a href="${pageContext.request.contextPath}/ClienteController?cmd=show">Mi Cuenta</a></li>
           </ul>
           <form class="navbar-form navbar-right">
             <input type="text" class="form-control" placeholder="Search...">
@@ -74,8 +74,6 @@
           </ul>
           <ul class="nav nav-sidebar">
             <li><a href="${pageContext.request.contextPath}/AdminController?cmd=doctor">Doctores</a></li>            
-            <li><a href="">Another nav item</a></li>
-            <li><a href="">More navigation</a></li>
           </ul>
           <ul class="nav nav-sidebar">
             <li><a href="${pageContext.request.contextPath}/ClienteController?cmd=show">Mi Cuenta</a></li>
