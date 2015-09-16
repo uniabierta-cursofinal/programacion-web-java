@@ -10,8 +10,11 @@
  <t:page>
  <jsp:attribute name="title">Citas Registradas Por Paciente</jsp:attribute>
  <jsp:body>
-
-
+<div class="row">			
+            <div class="col-xs-12 col-md-6"><a href="${pageContext.request.contextPath}/CitaController?cmd=add" class="btn btn-primary btn-lg">Registrar Cita</a></div>
+	</div>
+<br/>
+<br/>
 <table class="table table-bordered">
  
     <tr><th>#</th><th>Fecha</th><th>Doctor</th><th>Razon</th><th></th></tr>

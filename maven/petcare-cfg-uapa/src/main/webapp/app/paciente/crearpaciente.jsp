@@ -39,7 +39,10 @@
 	 </select>
    </div>
   
-  <button type="submit" class="btn btn-default">Aceptar</button>
+    <div class="row">
+			<div class="col-xs-12 col-md-6"><input type="submit" value="Acpetar" class="btn btn-primary btn-block btn-lg" tabindex="12"></div>
+			<div class="col-xs-12 col-md-6"><a href="${pageContext.request.contextPath}/app/index.jsp" class="btn btn-success btn-block btn-lg">Cancelar</a></div> 
+	</div>
 </form>
 </jsp:body>
 </t:page>

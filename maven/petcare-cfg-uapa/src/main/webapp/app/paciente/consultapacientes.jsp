@@ -9,6 +9,11 @@
  <t:page>
  <jsp:attribute name="title">Pacientes Registrados por cliente</jsp:attribute>
  <jsp:body>
+ <div class="row">			
+            <div class="col-xs-12 col-md-6"><a href="${pageContext.request.contextPath}/PacienteController?cmd=add" class="btn btn-primary btn-lg">Registrar Paciente</a></div>
+	</div>
+<br/>
+<br/>
 <table class="table table-bordered">
  
     <tr><th>#</th><th>Nombre</th><th>Genero</th><th>Raza</th><th>Peso</th><th>Fecha Nacimiento</th></tr>

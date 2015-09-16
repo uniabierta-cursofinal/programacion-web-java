@@ -37,6 +37,9 @@
         </c:forEach>
 	 </select>
    </div>
+   <div class="row">			
+            <div class="col-xs-12 col-md-6"><a href="${pageContext.request.contextPath}/PacienteController?cmd=edit" class="btn btn-success btn-block btn-lg">Editar Cuenta</a></div>
+	</div>
 </form>
 </jsp:body>
 </t:page>

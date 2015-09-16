@@ -33,7 +33,11 @@
   <div class="form-group">
      <label for="inputDoctor">Razon:</label>
      <textarea class="form-control" rows="3" disabled="disabled" name="inputRazon"></textarea>
-   </div>  
+   </div> 
+   
+     <div class="row">			
+            <div class="col-xs-12 col-md-6"><a href="${pageContext.request.contextPath}/CitaController?cmd=edit" class="btn btn-success btn-block btn-lg">Editar Cita</a></div>
+	</div> 
 </form>
 
 
