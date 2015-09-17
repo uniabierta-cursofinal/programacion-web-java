@@ -1,6 +1,8 @@
 package org.cursofinalgrado.java.petcare.cfg.uapa.controllers;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -43,6 +45,13 @@ public class CitaController extends HttpServlet {
                      request.setAttribute("citas", ServicioCita.getInstancia().getListadoCitas());
                      request.getRequestDispatcher("app/cita/consultacitas.jsp").forward(request, response);
                  }
+                
+                if("show".equals(cmd)){
+                     request.getRequestDispatcher("app/cita/vercita.jsp").forward(request, response);
+                 }
+                 
+                 request.setAttribute("doctores", ServicioDoctor.getInstancia().getListadoDoctores());
+                 request.setAttribute("pacientes", ServicioPaciente.getInstancia().getListadoPacientes());
                  
                  if("edit".equals(cmd)){
                      request.getRequestDispatcher("app/cita/editarcita.jsp").forward(request, response);
@@ -53,9 +62,7 @@ public class CitaController extends HttpServlet {
                      request.getRequestDispatcher("app/cita/crearcita.jsp").forward(request, response);
                  }
                  
-                 if("show".equals(cmd)){
-                     request.getRequestDispatcher("app/cita/vercita.jsp").forward(request, response);
-                 }
+                 
         }
           
     }
@@ -95,6 +102,7 @@ public class CitaController extends HttpServlet {
                        .setRazon(razon)
                        .setDoctor(doctor.get())
                        .setPaciente(paciente.get())
+                       .setFecha(LocalDateTime.parse(fecha))
                        .crearCita();
 
                isCreado = ServicioCita.getInstancia().registrarCita(cita);

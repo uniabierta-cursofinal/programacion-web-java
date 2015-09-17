@@ -7,14 +7,21 @@
 <%@page import="org.cursofinalgrado.java.petcare.cfg.uapa.entidades.Paciente"%>
 <%@page import="org.cursofinalgrado.java.petcare.cfg.uapa.servicios.ServicioCita"%>
 
- <t:page>
+<t:page>
  <jsp:attribute name="title">Citas Registradas Por Paciente</jsp:attribute>
  <jsp:body>
+     
 <div class="row">			
             <div class="col-xs-12 col-md-6"><a href="${pageContext.request.contextPath}/CitaController?cmd=add" class="btn btn-primary btn-lg">Registrar Cita</a></div>
 	</div>
 <br/>
 <br/>
+ <c:if test="${!empty mensajeOperacion}">
+     <div class="alert alert-info" role="alert">
+         <c:out value="${mensajeOperacion}"/>
+         <br/>
+     </div>
+ </c:if>
 <table class="table table-bordered">
  
     <tr><th>#</th><th>Fecha</th><th>Doctor</th><th>Razon</th><th></th></tr>

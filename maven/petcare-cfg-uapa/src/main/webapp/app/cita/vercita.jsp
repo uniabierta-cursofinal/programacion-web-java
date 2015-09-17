@@ -8,8 +8,13 @@
 <t:page>
  <jsp:attribute name="title">Mostrar Cita</jsp:attribute>
  <jsp:body>
-
-<form>
+ <c:if test="${!empty mensajeOperacion}">
+     <div class="alert alert-info" role="alert">
+         <c:out value="${mensajeOperacion}"/>
+         <br/>
+     </div>
+ </c:if>
+ <form method="post" action="">
   <div class="form-group">
     <label for="inputFecha">Fecha</label>
     <input type="date" class="form-control" id="inputFecha" name="inputFecha" disabled="disabled">
@@ -35,9 +40,10 @@
      <textarea class="form-control" rows="3" disabled="disabled" name="inputRazon"></textarea>
    </div> 
    
-     <div class="row">			
-            <div class="col-xs-12 col-md-6"><a href="${pageContext.request.contextPath}/CitaController?cmd=edit" class="btn btn-success btn-block btn-lg">Editar Cita</a></div>
-	</div> 
+     <div class="row">
+			<div class="col-xs-12 col-md-6"><input type="submit" value="Actualizar" class="btn btn-primary btn-block btn-lg" tabindex="12"></div>
+			<div class="col-xs-12 col-md-6"><a href="${pageContext.request.contextPath}/PacienteController?cmd=list" class="btn btn-info btn-block btn-lg">Cancelar</a></div> 
+	</div>
 </form>
 
 

@@ -10,11 +10,16 @@
 <t:page>
  <jsp:attribute name="title">Registrar Cita</jsp:attribute>
  <jsp:body>
-
-<form>
+ <c:if test="${!empty mensajeOperacion}">
+     <div class="alert alert-warning" role="alert">
+         <c:out value="${mensajeOperacion}"/>
+         <br/>
+     </div>
+ </c:if>
+     <form method="post" action="${pageContext.request.contextPath}/CitaController">
   <div class="form-group">
     <label for="inputFecha">Fecha</label>
-    <input type="date" class="form-control" id="inputFecha" name="inputFecha" required>
+    <input type="datetime-local" class="form-control" id="inputFecha" name="inputFecha" required>
   </div>
   <div class="form-group">
 	<label for="inputDoctor">Doctor:</label>
@@ -39,7 +44,7 @@
  
   <div class="row">
 			<div class="col-xs-12 col-md-6"><input type="submit" value="Acpetar" class="btn btn-primary btn-block btn-lg" tabindex="12"></div>
-			<div class="col-xs-12 col-md-6"><a href="${pageContext.request.contextPath}/app/index.jsp" class="btn btn-success btn-block btn-lg">Cancelar</a></div> 
+			<div class="col-xs-12 col-md-6"><a href="${pageContext.request.contextPath}/CitaController?cmd=list" class="btn btn-info btn-block btn-lg">Cancelar</a></div> 
 	</div>
 </form>
 

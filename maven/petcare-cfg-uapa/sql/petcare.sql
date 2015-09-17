@@ -136,21 +136,18 @@ DROP TABLE IF EXISTS `paciente`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `paciente` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `cliente_id` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `genero` varchar(15) NOT NULL,
   `raza_id` int(11) NOT NULL,
   `fecha_nacimiento` date NOT NULL,
   `peso` int(11) NOT NULL,
-  `doctor_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `paciente_cliente_fk` (`cliente_id`),
-  KEY `paciente_doctor_fk` (`doctor_id`),
   KEY `paciente_raza_fk` (`raza_id`),
-  CONSTRAINT `paciente_raza_fk` FOREIGN KEY (`raza_id`) REFERENCES `raza` (`id`),
   CONSTRAINT `paciente_cliente_fk` FOREIGN KEY (`cliente_id`) REFERENCES `cliente` (`id`),
-  CONSTRAINT `paciente_doctor_fk` FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`id`)
+  CONSTRAINT `paciente_raza_fk` FOREIGN KEY (`raza_id`) REFERENCES `raza` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

@@ -43,7 +43,7 @@ public class LoginServlet extends HttpServlet {
       //Hacer una consulta a la base de datos para determinar si el usuario esta registrado
       Optional<Cliente> opCliente = ServicioCliente.getInstancia().validarCliente(usuario, pass);
 
-       HttpSession session = request.getSession();
+       HttpSession session = request.getSession(true);
 
        if(opCliente.isPresent() && opCliente.get() instanceof Cliente){
 

@@ -40,7 +40,7 @@ public class ServicioPaciente extends ServicioPersistenciaBase {
 
 	public boolean crearPaciente(Paciente paciente){
 
-	       String sql = "INSERT INTO petcare.paciente (cliente_id,nombre,genero,raza_id,fecha_nacimiento,peso,doctor_id) VALUES(?,?,?,?,?,?,?)";
+	       String sql = "INSERT INTO petcare.paciente (cliente_id,nombre,genero,raza_id,fecha_nacimiento,peso) VALUES(?,?,?,?,?,?)";
 			boolean estado;
 
 	        try (Connection con = getConeccion()) {
@@ -52,7 +52,7 @@ public class ServicioPaciente extends ServicioPersistenciaBase {
 	                pstmt.setInt(4, paciente.getRaza().getId());
 	                pstmt.setDate(5, Date.valueOf(paciente.getFechaNacimiento()));
 	                pstmt.setInt(6, paciente.getPeso());
-	                pstmt.setInt(7, paciente.getId());
+	               
 
 	                pstmt.execute();
 	            	estado = true;
@@ -76,7 +76,7 @@ public class ServicioPaciente extends ServicioPersistenciaBase {
 
     public void editarPaciente(Paciente paciente) {
 
-        String sql = "UPDATE petcare.paciente SET cliente_id =?, nombre=?, genero=?, raza_id=?, fecha_nacimiento=?, peso=?, doctor_id=? WHERE id=?";
+        String sql = "UPDATE petcare.paciente SET cliente_id =?, nombre=?, genero=?, raza_id=?, fecha_nacimiento=?, peso=? WHERE id=?";
 
         try (Connection con = getConeccion()) {
             try (PreparedStatement pstmt = con.prepareStatement(sql)) {

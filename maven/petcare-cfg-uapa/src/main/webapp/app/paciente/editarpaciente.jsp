@@ -1,6 +1,5 @@
-<%@ page session="false"%>
-<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@page import="java.util.List"%>
 <%@page import="org.cursofinalgrado.java.petcare.cfg.uapa.entidades.Paciente"%>
 <%@page import="org.cursofinalgrado.java.petcare.cfg.uapa.entidades.Raza"%>
@@ -8,9 +7,14 @@
 <t:page>
  <jsp:attribute name="title">Editar Paciente</jsp:attribute>
  <jsp:body>
+ <c:if test="${!empty mensajeOperacion}">
+     <div class="alert alert-warning" role="alert">
+         <c:out value="${mensajeOperacion}"/>
+         <br/>
+     </div>
+ </c:if>
 
-
-<form>
+     <form method="post" action="${pageContext.request.contextPath}/PacienteController">
   <div class="form-group">
     <label for="inputNombre">Nombre</label>
       <input type="text" class="form-control" id="inputNombre" name="inputNombre" placeholder="Nombre" required>
@@ -33,8 +37,8 @@
   <div class="form-group">
 	<label for="inputRaza">Raza:</label>
 	<select class="form-control" id="inputRaza" name="inputRaza">
-		<c:forEach items="${razas}" var="raza">
-              <option value="${raza.getId()}">${pais.getNombre()}</option>        
+	<c:forEach items="${razas}" var="raza">
+              <option value="${raza.getId()}">${raza.getNombre()}</option>        
         </c:forEach>
 	 </select>
    </div>

@@ -19,8 +19,8 @@
                 <td>${paciente.getGenero()}</td>
                 <td>${paciente.getRaza().getNombre()}</td>
                 <td>${paciente.getPeso()}</td>
-                <td>${paciente.getFecha_nacimiento()}</td>
-                <td>${paciente.getCliente().getNombre} ${paciente.getCliente().getApellido()}</td>
+                <td>${paciente.getFechaNacimiento()}</td>
+                <td>${paciente.getCliente().getNombre()} ${paciente.getCliente().getApellido()}</td>
                 </tr>        
             </c:forEach>
 
