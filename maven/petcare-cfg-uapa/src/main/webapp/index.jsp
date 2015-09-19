@@ -16,43 +16,41 @@
       </ol>
       <div class="carousel-inner" role="listbox">
         <div class="item active">
-          <img class="first-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="First slide">
+          <img class="first-slide" src="images/slides/slide1.png" alt="First slide">
           <div class="container">
             <div class="carousel-caption">
-              <h1>Example headline.</h1>
-              <p>Note: If you're viewing this page via a <code>file://</code> URL, the "next" and "previous" Glyphicon buttons on the left and right might not load/display properly due to web browser security rules.</p>
-              <p><a class="btn btn-lg btn-primary" href="${pageContext.request.contextPath}/signup.jsp" role="button">Sign up today</a></p>
+              <h1>PetCare</h1>
+              <p>Las mejores atenciones para su mascota.</p>
+              <p><a class="btn btn-lg btn-primary" href="${pageContext.request.contextPath}/signup.jsp" role="button">Registrarse Ahora</a></p>
             </div>
           </div>
         </div>
         <div class="item">
-          <img class="second-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Second slide">
+          <img class="second-slide" src="images/slides/slide2.jpg" alt="Second slide">
           <div class="container">
             <div class="carousel-caption">
-              <h1>Another example headline.</h1>
-              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-              <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
+              <h1>Personal Especializado</h1>
+              <p>Conoce más sobre los servicios que ofrecemos y sobre cada uno de nuestro personal.</p>
+              <p><a class="btn btn-lg btn-primary" href="${pageContext.request.contextPath}/about.jsp" role="button">Leer más</a></p>
             </div>
           </div>
         </div>
         <div class="item">
-          <img class="third-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Third slide">
+          <img class="third-slide" src="images/slides/slide3.jpg" alt="Third slide">
           <div class="container">
             <div class="carousel-caption">
-              <h1>One more for good measure.</h1>
-              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-              <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
+              <h1>Su alegría, es nuestra mayor sastifación.</h1>
             </div>
           </div>
         </div>
       </div>
       <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
+        <span class="sr-only">Anterior</span>
       </a>
       <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
         <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
+        <span class="sr-only">Siguiente</span>
       </a>
     </div><!-- /.carousel -->
 
@@ -63,19 +61,19 @@
       <!-- Example row of columns -->
       <div class="row">
         <div class="col-md-4">
-          <h2>Sign up today</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-lg btn-primary" href="${pageContext.request.contextPath}/signup.jsp" role="button">Register</a></p>
+          <h2>Registrarse Hoy</h2>
+          <p>Recibe las mejores atenciones en el cuidado de sus mascotas, personal especializado, buen servicios y excelentes precios </p>
+          <p><a class="btn btn-lg btn-primary" href="${pageContext.request.contextPath}/signup.jsp" role="button">Registrarse</a></p>
         </div>
         <div class="col-md-4">
-          <h2>About us</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+          <h2>Sobre Nosotros</h2>
+          <p>Conoce más sobre los servicios que ofrecemos y sobre cada uno de nuestro personal. </p>
+          <p><a class="btn btn-default btn-lg active" href="${pageContext.request.contextPath}/about.jsp" role="button">Leer más</a></p>
        </div>
         <div class="col-md-4">
-          <h2>Contact us</h2>
-          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+          <h2>Contáctenos</h2>
+          <p>Entre en contacto con nosotros. Escríbenos tus sugerencias o comentarios y en la mayor brevedad un representante se pondrá en contacto con usted</p>
+          <p><a class="btn btn-default btn-lg active" href="${pageContext.request.contextPath}/contactos.jsp" role="button">Formulario de Contacto</a></p>
         </div>
       </div>
 
