@@ -61,8 +61,10 @@ public class AuthenticationFilter implements Filter {
         			|| uri.matches(".*(css|jpg|png|gif|js|eot|svg|ttf|woff|woff2)"))) {
 
         	this.context.log("Unauthorized access request");
+                
+            String viewPath = String.join("/", req.getContextPath(),"index.jsp") ;
 
-            res.sendRedirect("index.jsp");
+            res.sendRedirect(viewPath);
 
         }else{
 
