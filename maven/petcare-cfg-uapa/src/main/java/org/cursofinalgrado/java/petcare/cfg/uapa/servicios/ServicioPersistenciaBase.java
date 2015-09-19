@@ -70,6 +70,30 @@ public abstract class ServicioPersistenciaBase {
         return list;
     }
 
+    protected <T> List<T> consultarTodasPaginacion(String sql, int offset, int noOfRecords,  Function<ResultSet,T> function) {
+
+        final List<T> list = new ArrayList<>();
+        try (Connection con = getConeccion()) {
+            try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+                pstmt.setInt(1, offset);
+                pstmt.setInt(2, noOfRecords);
+                
+                try (ResultSet rs = pstmt.executeQuery(sql)) {
+
+                    while (rs.next()) {
+
+                        list.add(function.apply(rs));
+                    }
+                }
+
+            }
+        } catch (SQLException | PetCareException ex) {
+            Logger.getLogger(getClass().getName()).info(MessageFormat.format("Error en el SQl{0}", ex.getMessage()));
+        }
+
+        return list;
+    }
+    
     protected <T> List<T> consultarTodasPorId(String sql, Integer idEntidad, Function<ResultSet, T> function) {
 
     	 final List<T> list = new ArrayList<>();
