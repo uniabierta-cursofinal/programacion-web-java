@@ -9,50 +9,59 @@
           
 <div class="container">
 <div class="row">
+    
   <div class="col-md-12">
-    <small><i></i>Add alerts if form ok... success, else error.</i></small>
-	<div class="alert alert-success"><strong><span class="glyphicon glyphicon-send"></span> Success! Message sent. (If form ok!)</strong></div>	  
-    <div class="alert alert-danger"><span class="glyphicon glyphicon-alert"></span><strong> Error! Please check the inputs. (If form error!)</strong></div>
+   
+       <c:if test="${!empty mensajeOperacionExitoso}">
+           <div class="alert alert-success"><strong><span class="glyphicon glyphicon-send">
+               
+                   </span>   <c:out value="${mensajeOperacionExitoso}"/></strong></div>	  
+      </c:if>
+        
+       <c:if test="${!empty mensajeOperacionError}">
+             <div class="alert alert-danger"><span class="glyphicon glyphicon-alert"></span>
+                 <strong> <c:out value="${mensajeOperacionError}"/></strong></div>
+       </c:if>        
+       
   </div>
-  <form role="form" action="" method="post" >
+  <form role="form" action="${pageContext.request.contextPath}/ContactosController" method="post" >
     <div class="col-lg-6">
       <div class="well well-sm"><strong><i class="glyphicon glyphicon-ok form-control-feedback"></i> Required Field</strong></div>
       <div class="form-group">
-        <label for="InputName">Your Name</label>
+        <label for="InputName">Nombre</label>
         <div class="input-group">
-          <input type="text" class="form-control" name="InputName" id="InputName" placeholder="Enter Name" required>
+          <input type="text" class="form-control" name="InputNombre" id="InputName" placeholder="Escribir nombre " required>
           <span class="input-group-addon"><i class="glyphicon glyphicon-ok form-control-feedback"></i></span></div>
       </div>
       <div class="form-group">
-        <label for="InputEmail">Your Email</label>
+        <label for="InputEmail">Email</label>
         <div class="input-group">
-          <input type="email" class="form-control" id="InputEmail" name="InputEmail" placeholder="Enter Email" required  >
+          <input type="email" class="form-control" id="InputEmail" name="InputEmail" placeholder="Correo Electrónico" required  >
           <span class="input-group-addon"><i class="glyphicon glyphicon-ok form-control-feedback"></i></span></div>
       </div>
       <div class="form-group">
-        <label for="InputMessage">Message</label>
+        <label for="InputMessage">Mensaje</label>
         <div class="input-group"
 >
-          <textarea name="InputMessage" id="InputMessage" class="form-control" rows="5" required></textarea>
+          <textarea name="InputMensaje" id="InputMessage" class="form-control" rows="5" required></textarea>
           <span class="input-group-addon"><i class="glyphicon glyphicon-ok form-control-feedback"></i></span></div>
       </div>
       <div class="form-group">
-        <label for="InputReal">What is 4+3? (Simple Spam Checker)</label>
+        <label for="InputReal">Cuanto es 4+3? (Detector de Spam)</label>
         <div class="input-group">
           <input type="text" class="form-control" name="InputReal" id="InputReal" required>
           <span class="input-group-addon"><i class="glyphicon glyphicon-ok form-control-feedback"></i></span></div>
       </div>
-      <input type="submit" name="submit" id="submit" value="Submit" class="btn btn-info pull-right">
+      <input type="submit" name="submit" id="submit" value="Enviar" class="btn btn-info pull-right">
     </div>
   </form>
   <hr class="featurette-divider hidden-lg">
   <div class="col-lg-5 col-md-push-1">
     <address>
-    <h3>Office Location</h3>
-    <p class="lead"><a href="https://www.google.com/maps/preview?ie=UTF-8&q=The+Pentagon&fb=1&gl=us&hq=1400+Defense+Pentagon+Washington,+DC+20301-1400&cid=12647181945379443503&ei=qmYfU4H8LoL2oATa0IHIBg&ved=0CKwBEPwSMAo&safe=on">The Pentagon<br>
-Washington, DC 20301</a><br>
-      Phone: XXX-XXX-XXXX<br>
-      Fax: XXX-XXX-YYYY</p>
+    <h3>Ubicación</h3>
+    <p class="lead"><a href="https://www.google.com/maps/@19.4398451,-70.6730233,12z" target="_blank">Santiago de los Caballeros<br>
+Av. Hispanoamericana</a><br>
+      Telefono: XXX-XXX-XXXX
     </address>
   </div>
 </div>

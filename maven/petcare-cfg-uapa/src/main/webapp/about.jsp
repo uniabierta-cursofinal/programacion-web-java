@@ -19,6 +19,8 @@
                 <h2>JSR 335</h2>
                 <p> Lambda Expressions for the Java</p>
 
+                <h2>JSR 919</h2>
+                 <p>Javamail 1.5</p>
             </div>
 
             <div class="col-lg-6">
