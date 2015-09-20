@@ -1,4 +1,5 @@
-  <jsp:include page="template/header.jsp"/> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:include page="template/header.jsp"/> 
     <div class="container">
   
         <div>
@@ -30,26 +31,26 @@
       <div class="form-group">
         <label for="InputName">Nombre</label>
         <div class="input-group">
-          <input type="text" class="form-control" name="InputNombre" id="InputName" placeholder="Escribir nombre " required>
+          <input type="text" class="form-control" name="inputNombre" id="InputName" placeholder="Escribir nombre " required>
           <span class="input-group-addon"><i class="glyphicon glyphicon-ok form-control-feedback"></i></span></div>
       </div>
       <div class="form-group">
         <label for="InputEmail">Email</label>
         <div class="input-group">
-          <input type="email" class="form-control" id="InputEmail" name="InputEmail" placeholder="Correo Electrónico" required  >
+          <input type="email" class="form-control" id="InputEmail" name="inputEmail" placeholder="Correo Electrónico" required  >
           <span class="input-group-addon"><i class="glyphicon glyphicon-ok form-control-feedback"></i></span></div>
       </div>
       <div class="form-group">
         <label for="InputMessage">Mensaje</label>
         <div class="input-group"
 >
-          <textarea name="InputMensaje" id="InputMessage" class="form-control" rows="5" required></textarea>
+          <textarea name="inputMensaje" id="InputMessage" class="form-control" rows="5" required></textarea>
           <span class="input-group-addon"><i class="glyphicon glyphicon-ok form-control-feedback"></i></span></div>
       </div>
       <div class="form-group">
         <label for="InputReal">Cuanto es 4+3? (Detector de Spam)</label>
         <div class="input-group">
-          <input type="text" class="form-control" name="InputReal" id="InputReal" required>
+          <input type="text" class="form-control" name="inputReal" id="InputReal" required>
           <span class="input-group-addon"><i class="glyphicon glyphicon-ok form-control-feedback"></i></span></div>
       </div>
       <input type="submit" name="submit" id="submit" value="Enviar" class="btn btn-info pull-right">

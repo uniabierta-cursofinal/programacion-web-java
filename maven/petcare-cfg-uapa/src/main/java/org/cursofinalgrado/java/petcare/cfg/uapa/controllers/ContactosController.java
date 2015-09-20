@@ -31,9 +31,9 @@ public class ContactosController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        String nombre = request.getParameter(null);
-        String correo = request.getParameter(null);
-        String mensaje = request.getParameter(null);
+        String nombre = request.getParameter("inputNombre");
+        String correo = request.getParameter("inputEmail");
+        String mensaje = request.getParameter("inputMensaje");
         
         if(nombre == null || correo ==null || mensaje==null){
            request.setAttribute("mensajeOperacionError", "Campos en blanco, favor revisar !!");

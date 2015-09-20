@@ -26,9 +26,9 @@ public class ManejadorCorreo {
     public void enviarCorreo(String nombre, String from, String mensaje) throws MessagingException{
         
         new ServicioCorreo()
-                .setPropiedadesServidorCorreo(new Propiedades("587", true, true))
+                .setPropiedadesServidorCorreo(new Propiedades("25", true, false),
+                        new ServidorSMTP("mail.gruposwat.com", "petcare@gruposwat.com", "pcdemo.2015"))
                 .setInformacionParaEnviar(nombre, from, mensaje)
-                .setInformacionServidorSMTP(new ServidorSMTP("smtp.gmail.com", "eudris@gmail.com", "gmecr.2004@2011"))
                 .enviar();
     }
     
@@ -38,9 +38,9 @@ class ServicioCorreo{
     Properties mailServerProperties;
     Session getMailSession;
     MimeMessage generateMailMessage;
-     Transport transport;
+   ServidorSMTP smtp;
     
-    ServicioCorreo setPropiedadesServidorCorreo(Propiedades prop){
+    ServicioCorreo setPropiedadesServidorCorreo(Propiedades prop, ServidorSMTP smtp){
         // Step1
 	System.out.println("\n 1st ===> setup Mail Server Properties..");
 	 mailServerProperties = System.getProperties();
@@ -48,6 +48,8 @@ class ServicioCorreo{
 	mailServerProperties.put("mail.smtp.auth", prop.isIsAuth());
 	mailServerProperties.put("mail.smtp.starttls.enable", prop.isIsSSL());
 	System.out.println("Mail Server Properties have been setup successfully..");
+        
+        this.smtp = smtp;
         
         return this;
     }
@@ -64,7 +66,7 @@ class ServicioCorreo{
            
             generateMailMessage.addRecipient(Message.RecipientType.CC, new InternetAddress(from));
             generateMailMessage.setSubject(String.join(" ", "Mensaje formulario de contacto petcame from:",nombre));
-		
+            generateMailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(smtp.getMailID()));
             generateMailMessage.setContent(mensaje, "text/html");                
             
         } catch (MessagingException ex) {
@@ -77,32 +79,24 @@ class ServicioCorreo{
        return this;
     }
 
-    // Enter your correct email UserID and Password
-    ServicioCorreo setInformacionServidorSMTP(ServidorSMTP smtp) {
+    
+   private  ServicioCorreo setInformacionServidorSMTP() {
         
     // Step3
     System.out.println("\n\n 3rd ===> Get Session and Send mail");    
      // if you have 2FA enabled then provide App Specific Password
-    
-        try {           
-            transport = getMailSession.getTransport("smtp");
-             generateMailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(smtp.getHost()));
+    // Enter your correct email UserID and Password
+         Transport transport = null;
+         
+        try {       
+            
+             transport = getMailSession.getTransport("smtp");
+            
             transport.connect(smtp.getHost(), smtp.getMailID(), smtp.getPassword());
+             transport.sendMessage(generateMailMessage, generateMailMessage.getAllRecipients());
         } catch (MessagingException ex) {
             Logger.getLogger(ServicioCorreo.class.getName()).log(Level.SEVERE, null, ex);
-        }         
-              
-        return this;
-    }   
-
-    ServicioCorreo enviar() throws MessagingException {
-        try {
-            transport.sendMessage(generateMailMessage, generateMailMessage.getAllRecipients());
-          
-        } catch (MessagingException ex) {
-            Logger.getLogger(ServicioCorreo.class.getName()).log(Level.SEVERE, null, ex);
-            throw ex;
-        }finally{
+        } finally{
             if(null !=transport){
                 try {
                     transport.close();
@@ -110,9 +104,13 @@ class ServicioCorreo{
                     Logger.getLogger(ServicioCorreo.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }            
-        } 
-        
-          return this;
+        }         
+              
+        return this;
+    }   
+
+    ServicioCorreo enviar() throws MessagingException {
+        return setInformacionServidorSMTP();
     }    
    
 }
