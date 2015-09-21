@@ -14,12 +14,6 @@
 	</div>
 <br/>
 <br/>
- <c:if test="${!empty mensajeOperacion}">
-     <div class="alert alert-info" role="alert">
-         <c:out value="${mensajeOperacion}"/>
-         <br/>
-     </div>
- </c:if>
 <table class="table table-bordered">
  
     <tr><th>#</th><th>Nombre</th><th>Genero</th><th>Raza</th><th>Peso</th><th>Fecha Nacimiento</th></tr>
@@ -30,7 +24,7 @@
                 <td>${paciente.getGenero()}</td>
                 <td>${paciente.getRaza().getNombre()}</td>
                 <td>${paciente.getPeso()}</td>
-                <td>${paciente.getFechaNacimiento()}</td>
+                <td>${paciente.getFecha_nacimiento()}</td>
                 </tr>        
             </c:forEach>
 

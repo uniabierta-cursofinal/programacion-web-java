@@ -18,7 +18,9 @@ import org.cursofinalgrado.java.petcare.cfg.uapa.utilidades.correo.ManejadorCorr
 @WebServlet(name = "ContactosController", urlPatterns = {"/ContactosController"})
 public class ContactosController extends HttpServlet {
 
-    /**
+	private static final long serialVersionUID = 8598991506984848272L;
+
+	/**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
@@ -30,11 +32,11 @@ public class ContactosController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         String nombre = request.getParameter("inputNombre");
         String correo = request.getParameter("inputEmail");
         String mensaje = request.getParameter("inputMensaje");
-        
+
         if(nombre == null || correo ==null || mensaje==null){
            request.setAttribute("mensajeOperacionError", "Campos en blanco, favor revisar !!");
         }else {
@@ -45,10 +47,10 @@ public class ContactosController extends HttpServlet {
                 Logger.getLogger(ContactosController.class.getName()).log(Level.SEVERE, null, ex);
                 request.setAttribute("mensajeOperacionError", ex.getMessage());
             }
-        }        
-        
-         request.getRequestDispatcher("contactos.jsp").forward(request, response); 
-        
+        }
+
+         request.getRequestDispatcher("contactos.jsp").forward(request, response);
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
