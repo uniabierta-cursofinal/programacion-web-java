@@ -26,8 +26,7 @@ public class ManejadorCorreo {
     public void enviarCorreo(String nombre, String from, String mensaje) throws MessagingException{
 
         new ServicioCorreo()
-                .setPropiedadesServidorCorreo(new Propiedades("25", true, false),
-                        new ServidorSMTP("mail.gruposwat.com", "petcare@gruposwat.com", "pcdemo.2015"))
+                .setPropiedadesServidorCorreo(new Credenciales(true, false))
                 .setInformacionParaEnviar(nombre, from, mensaje)
                 .enviar();
     }
@@ -38,18 +37,20 @@ class ServicioCorreo{
     Properties mailServerProperties;
     Session getMailSession;
     MimeMessage generateMailMessage;
-   ServidorSMTP smtp;
+    Credenciales creds;
 
-    ServicioCorreo setPropiedadesServidorCorreo(Propiedades prop, ServidorSMTP smtp){
+    ServicioCorreo setPropiedadesServidorCorreo(Credenciales creds){
         // Step1
 	System.out.println("\n 1st ===> setup Mail Server Properties..");
+
+	this.creds = creds;
+
 	 mailServerProperties = System.getProperties();
-	mailServerProperties.put("mail.smtp.port", prop.getPuerto());
-	mailServerProperties.put("mail.smtp.auth", prop.isIsAuth());
-	mailServerProperties.put("mail.smtp.starttls.enable", prop.isIsSSL());
+	mailServerProperties.put("mail.smtp.port", creds.getPuerto());
+	mailServerProperties.put("mail.smtp.auth", creds.isAuth());
+	mailServerProperties.put("mail.smtp.starttls.enable", creds.isSSL());
 	System.out.println("Mail Server Properties have been setup successfully..");
 
-        this.smtp = smtp;
 
         return this;
     }
@@ -64,7 +65,7 @@ class ServicioCorreo{
         try {
 
 
-        	generateMailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(smtp.getMailID()));
+        	generateMailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(creds.getMailID()));
             generateMailMessage.addRecipient(Message.RecipientType.CC, new InternetAddress(from));
             generateMailMessage.setSubject(String.join(" ", "Mensaje formulario de contacto petcame from:",nombre));
             generateMailMessage.setContent(mensaje, "text/html");
@@ -92,8 +93,9 @@ class ServicioCorreo{
 
              transport = getMailSession.getTransport("smtp");
 
-            transport.connect(smtp.getHost(), smtp.getMailID(), smtp.getPassword());
-             transport.sendMessage(generateMailMessage, generateMailMessage.getAllRecipients());
+            transport.connect(creds.getHost(), creds.getMailID(), creds.getPassword());
+            transport.sendMessage(generateMailMessage, generateMailMessage.getAllRecipients());
+
         } catch (MessagingException ex) {
             Logger.getLogger(ServicioCorreo.class.getName()).log(Level.SEVERE, null, ex);
         } finally{
@@ -111,57 +113,6 @@ class ServicioCorreo{
 
     ServicioCorreo enviar() throws MessagingException {
         return setInformacionServidorSMTP();
-    }
-
-}
-
-
-class Propiedades {
-    private final String puerto;
-    private final boolean isAuth;
-    private final boolean isSSL;
-
-    public Propiedades(String puerto, boolean isAuth, boolean isSSL) {
-        this.puerto = puerto;
-        this.isAuth = isAuth;
-        this.isSSL = isSSL;
-    }
-
-    public String getPuerto() {
-        return puerto;
-    }
-
-    public boolean isIsAuth() {
-        return isAuth;
-    }
-
-    public boolean isIsSSL() {
-        return isSSL;
-    }
-}
-
-
-class ServidorSMTP {
-    private final String host;
-    private final String mailID;
-    private final String password;
-
-    public ServidorSMTP(String host, String mailID, String password) {
-        this.host = host;
-        this.mailID = mailID;
-        this.password = password;
-    }
-
-    public String getHost() {
-        return host;
-    }
-
-    public String getMailID() {
-        return mailID;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
 }

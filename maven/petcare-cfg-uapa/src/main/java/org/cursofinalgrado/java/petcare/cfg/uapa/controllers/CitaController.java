@@ -1,7 +1,6 @@
 package org.cursofinalgrado.java.petcare.cfg.uapa.controllers;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
@@ -29,42 +28,42 @@ import org.cursofinalgrado.java.petcare.cfg.uapa.servicios.ServicioPaciente;
 public class CitaController extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
-   
+
 
     @Override
     protected void doGet(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
-       
+
         String cmd = request.getParameter("cmd");
-            
-        List<String> acciones = Arrays.asList("show","edit","add","list");            
-            
+
+        List<String> acciones = Arrays.asList("show","edit","add","list");
+
         if(acciones.contains(cmd)){
-                
+
                 if("list".equals(cmd)){
                      request.setAttribute("citas", ServicioCita.getInstancia().getListadoCitas());
                      request.getRequestDispatcher("app/cita/consultacitas.jsp").forward(request, response);
                  }
-                
+
                 if("show".equals(cmd)){
                      request.getRequestDispatcher("app/cita/vercita.jsp").forward(request, response);
                  }
-                 
+
                  request.setAttribute("doctores", ServicioDoctor.getInstancia().getListadoDoctores());
                  request.setAttribute("pacientes", ServicioPaciente.getInstancia().getListadoPacientes());
-                 
+
                  if("edit".equals(cmd)){
                      request.getRequestDispatcher("app/cita/editarcita.jsp").forward(request, response);
                  }
-                 
-                 
+
+
                  if("add".equals(cmd)){
                      request.getRequestDispatcher("app/cita/crearcita.jsp").forward(request, response);
                  }
-                 
-                 
+
+
         }
-          
+
     }
 
     @Override
@@ -88,16 +87,16 @@ public class CitaController extends HttpServlet {
         String razon = request.getParameter("inputRazon");
 
         Optional<Paciente> paciente = ServicioPaciente.getInstancia().getPacientePorId(Integer.valueOf(pacienteId));
-       
+
         String mensajeOperacion;
         String pathView;
         boolean isCreado = false;
-        
+
         if(id==null && (fecha==null || doctorId==null || pacienteId==null || razon ==null)){
-            
-           mensajeOperacion  = "Campos en blanco";         
+
+           mensajeOperacion  = "Campos en blanco";
         } else {
-            
+
                 Cita cita = new CitaBuilder()
                        .setRazon(razon)
                        .setDoctor(doctor.get())
@@ -107,12 +106,12 @@ public class CitaController extends HttpServlet {
 
                isCreado = ServicioCita.getInstancia().registrarCita(cita);
                mensajeOperacion = isCreado? "Registro agregado exitosamente":"No se pudo agregar el registro";
-   
+
         }
-            
+
          pathView =   isCreado?"app/cita/consultacitas.jsp":"app/cita/crearcita.jsp";
-         request.setAttribute("mensajeOperacion", mensajeOperacion);              
-         request.getRequestDispatcher(pathView).forward(request, response); 
+         request.setAttribute("mensajeOperacion", mensajeOperacion);
+         request.getRequestDispatcher(pathView).forward(request, response);
 
 
     }
