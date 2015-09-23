@@ -37,29 +37,41 @@ public class CitaController extends HttpServlet {
         String cmd = request.getParameter("cmd");
 
         List<String> acciones = Arrays.asList("show","edit","add","list");
-
+        
+        String id = request.getParameter("id");
+ 
         if(acciones.contains(cmd)){
 
                 if("list".equals(cmd)){
                      request.setAttribute("citas", ServicioCita.getInstancia().getListadoCitas());
                      request.getRequestDispatcher("app/cita/consultacitas.jsp").forward(request, response);
                  }
+                
+                
+                request.setAttribute("doctores", ServicioDoctor.getInstancia().getListadoDoctores());
+                request.setAttribute("pacientes", ServicioPaciente.getInstancia().getListadoPacientes());
+                
+                if("add".equals(cmd)){
+                    request.getRequestDispatcher("app/cita/crearcita.jsp").forward(request, response);
+                }
+                
+                if(null !=id){
+                    
+                    Optional<Cita> citaPorId = ServicioCita.getInstancia().getCitaPorId(Integer.parseInt(id));
+                    
+                    if(citaPorId.isPresent()){
+                      request.setAttribute("cita", citaPorId.get());
+                    }
+                    
+                    if("edit".equals(cmd)){
+                        request.getRequestDispatcher("app/cita/editarcita.jsp").forward(request, response);
+                    }
 
-                if("show".equals(cmd)){
+                    if("show".equals(cmd)){
                      request.getRequestDispatcher("app/cita/vercita.jsp").forward(request, response);
-                 }
-
-                 request.setAttribute("doctores", ServicioDoctor.getInstancia().getListadoDoctores());
-                 request.setAttribute("pacientes", ServicioPaciente.getInstancia().getListadoPacientes());
-
-                 if("edit".equals(cmd)){
-                     request.getRequestDispatcher("app/cita/editarcita.jsp").forward(request, response);
-                 }
-
-
-                 if("add".equals(cmd)){
-                     request.getRequestDispatcher("app/cita/crearcita.jsp").forward(request, response);
-                 }
+                    }
+                    
+                }
 
 
         }
@@ -111,6 +123,7 @@ public class CitaController extends HttpServlet {
 
          pathView =   isCreado?"app/cita/consultacitas.jsp":"app/cita/crearcita.jsp";
          request.setAttribute("mensajeOperacion", mensajeOperacion);
+         request.setAttribute("citas", ServicioCita.getInstancia().getListadoCitas());
          request.getRequestDispatcher(pathView).forward(request, response);
 
 

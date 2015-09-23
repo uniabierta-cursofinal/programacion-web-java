@@ -67,7 +67,7 @@ class ServicioCorreo{
 
         	generateMailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(creds.getMailID()));
             generateMailMessage.addRecipient(Message.RecipientType.CC, new InternetAddress(from));
-            generateMailMessage.setSubject(String.join(" ", "Mensaje formulario de contacto petcame from:",nombre));
+            generateMailMessage.setSubject(String.join(" ", "Mensaje formulario de contacto petcare from:",nombre));
             generateMailMessage.setContent(mensaje, "text/html");
 
         } catch (MessagingException ex) {

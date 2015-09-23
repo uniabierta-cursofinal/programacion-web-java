@@ -101,7 +101,8 @@ public class PacienteController extends HttpServlet {
             throws ServletException, IOException {
 
         String cmd = request.getParameter("cmd");
-
+        String id = request.getParameter("id");
+         
         List<String> acciones = Arrays.asList("show","edit","add","list");
 
         if(acciones.contains(cmd)){
@@ -109,22 +110,29 @@ public class PacienteController extends HttpServlet {
                     request.setAttribute("pacientes", ServicioPaciente.getInstancia().getListadoPacientes());
                     request.getRequestDispatcher("app/paciente/consultapacientes.jsp").forward(request, response);
                  }
-
-                 if("show".equals(cmd)){
-                     request.getRequestDispatcher("app/paciente/verpaciente.jsp").forward(request, response);
-                 }
-
-                  request.setAttribute("razas", ServicioRaza.getInstancia().getListadoRaza());
-
-                 if("edit".equals(cmd)){
-                     request.getRequestDispatcher("app/paciente/editarpaciente.jsp").forward(request, response);
-                 }
-
-
+                
                  if("add".equals(cmd)){
                      request.getRequestDispatcher("app/paciente/crearpaciente.jsp").forward(request, response);
                  }
+                 
+                 if(null !=id){
+                    Optional<Paciente> pacientePorId = ServicioPaciente.getInstancia().getPacientePorId(Integer.parseInt(id));
 
+                    if(pacientePorId.isPresent()){
+                        request.setAttribute("paciente", pacientePorId.get());
+                    }
+
+                    if("show".equals(cmd)){               
+
+                        request.getRequestDispatcher("app/paciente/verpaciente.jsp").forward(request, response);
+                    }
+
+                     request.setAttribute("razas", ServicioRaza.getInstancia().getListadoRaza());
+
+                    if("edit".equals(cmd)){
+                        request.getRequestDispatcher("app/paciente/editarpaciente.jsp").forward(request, response);
+                    }
+                 }
         }
     }
 

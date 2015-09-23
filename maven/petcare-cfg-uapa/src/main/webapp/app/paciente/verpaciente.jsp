@@ -16,7 +16,7 @@
 <form>
   <div class="form-group">
     <label for="inputNombre">Nombre</label>
-      <input type="text" class="form-control" id="inputNombre" disabled="disabled" name="inputNombre" placeholder="Nombre">
+    <input type="text" class="form-control" id="inputNombre" disabled="disabled" name="inputNombre" value="${paciente.getNombre()}">
   </div>
   <div class="form-group">
     <label for="inputGenero">Genero</label>
@@ -27,7 +27,7 @@
   </div>
    <div class="form-group">
     <label for="inputPeso">Peso</label>
-    <input type="number" class="form-control" id="inputPeso" disabled="disabled" name="inputPeso" placeholder="Peso">
+    <input type="number" class="form-control" id="inputPeso" disabled="disabled"  value="${paciente.getPeso()}">
   </div>
   <div class="form-group">
     <label for="inputFechaNac">Fecha Nacimiento</label>
@@ -42,7 +42,7 @@
 	 </select>
    </div>
    <div class="row">			
-            <div class="col-xs-12 col-md-6"><a href="${pageContext.request.contextPath}/PacienteController?cmd=edit" class="btn btn-success btn-block btn-lg">Editar Cuenta</a></div>
+            <div class="col-xs-12 col-md-6"><a href="${pageContext.request.contextPath}/PacienteController?cmd=edit&id=${paciente.getId()}" class="btn btn-success btn-block btn-lg">Editar Paciente</a></div>
 	</div>
 </form>
 </jsp:body>

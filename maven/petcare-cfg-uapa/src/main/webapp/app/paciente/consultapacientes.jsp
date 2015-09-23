@@ -16,7 +16,7 @@
 <br/>
 <table class="table table-bordered">
  
-    <tr><th>#</th><th>Nombre</th><th>Genero</th><th>Raza</th><th>Peso</th><th>Fecha Nacimiento</th></tr>
+    <tr><th>#</th><th>Nombre</th><th>Genero</th><th>Raza</th><th>Peso</th><th>Fecha Nacimiento</th><th></th></tr>
             <c:forEach items="${pacientes}" var="paciente">
                 <tr>
                 <td>${paciente.getId()}</td>
@@ -24,7 +24,8 @@
                 <td>${paciente.getGenero()}</td>
                 <td>${paciente.getRaza().getNombre()}</td>
                 <td>${paciente.getPeso()}</td>
-                <td>${paciente.getFecha_nacimiento()}</td>
+                <td>${paciente.getFechaNacimiento()}</td>
+                 <td><a href="${pageContext.request.contextPath}/PacienteController?cmd=show&id=${paciente.getId()}">Ver Paciente</a></td>
                 </tr>        
             </c:forEach>
 

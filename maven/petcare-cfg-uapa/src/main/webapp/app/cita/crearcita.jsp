@@ -43,7 +43,7 @@
    </div>
  
   <div class="row">
-			<div class="col-xs-12 col-md-6"><input type="submit" value="Acpetar" class="btn btn-primary btn-block btn-lg" tabindex="12"></div>
+			<div class="col-xs-12 col-md-6"><input type="submit" value="Aceptar" class="btn btn-primary btn-block btn-lg" tabindex="12"></div>
 			<div class="col-xs-12 col-md-6"><a href="${pageContext.request.contextPath}/CitaController?cmd=list" class="btn btn-info btn-block btn-lg">Cancelar</a></div> 
 	</div>
 </form>

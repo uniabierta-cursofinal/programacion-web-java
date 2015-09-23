@@ -13,8 +13,8 @@ public class Credenciales {
 
 	private String host;
 	private String puerto;
-	private boolean isAuth;
-	private boolean isSSL;
+	private final boolean isAuth;
+	private final boolean isSSL;
 	private String mailID;
 	private String password;
 

@@ -17,6 +17,7 @@
      </div>
  </c:if>
      <form method="post" action="${pageContext.request.contextPath}/CitaController">
+     <input type="hidden" name="id" value="${cita.getId()}"/>
   <div class="form-group">
     <label for="inputFecha">Fecha</label>
     <input type="date" class="form-control" id="inputFecha" name="inputFecha"  required>

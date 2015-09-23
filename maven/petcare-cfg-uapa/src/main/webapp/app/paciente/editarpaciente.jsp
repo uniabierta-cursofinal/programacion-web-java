@@ -14,10 +14,12 @@
      </div>
  </c:if>
 
-     <form method="post" action="${pageContext.request.contextPath}/PacienteController">
+<form method="post" action="${pageContext.request.contextPath}/PacienteController">
+  <input type="hidden" name="id" value="${paciente.getId()}"/>
+  
   <div class="form-group">
     <label for="inputNombre">Nombre</label>
-      <input type="text" class="form-control" id="inputNombre" name="inputNombre" placeholder="Nombre" required>
+      <input type="text" class="form-control" id="inputNombre" name="inputNombre" placeholder="Nombre"  value="${paciente.getNombre()}" required>
   </div>
   <div class="form-group">
     <label for="inputGenero">Genero</label>
@@ -28,7 +30,7 @@
   </div>
    <div class="form-group">
     <label for="inputPeso">Peso</label>
-    <input type="number" class="form-control" id="inputPeso" name="inputPeso" placeholder="Peso" required>
+    <input type="number" class="form-control" id="inputPeso" name="inputPeso" placeholder="Peso" value="${paciente.getPeso()}" required>
   </div>
   <div class="form-group">
     <label for="inputFechaNac">Fecha Nacimiento</label>
@@ -44,7 +46,7 @@
    </div>
   <div class="row">
 			<div class="col-xs-12 col-md-6"><input type="submit" value="Actualizar" class="btn btn-primary btn-block btn-lg" tabindex="12"></div>
-			<div class="col-xs-12 col-md-6"><a href="${pageContext.request.contextPath}/app/index.jsp" class="btn btn-success btn-block btn-lg">Cancelar</a></div> 
+			<div class="col-xs-12 col-md-6"><a href="${pageContext.request.contextPath}/PacienteController?cmd=list" class="btn btn-success btn-block btn-lg">Cancelar</a></div> 
 	</div>  
 </form>
 </jsp:body>

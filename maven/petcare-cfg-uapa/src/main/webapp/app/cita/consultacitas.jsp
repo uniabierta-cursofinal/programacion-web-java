@@ -24,14 +24,15 @@
  </c:if>
 <table class="table table-bordered">
  
-    <tr><th>#</th><th>Fecha</th><th>Doctor</th><th>Razon</th><th></th></tr>
+    <tr><th>#</th><th>Fecha</th><th>Doctor</th><th>Razon</th><th></th><th></th></tr>
             <c:forEach items="${citas}" var="cita">
                 <tr>
 	                <td>${cita.getId()}</td>
 	                <td>${cita.getFecha()}</td>
 	                <td>${cita.getDoctor().getNombre()} ${cita.getDoctor().getApellido()}</td>
 	                <td>${cita.getRazon()}</td>
-	                <td><a href="#">Ver Paciente</a></td>              
+	                <td><a href="${pageContext.request.contextPath}/CitaController?cmd=show&id=${cita.getId()}">Ver Cita</a></td>  
+                        <td><a href="${pageContext.request.contextPath}/PacienteController?cmd=show&id=${cita.getPaciente().getId()}">Ver Paciente</a></td>  
                 </tr>        
             </c:forEach>
 </table>
