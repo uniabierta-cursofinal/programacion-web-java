@@ -1,9 +1,15 @@
-  <jsp:include page="template/header.jsp"/>     
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page session="false"%>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<t:public>
+<jsp:attribute name="title">Sobre Nosotros</jsp:attribute>
+ <jsp:body> 
 <div class="container">
             <h1>PetCare</h1>
             <p class="lead">
 
-               PetCare es una aplicaciÛn demo con fines demostrar conceptos b·sicos en el desarrollo de aplicaciones web en Java.
+               PetCare es una aplicaci√≥n demo con fines demostrar conceptos b√°sicos en el desarrollo de aplicaciones web en Java.
             </p> 
             
         </div>
@@ -35,7 +41,7 @@
             </div>
         </div>
         <div>
-            <h2>CaracterÌsticas Adicionales</h2>
+            <h2>Caracter√≠sticas Adicionales</h2>
             <p>La plantilla base es una combinacion de las plantillas carousel y jumbotron de Twitter Bootstrap (Twitter Bootstrap 3.1.1)</p>
             
             
@@ -53,4 +59,5 @@
         </ul>
     </div>
 
-<jsp:include page="template/footer.jsp"/>
+</jsp:body>
+</t:public>

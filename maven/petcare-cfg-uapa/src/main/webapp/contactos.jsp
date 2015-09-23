@@ -1,5 +1,10 @@
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page session="false"%>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<jsp:include page="template/header.jsp"/> 
+<t:public>
+<jsp:attribute name="title">Contactos</jsp:attribute>
+ <jsp:body>
     <div class="container">
   
         <div>
@@ -37,7 +42,7 @@
       <div class="form-group">
         <label for="InputEmail">Email</label>
         <div class="input-group">
-          <input type="email" class="form-control" id="InputEmail" name="inputEmail" placeholder="Correo Electrónico" required  >
+          <input type="email" class="form-control" id="InputEmail" name="inputEmail" placeholder="Correo ElectrÃ³nico" required  >
           <span class="input-group-addon"><i class="glyphicon glyphicon-ok form-control-feedback"></i></span></div>
       </div>
       <div class="form-group">
@@ -59,13 +64,12 @@
   <hr class="featurette-divider hidden-lg">
   <div class="col-lg-5 col-md-push-1">
     <address>
-    <h3>Ubicación</h3>
+    <h3>UbicaciÃ³n</h3>
     <p class="lead"><a href="https://www.google.com/maps/@19.4398451,-70.6730233,12z" target="_blank">Santiago de los Caballeros<br>
 Av. Hispanoamericana</a><br>
       Telefono: XXX-XXX-XXXX
     </address>
   </div>
 </div>
-
-
-  <jsp:include page="template/footer.jsp"/>
+</jsp:body>
+</t:public>

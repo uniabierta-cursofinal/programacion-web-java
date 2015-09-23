@@ -3,7 +3,7 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@attribute name="title" required="false" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
-	<title>Petcare | <c:out value="${!empty title ? title : ''}"/></title>    
+	<title>Petcare | <c:out value="${!empty title ? title : ''}"/></title>
 
     <!-- Bootstrap core CSS -->
     <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
@@ -73,13 +73,13 @@
             <li><a href="${pageContext.request.contextPath}/AdminController?cmd=raza">Razas</a></li>
           </ul>
           <ul class="nav nav-sidebar">
-            <li><a href="${pageContext.request.contextPath}/AdminController?cmd=doctor">Doctores</a></li>            
+            <li><a href="${pageContext.request.contextPath}/AdminController?cmd=doctor">Doctores</a></li>
           </ul>
           <ul class="nav nav-sidebar">
             <li><a href="${pageContext.request.contextPath}/ClienteController?cmd=show">Mi Cuenta</a></li>
             <li><a href="${pageContext.request.contextPath}/ClienteController?cmd=edit">Editar Cuenta</a></li>
-            <li><a href="${pageContext.request.contextPath}/ClienteController?cmd=chpass">Cambiar Contraseña</a></li>     
-            <li><a href="${pageContext.request.contextPath}/LogoutServlet">Salir</a></li>                 
+            <li><a href="${pageContext.request.contextPath}/ClienteController?cmd=chpass">Cambiar Contraseña</a></li>
+            <li><a href="${pageContext.request.contextPath}/LogoutServlet">Salir</a></li>
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -96,5 +96,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/docs.min.js"></script>
+<%--     <script src="${pageContext.request.contextPath}/js/modernizr.js"></script> --%>
   </body>
 </html>

@@ -1,4 +1,10 @@
-<jsp:include page="template/header.jsp"/>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page session="false"%>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<t:public>
+<jsp:attribute name="title">Portada</jsp:attribute>
+ <jsp:body>
 <!-- Jumbotron -->
 <!-- Implementar templates carousel y jumbotron
  -->
@@ -30,8 +36,8 @@
           <div class="container">
             <div class="carousel-caption">
               <h1>Personal Especializado</h1>
-              <p>Conoce m·s sobre los servicios que ofrecemos y sobre cada uno de nuestro personal.</p>
-              <p><a class="btn btn-lg btn-primary" href="${pageContext.request.contextPath}/about.jsp" role="button">Leer m·s</a></p>
+              <p>Conoce m√°s sobre los servicios que ofrecemos y sobre cada uno de nuestro personal.</p>
+              <p><a class="btn btn-lg btn-primary" href="${pageContext.request.contextPath}/about.jsp" role="button">Leer m√°s</a></p>
             </div>
           </div>
         </div>
@@ -39,7 +45,7 @@
           <img class="third-slide" src="images/slides/slide3.jpg" alt="Third slide">
           <div class="container">
             <div class="carousel-caption">
-              <h1>Su alegrÌa, es nuestra mayor sastifaciÛn.</h1>
+              <h1>Su alegr√≠a, es nuestra mayor sastifaci√≥n.</h1>
             </div>
           </div>
         </div>
@@ -67,14 +73,15 @@
         </div>
         <div class="col-md-4">
           <h2>Sobre Nosotros</h2>
-          <p>Conoce m·s sobre los servicios que ofrecemos y sobre cada uno de nuestro personal. </p>
-          <p><a class="btn btn-default btn-lg active" href="${pageContext.request.contextPath}/about.jsp" role="button">Leer m·s</a></p>
+          <p>Conoce m√°s sobre los servicios que ofrecemos y sobre cada uno de nuestro personal. </p>
+          <p><a class="btn btn-default btn-lg active" href="${pageContext.request.contextPath}/about.jsp" role="button">Leer m√°s</a></p>
        </div>
         <div class="col-md-4">
-          <h2>Cont·ctenos</h2>
-          <p>Entre en contacto con nosotros. EscrÌbenos tus sugerencias o comentarios y en la mayor brevedad un representante se pondr· en contacto con usted</p>
+          <h2>Cont√°ctenos</h2>
+          <p>Entre en contacto con nosotros. Escr√≠benos tus sugerencias o comentarios y en la mayor brevedad un representante se pondr√° en contacto con usted</p>
           <p><a class="btn btn-default btn-lg active" href="${pageContext.request.contextPath}/contactos.jsp" role="button">Formulario de Contacto</a></p>
         </div>
       </div>
 
-<jsp:include page="template/footer.jsp"/>
+</jsp:body>
+</t:public>
