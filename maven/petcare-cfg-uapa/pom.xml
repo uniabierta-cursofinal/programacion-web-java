@@ -45,8 +45,13 @@
  
         <dependency>
             <groupId>javax.mail</groupId>
-           <artifactId>javax.mail-api</artifactId>
+            <artifactId>javax.mail-api</artifactId>
             <version>1.5.2</version>
+        </dependency>
+        <dependency>
+            <groupId>displaytag</groupId>
+            <artifactId>displaytag</artifactId>
+            <version>1.2</version>
         </dependency>
     </dependencies>
 

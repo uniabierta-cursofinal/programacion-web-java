@@ -103,3 +103,7 @@ body {
   display: inline-block;
   border-radius: 50%;
 }
+th {
+    background-color: #428BCA;
+    color: white;
+}
