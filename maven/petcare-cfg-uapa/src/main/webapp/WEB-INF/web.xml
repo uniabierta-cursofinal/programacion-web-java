@@ -11,6 +11,7 @@
          <filter-name>AuthenticationFilter</filter-name> 
          <filter-class>org.cursofinalgrado.java.petcare.cfg.uapa.filtros.AuthenticationFilter</filter-class> 
      </filter>
+     
     <filter-mapping>
         <filter-name>RequestLoggingFilter</filter-name>
         <url-pattern>/*</url-pattern>

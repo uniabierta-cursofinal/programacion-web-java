@@ -1,6 +1,6 @@
 <%@tag description="Default Page template" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@attribute name="title" required="false" %>
 <!DOCTYPE html>
 <html lang="en" class="no-js">
