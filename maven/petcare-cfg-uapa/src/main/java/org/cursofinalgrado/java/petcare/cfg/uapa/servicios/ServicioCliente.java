@@ -8,10 +8,12 @@ import java.sql.SQLException;
 import java.text.MessageFormat;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.cursofinalgrado.java.petcare.cfg.uapa.entidades.Cliente;
 import org.cursofinalgrado.java.petcare.cfg.uapa.entidades.ClienteBuilder;
+import org.cursofinalgrado.java.petcare.cfg.uapa.entidades.Pais;
 import org.cursofinalgrado.java.petcare.cfg.uapa.utilidades.PetCareException;
 import org.cursofinalgrado.java.petcare.cfg.uapa.utilidades.Util;
 
@@ -30,13 +32,13 @@ public class ServicioCliente extends ServicioPersistenciaBase{
 	}
 
 	public List<Cliente> getListadoClientes(){
-		return consultarTodas("select * from petcare.cliente order by id asc", new ClienteBuilder()::creaCliente);
+		return consultarTodas("select * from petcare.cliente order by id asc", (rs)->buildCliente(rs));
 	}
 
 	public Optional<Cliente> getClientePorId(int id){
 	        return  consultarPorId("select * from petcare.cliente where id=?",
 	                                id,
-	                                new ClienteBuilder()::creaCliente);
+	                                (rs)->buildCliente(rs));
 	}
 
 	 public Optional<Cliente> validarCliente(String usuario, String pass) {
@@ -55,7 +57,7 @@ public class ServicioCliente extends ServicioPersistenciaBase{
 
 		                if (rs.next()) {
 
-		                	opUsuario = Optional.ofNullable(new ClienteBuilder().creaCliente(rs));
+		                	opUsuario = Optional.ofNullable(buildCliente(rs));
 		                }
 		            }
 		        }
@@ -133,12 +135,12 @@ public class ServicioCliente extends ServicioPersistenciaBase{
 
 		return estado;
 	 }
-    
+
      public boolean cambiarContrasena(Cliente cliente){
 
                  String sql = new StringBuilder(65)
                         .append(" UPDATE petcare.cliente ")
-                        .append(" SET ")                       
+                        .append(" SET ")
                         .append(" clave = ? ")
                         .append(" WHERE id = ?")
                         .toString();
@@ -147,10 +149,10 @@ public class ServicioCliente extends ServicioPersistenciaBase{
 
             try (Connection con = getConeccion()) {
 	            try (PreparedStatement pstmt = con.prepareStatement(sql)) {
-	            	
-                        pstmt.setString(1, Util.toMD5(cliente.getClave()));	         
+
+                        pstmt.setString(1, Util.toMD5(cliente.getClave()));
 	            	pstmt.setInt(2, cliente.getId());
-                        
+
 	            	pstmt.execute();
 	            	estado = true;
 
@@ -162,4 +164,33 @@ public class ServicioCliente extends ServicioPersistenciaBase{
 
 		return estado;
 	 }
+
+     private Cliente buildCliente(ResultSet rs){
+
+     	Cliente cliente = null;
+
+ 		try {
+ 				Optional<Pais> opPais = ServicioPais.getInstancia().getPaisPorId(rs.getInt("pais_id"));
+
+
+ 				cliente =	new ClienteBuilder()
+			 				.setId(rs.getInt("id"))
+			 				.setNombre(rs.getString("nombre"))
+			 				.setApellido(rs.getString("apellido"))
+			 				.setTelefono(rs.getString("telefono"))
+			 				.setCalle(rs.getString("calle"))
+			 				.setApartamento(rs.getString("apartamento"))
+			 				.setCiudad(rs.getString("ciudad"))
+			 				.setPais(opPais.get())
+			 				.setUsuario(rs.getString("usuario"))
+			 				.setClave(rs.getString("clave"))
+			 				.crearCliente();
+
+
+ 		} catch (SQLException ex) {
+ 		    Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+ 		}
+
+     	return cliente;
+     }
 }

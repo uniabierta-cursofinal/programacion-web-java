@@ -2,6 +2,7 @@ package org.cursofinalgrado.java.petcare.cfg.uapa.servicios;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
@@ -28,27 +29,27 @@ public class ServicioDoctor extends ServicioPersistenciaBase {
     }
 
     public List<Doctor> getListadoDoctores() {
-        return consultarTodas("select * from petcare.doctor order by id asc", new DoctorBuilder()::crearDoctor);
+        return consultarTodas("select * from petcare.doctor order by id asc", (rs)->BuildDoctor(rs));
 
     }
 
     public Optional<Doctor> getDoctorPorId(int id) {
         return consultarPorId("select * from petcare.doctor where id=?",
                 id,
-                new DoctorBuilder()::crearDoctor);
+                (rs)->BuildDoctor(rs));
     }
 
     public boolean registrarDoctor(Doctor doctor) {
-        
+
         String sql = "INSERT INTO petcare.doctor (nombre,apellido) VALUES(?,?)";
         boolean estado;
-        
+
         try (Connection con = getConeccion()) {
             try (PreparedStatement pstmt = con.prepareStatement(sql)) {
                 pstmt.setString(1, doctor.getNombre());
                 pstmt.setString(2, doctor.getApellido());
                 pstmt.execute();
-                
+
                 estado = true;
 
             }
@@ -56,7 +57,7 @@ public class ServicioDoctor extends ServicioPersistenciaBase {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
             estado = false;
         }
-        
+
        	return estado;
      }
 
@@ -82,6 +83,25 @@ public class ServicioDoctor extends ServicioPersistenciaBase {
 
 		return estado;
 
+    }
+
+    private Doctor BuildDoctor(ResultSet rs) {
+
+    	Doctor doctor = null;
+
+		try {
+
+			 doctor = new DoctorBuilder()
+						.setId(rs.getInt("id"))
+						.setNombre(rs.getString("nombre"))
+						.setApellido(rs.getString("apellido"))
+						.crearDoctor();
+
+		} catch (SQLException ex) {
+			 Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+		}
+
+        return doctor;
     }
 
 }

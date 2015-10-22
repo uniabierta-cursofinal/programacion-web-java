@@ -3,14 +3,19 @@ package org.cursofinalgrado.java.petcare.cfg.uapa.servicios;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.MessageFormat;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.cursofinalgrado.java.petcare.cfg.uapa.entidades.Cliente;
 import org.cursofinalgrado.java.petcare.cfg.uapa.entidades.Paciente;
 import org.cursofinalgrado.java.petcare.cfg.uapa.entidades.PacienteBuilder;
+import org.cursofinalgrado.java.petcare.cfg.uapa.entidades.Raza;
 import org.cursofinalgrado.java.petcare.cfg.uapa.utilidades.PetCareException;
 
 /**
@@ -29,13 +34,13 @@ public class ServicioPaciente extends ServicioPersistenciaBase {
     }
 
     public List<Paciente> getListadoPacientes() {
-        return consultarTodas("select * from petcare.paciente order by id asc", new PacienteBuilder()::crearPaciente);
+        return consultarTodas("select * from petcare.paciente order by id asc", (rs)->buildPaciente(rs));
     }
 
     public Optional<Paciente> getPacientePorId(int id) {
         return consultarPorId("select * from petcare.paciente where id=?",
                 id,
-                new PacienteBuilder()::crearPaciente);
+                (rs)->buildPaciente(rs));
     }
 
 	public boolean crearPaciente(Paciente paciente){
@@ -52,7 +57,7 @@ public class ServicioPaciente extends ServicioPersistenciaBase {
 	                pstmt.setInt(4, paciente.getRaza().getId());
 	                pstmt.setDate(5, Date.valueOf(paciente.getFechaNacimiento()));
 	                pstmt.setInt(6, paciente.getPeso());
-	               
+
 
 	                pstmt.execute();
 	            	estado = true;
@@ -69,7 +74,7 @@ public class ServicioPaciente extends ServicioPersistenciaBase {
 	public List<Paciente> getPacientesPorClienteId(int idCliente){
 		return consultarTodasPorId("select * from petcare.paciente where cliente_id=? order by id asc",
 				 idCliente,
-				 new PacienteBuilder()::crearPaciente);
+				 (rs)->buildPaciente(rs));
 	}
 
 
@@ -96,6 +101,34 @@ public class ServicioPaciente extends ServicioPersistenciaBase {
             Logger.getLogger(getClass().getName()).info(MessageFormat.format("Error en el SQl{0}", ex.getMessage()));
         }
 
+    }
+
+    private Paciente buildPaciente(ResultSet rs){
+
+    	Paciente paciente = null;
+
+    	try {
+
+    		Optional<Raza> raza = ServicioRaza.getInstancia().getRazaPorId(rs.getInt("raza_id"));
+    		Optional<Cliente> cliente = ServicioCliente.getInstancia().getClientePorId(rs.getInt("cliente_id"));
+
+                  LocalDate fechaNac = rs.getDate("fecha_nacimiento").toLocalDate();
+
+                  paciente =  new PacienteBuilder()
+			                  .setId(rs.getInt("id"))
+			                  .setCliente(cliente.get())
+			                  .setNombre(rs.getString("nombre"))
+			                  .setGenero(rs.getString("genero"))
+			                  .setRaza(raza.get())
+			                  .setFechaNacimiento(fechaNac)
+			                  .setPeso(rs.getInt("peso"))
+			                  .crearPaciente();
+
+		} catch (SQLException ex) {
+			 Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+		}
+
+        return paciente;
     }
 
 }
