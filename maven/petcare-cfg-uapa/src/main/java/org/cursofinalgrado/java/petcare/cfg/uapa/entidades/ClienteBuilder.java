@@ -1,12 +1,5 @@
 package org.cursofinalgrado.java.petcare.cfg.uapa.entidades;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Optional;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import org.cursofinalgrado.java.petcare.cfg.uapa.servicios.ServicioPais;
 
 /**
  *
@@ -77,28 +70,6 @@ public class ClienteBuilder {
 
     public Cliente crearCliente() {
         return Cliente.crearCliente(id, nombre, apellido, telefono, calle, apartamento, ciudad, pais, usuario, clave);
-    }
-
-    public Cliente creaCliente(ResultSet rs){
-
-    	Cliente cliente = null;    	
-
-		try {
-				Optional<Pais> opPais = ServicioPais.getInstancia().getPaisPorId(rs.getInt("pais_id"));
-                                
-				cliente = Cliente.crearCliente(rs.getInt("id"), 
-                                                            rs.getString("nombre"), rs.getString("apellido"), 
-                                                            rs.getString("telefono"), rs.getString("calle"),
-                                                            rs.getString("apartamento"), rs.getString("ciudad"),
-                                                            opPais.get(), rs.getString("usuario"),
-                                                            rs.getString("clave"));
-
-		} catch (SQLException ex) {
-		    Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
-		}
-
-
-    	return cliente;
     }
 
 }

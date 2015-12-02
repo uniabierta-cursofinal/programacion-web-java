@@ -2,15 +2,20 @@ package org.cursofinalgrado.java.petcare.cfg.uapa.servicios;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.MessageFormat;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.cursofinalgrado.java.petcare.cfg.uapa.entidades.Cita;
 import org.cursofinalgrado.java.petcare.cfg.uapa.entidades.CitaBuilder;
+import org.cursofinalgrado.java.petcare.cfg.uapa.entidades.Doctor;
+import org.cursofinalgrado.java.petcare.cfg.uapa.entidades.Paciente;
 import org.cursofinalgrado.java.petcare.cfg.uapa.utilidades.PetCareException;
 
 /**
@@ -29,13 +34,13 @@ public class ServicioCita extends ServicioPersistenciaBase {
     }
 
     public List<Cita> getListadoCitas() {
-        return consultarTodas("select * from petcare.cita order by id asc", new CitaBuilder()::crearCita);
+        return consultarTodas("select * from petcare.cita order by id asc", (rs)->BuildCita(rs));
     }
 
     public Optional<Cita> getCitaPorId(int id) {
         return consultarPorId("select * from petcare.cita where id=?",
                 id,
-                new CitaBuilder()::crearCita);
+                (rs)->BuildCita(rs));
     }
 
     public boolean registrarCita(Cita cita) {
@@ -84,5 +89,32 @@ public class ServicioCita extends ServicioPersistenciaBase {
         }
 
     }
+
+    private Cita BuildCita(ResultSet rs) {
+
+    	Cita cita = null;
+
+    	try {
+
+    		Optional<Paciente> paciente = ServicioPaciente.getInstancia().getPacientePorId(rs.getInt("paciente_id"));
+    		Optional<Doctor> doctor = ServicioDoctor.getInstancia().getDoctorPorId(rs.getInt("doctor_id"));
+
+                LocalDateTime fechaCita = rs.getTimestamp("fecha").toLocalDateTime();
+
+            	cita =  new CitaBuilder()
+	                .setId(rs.getInt("id"))
+	                .setFecha(fechaCita)
+	                .setPaciente(paciente.get())
+	                .setDoctor(doctor.get())
+	                .setRazon(rs.getString("razon"))
+	                .crearCita();
+
+		} catch (SQLException ex) {
+			 Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+		}
+
+        return cita;
+    }
+
 
 }

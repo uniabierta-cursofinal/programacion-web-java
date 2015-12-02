@@ -1,9 +1,5 @@
 package org.cursofinalgrado.java.petcare.cfg.uapa.entidades;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -34,18 +30,5 @@ public class DoctorBuilder {
         return Doctor.crearDoctor(id, nombre, apellido);
     }
 
-    public Doctor crearDoctor(ResultSet rs) {
 
-    	Doctor doctor = null;
-
-		try {
-
-			 doctor = Doctor.crearDoctor(rs.getInt("id"), rs.getString("nombre"), rs.getString("apellido") );
-
-		} catch (SQLException ex) {
-			 Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
-		}
-
-        return doctor;
-    }
 }

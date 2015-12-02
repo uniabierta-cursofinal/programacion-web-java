@@ -1,7 +1,12 @@
 package org.cursofinalgrado.java.petcare.cfg.uapa.servicios;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.cursofinalgrado.java.petcare.cfg.uapa.entidades.Pais;
 import org.cursofinalgrado.java.petcare.cfg.uapa.entidades.PaisBuilder;
 
@@ -21,14 +26,31 @@ public class ServicioPais extends ServicioPersistenciaBase {
 
     public List<Pais> getListadoPais() {
 
-        return consultarTodas("select * from petcare.pais order by id asc", new PaisBuilder()::crearPais);
+        return consultarTodas("select * from petcare.pais order by id asc", (rs)->buildPais(rs));
     }
 
     public Optional<Pais> getPaisPorId(int id) {
 
         return consultarPorId("select * from pais where id=?",
                 id,
-                new PaisBuilder()::crearPais);
+                (rs)->buildPais(rs));
 
+    }
+
+    private Pais buildPais(ResultSet rs) {
+        Pais pais = null;
+
+        try {
+
+        	 pais = new PaisBuilder()
+        	.setId(rs.getInt("id"))
+        	.setDescripcion(rs.getString("descripcion"))
+        	.crearPais();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(PaisBuilder.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return pais;
     }
 }

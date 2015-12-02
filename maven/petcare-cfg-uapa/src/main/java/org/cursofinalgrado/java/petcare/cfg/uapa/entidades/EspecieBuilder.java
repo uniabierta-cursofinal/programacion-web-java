@@ -1,9 +1,5 @@
 package org.cursofinalgrado.java.petcare.cfg.uapa.entidades;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -26,18 +22,6 @@ public class EspecieBuilder {
 
     public Especie crearEspecie() {
         return Especie.crearEspecie(id, nombre);
-    }
-
-    public Especie crearEspecie(ResultSet rs) {
-
-    	Especie especie = null;
-
-        try {
-        	especie = Especie.crearEspecie(rs.getInt("id"), rs.getString("nombre"));
-        } catch (SQLException ex) {
-            Logger.getLogger(EspecieBuilder.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return especie;
     }
 
 }

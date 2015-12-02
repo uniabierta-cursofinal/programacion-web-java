@@ -1,9 +1,5 @@
 package org.cursofinalgrado.java.petcare.cfg.uapa.entidades;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -26,18 +22,6 @@ public class PaisBuilder {
 
     public Pais crearPais() {
         return Pais.crearPais(id, descripcion);
-    }
-
-    public Pais crearPais(ResultSet rs) {
-        Pais pais = null;
-
-        try {
-            pais = Pais.crearPais(rs.getInt("id"), rs.getString("descripcion"));
-        } catch (SQLException ex) {
-            Logger.getLogger(PaisBuilder.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return pais;
     }
 
 }
