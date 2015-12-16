@@ -26,71 +26,71 @@ import org.cursofinalgrado.java.petcare.cfg.uapa.servicios.ServicioRaza;
 public class AdminController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-        
+
         private static final String ADMIN_PAGE_DOCTOR    =    "app/admin/doctor.jsp";
         private static final String ADMIN_PAGE_PACIENTE    =    "app/admin/paciente.jsp";
         private static final String ADMIN_PAGE_CLIENTE     =    "app/admin/cliente.jsp";
         private static final String ADMIN_PAGE_CITA        =    "app/admin/cita.jsp";
         private static final String ADMIN_PAGE_ESPECIE      =    "app/admin/especie.jsp";
         private static final String ADMIN_PAGE_PAIS        =     "app/admin/pais.jsp";
-        private static final String ADMIN_PAGE_RAZA       =     "app/admin/raza.jsp";        
-        
+        private static final String ADMIN_PAGE_RAZA       =     "app/admin/raza.jsp";
+
 
 	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-            
-               String cmd = request.getParameter("cmd");           
-              
-               
+
+               String cmd = request.getParameter("cmd");
+
+
                switch(cmd){
                    case "doctor":
                          setInfomacionPagina(request, response, "doctores",
-                                 ADMIN_PAGE_DOCTOR, 
+                                 ADMIN_PAGE_DOCTOR,
                                  ServicioDoctor.getInstancia().getListadoDoctores());
                        break;
-                       
+
                    case "paciente":
                        setInfomacionPagina(request, response, "pacientes",
-                               ADMIN_PAGE_PACIENTE, 
+                               ADMIN_PAGE_PACIENTE,
                                ServicioPaciente.getInstancia().getListadoPacientes());
                        break;
-                       
+
                    case "cliente":
                        setInfomacionPagina(request, response, "clientes",
-                               ADMIN_PAGE_CLIENTE, 
+                               ADMIN_PAGE_CLIENTE,
                                ServicioCliente.getInstancia().getListadoClientes());
                        break;
                    case "cita":
                        setInfomacionPagina(request, response, "citas",
-                               ADMIN_PAGE_CITA, 
+                               ADMIN_PAGE_CITA,
                                ServicioCita.getInstancia().getListadoCitas());
                        break;
                    case "especie":
                        setInfomacionPagina(request, response, "especies",
-                               ADMIN_PAGE_ESPECIE, 
+                               ADMIN_PAGE_ESPECIE,
                                ServicioEspecie.getInstancia().getListadoEspecie());
                        break;
                    case "pais":
                        setInfomacionPagina(request, response, "paises",
-                               ADMIN_PAGE_PAIS, 
+                               ADMIN_PAGE_PAIS,
                                ServicioPais.getInstancia().getListadoPais());
                        break;
                    case "raza":
                        setInfomacionPagina(request, response, "razas",
-                               ADMIN_PAGE_RAZA, 
+                               ADMIN_PAGE_RAZA,
                                 ServicioRaza.getInstancia().getListadoRaza());
                        break;
                    default:
-                           
-               }                
-                
+
+               }
+
 	}
-        
-        
+
+
         private <T> void setInfomacionPagina(HttpServletRequest request,
 			HttpServletResponse response, String atributo, String pagina, List<T> atributoValor ) throws ServletException, IOException{
-                  
+
 		   request.setAttribute(atributo, atributoValor);
                    request.getRequestDispatcher(pagina).forward(request, response);
         }
@@ -111,22 +111,22 @@ public class AdminController extends HttpServlet {
 					     	.setNombre(nombre)
 					     	.setApellido(apellido)
 					     	.crearDoctor();
-            
-           
+
+
             String mensajeOperacion;
-            
+
             if(nombre==null || apellido ==null){
-                mensajeOperacion  = "Campos en blanco";         
+                mensajeOperacion  = "Campos en blanco";
             }else {
                  boolean isCreado = ServicioDoctor.getInstancia().registrarDoctor(doctor);
-                 
+
                  mensajeOperacion = isCreado? "Registro agregado exitosamente":"No se pudo agregar el registro";
             }
-    
-            request.setAttribute("mensajeOperacion", mensajeOperacion);              
+
+            request.setAttribute("mensajeOperacion", mensajeOperacion);
             setInfomacionPagina(request, response, "doctores",
-                                 ADMIN_PAGE_DOCTOR, 
-                                 ServicioDoctor.getInstancia().getListadoDoctores());                    
+                                 ADMIN_PAGE_DOCTOR,
+                                 ServicioDoctor.getInstancia().getListadoDoctores());
 
 	}
 

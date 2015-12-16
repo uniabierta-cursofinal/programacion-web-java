@@ -4,8 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.cursofinalgrado.java.petcare.cfg.uapa.entidades.Especie;
 import org.cursofinalgrado.java.petcare.cfg.uapa.entidades.EspecieBuilder;
@@ -34,22 +32,12 @@ public class ServicioEspecie extends ServicioPersistenciaBase{
                               (rs)->crearEspecie(rs));
     }
 
-    private Especie crearEspecie(ResultSet rs) {
+    private Especie crearEspecie(ResultSet rs) throws SQLException {
 
-    	Especie especie = null;
-
-        try {
-
-        	     especie = new EspecieBuilder()
+    	return new EspecieBuilder()
 	        	.setId(rs.getInt("id"))
 	        	.setNombre(rs.getString("nombre"))
 	        	.crearEspecie();
-
-
-        } catch (SQLException ex) {
-            Logger.getLogger(EspecieBuilder.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return especie;
     }
 
 }

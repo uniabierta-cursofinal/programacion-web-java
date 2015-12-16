@@ -9,7 +9,6 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Function;
 import java.util.logging.Logger;
 
 import javax.naming.Context;
@@ -17,6 +16,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import org.cursofinalgrado.java.petcare.cfg.uapa.utilidades.FunctionCE;
 import org.cursofinalgrado.java.petcare.cfg.uapa.utilidades.PetCareException;
 
 /**
@@ -49,7 +49,7 @@ public abstract class ServicioPersistenciaBase {
         return con;
     }
 
-    protected <T> List<T> consultarTodas(String sql, Function<ResultSet,T> function) {
+    protected <T, X extends Exception> List<T> consultarTodas(String sql, FunctionCE<ResultSet,T, X> function) {
 
         final List<T> list = new ArrayList<>();
         try (Connection con = getConeccion()) {
@@ -61,23 +61,22 @@ public abstract class ServicioPersistenciaBase {
                         list.add(function.apply(rs));
                     }
                 }
-
             }
-        } catch (SQLException | PetCareException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(getClass().getName()).info(MessageFormat.format("Error en el SQl{0}", ex.getMessage()));
         }
 
         return list;
     }
 
-    protected <T> List<T> consultarTodasPaginacion(String sql, int offset, int noOfRecords,  Function<ResultSet,T> function) {
+    protected <T, X extends Exception> List<T> consultarTodasPaginacion(String sql, int offset, int noOfRecords,  FunctionCE<ResultSet,T, X> function) {
 
         final List<T> list = new ArrayList<>();
         try (Connection con = getConeccion()) {
             try (PreparedStatement pstmt = con.prepareStatement(sql)) {
                 pstmt.setInt(1, offset);
                 pstmt.setInt(2, noOfRecords);
-                
+
                 try (ResultSet rs = pstmt.executeQuery(sql)) {
 
                     while (rs.next()) {
@@ -87,14 +86,14 @@ public abstract class ServicioPersistenciaBase {
                 }
 
             }
-        } catch (SQLException | PetCareException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(getClass().getName()).info(MessageFormat.format("Error en el SQl{0}", ex.getMessage()));
         }
 
         return list;
     }
-    
-    protected <T> List<T> consultarTodasPorId(String sql, Integer idEntidad, Function<ResultSet, T> function) {
+
+    protected <T, X extends Exception> List<T> consultarTodasPorId(String sql, Integer idEntidad,  FunctionCE<ResultSet,T, X> function) {
 
     	 final List<T> list = new ArrayList<>();
 
@@ -111,14 +110,14 @@ public abstract class ServicioPersistenciaBase {
                      }
                  }
              }
-         } catch (SQLException | PetCareException ex) {
+         } catch (Exception ex) {
         	 Logger.getLogger(ServicioPersistenciaBase.class.getName()).info(MessageFormat.format("Error en el SQl{0}", ex.getMessage()));
          }
 
         return list;
     }
 
-    protected <T> Optional<T> consultarPorId(String sql, Integer idEntidad, Function<ResultSet, T> function) {
+    protected <T, X extends Exception> Optional<T> consultarPorId(String sql, Integer idEntidad,  FunctionCE<ResultSet,T, X> function) {
 
        Optional<T> opEntidad = Optional.empty();
 
@@ -133,7 +132,7 @@ public abstract class ServicioPersistenciaBase {
                       opEntidad  =  Optional.of(function.apply(rs));
                 }
             }
-        } catch (SQLException | PetCareException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(ServicioPersistenciaBase.class.getName()).info(MessageFormat.format("Error en el SQl{0}", ex.getMessage()));
             return opEntidad;
         }

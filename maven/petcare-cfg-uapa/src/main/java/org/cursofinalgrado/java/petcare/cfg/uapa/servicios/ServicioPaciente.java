@@ -9,7 +9,6 @@ import java.text.MessageFormat;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.cursofinalgrado.java.petcare.cfg.uapa.entidades.Cliente;
@@ -103,18 +102,14 @@ public class ServicioPaciente extends ServicioPersistenciaBase {
 
     }
 
-    private Paciente buildPaciente(ResultSet rs){
-
-    	Paciente paciente = null;
-
-    	try {
+    private Paciente buildPaciente(ResultSet rs) throws SQLException{
 
     		Optional<Raza> raza = ServicioRaza.getInstancia().getRazaPorId(rs.getInt("raza_id"));
     		Optional<Cliente> cliente = ServicioCliente.getInstancia().getClientePorId(rs.getInt("cliente_id"));
 
-                  LocalDate fechaNac = rs.getDate("fecha_nacimiento").toLocalDate();
+             LocalDate fechaNac = rs.getDate("fecha_nacimiento").toLocalDate();
 
-                  paciente =  new PacienteBuilder()
+             return new PacienteBuilder()
 			                  .setId(rs.getInt("id"))
 			                  .setCliente(cliente.get())
 			                  .setNombre(rs.getString("nombre"))
@@ -124,11 +119,7 @@ public class ServicioPaciente extends ServicioPersistenciaBase {
 			                  .setPeso(rs.getInt("peso"))
 			                  .crearPaciente();
 
-		} catch (SQLException ex) {
-			 Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
-		}
 
-        return paciente;
     }
 
 }

@@ -9,7 +9,6 @@ import java.text.MessageFormat;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.cursofinalgrado.java.petcare.cfg.uapa.entidades.Cita;
@@ -90,18 +89,14 @@ public class ServicioCita extends ServicioPersistenciaBase {
 
     }
 
-    private Cita BuildCita(ResultSet rs) {
-
-    	Cita cita = null;
-
-    	try {
+    private Cita BuildCita(ResultSet rs) throws SQLException {
 
     		Optional<Paciente> paciente = ServicioPaciente.getInstancia().getPacientePorId(rs.getInt("paciente_id"));
     		Optional<Doctor> doctor = ServicioDoctor.getInstancia().getDoctorPorId(rs.getInt("doctor_id"));
 
-                LocalDateTime fechaCita = rs.getTimestamp("fecha").toLocalDateTime();
+            LocalDateTime fechaCita = rs.getTimestamp("fecha").toLocalDateTime();
 
-            	cita =  new CitaBuilder()
+            return new CitaBuilder()
 	                .setId(rs.getInt("id"))
 	                .setFecha(fechaCita)
 	                .setPaciente(paciente.get())
@@ -109,11 +104,7 @@ public class ServicioCita extends ServicioPersistenciaBase {
 	                .setRazon(rs.getString("razon"))
 	                .crearCita();
 
-		} catch (SQLException ex) {
-			 Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
-		}
 
-        return cita;
     }
 
 

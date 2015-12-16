@@ -64,7 +64,7 @@ public class ServicioDoctor extends ServicioPersistenciaBase {
     public boolean editarDoctor(Doctor doctor) {
 
         String sql = "UPDATE petcare.doctor SET nombre = ?,apellido = ? WHERE id = ?";
-	boolean estado;
+        boolean estado;
 
         try (Connection con = getConeccion()) {
             try (PreparedStatement pstmt = con.prepareStatement(sql)) {
@@ -85,23 +85,15 @@ public class ServicioDoctor extends ServicioPersistenciaBase {
 
     }
 
-    private Doctor BuildDoctor(ResultSet rs) {
+    private Doctor BuildDoctor(ResultSet rs) throws SQLException {
 
-    	Doctor doctor = null;
-
-		try {
-
-			 doctor = new DoctorBuilder()
+    	return new DoctorBuilder()
 						.setId(rs.getInt("id"))
 						.setNombre(rs.getString("nombre"))
 						.setApellido(rs.getString("apellido"))
 						.crearDoctor();
 
-		} catch (SQLException ex) {
-			 Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
-		}
 
-        return doctor;
     }
 
 }

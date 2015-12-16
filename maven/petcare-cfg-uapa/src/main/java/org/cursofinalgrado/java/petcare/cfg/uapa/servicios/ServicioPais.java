@@ -4,8 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.cursofinalgrado.java.petcare.cfg.uapa.entidades.Pais;
 import org.cursofinalgrado.java.petcare.cfg.uapa.entidades.PaisBuilder;
@@ -37,20 +35,10 @@ public class ServicioPais extends ServicioPersistenciaBase {
 
     }
 
-    private Pais buildPais(ResultSet rs) {
-        Pais pais = null;
-
-        try {
-
-        	 pais = new PaisBuilder()
+    private Pais buildPais(ResultSet rs) throws SQLException {
+        	return new PaisBuilder()
         	.setId(rs.getInt("id"))
         	.setDescripcion(rs.getString("descripcion"))
         	.crearPais();
-
-        } catch (SQLException ex) {
-            Logger.getLogger(PaisBuilder.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return pais;
     }
 }

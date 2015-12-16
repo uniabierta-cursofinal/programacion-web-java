@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.text.MessageFormat;
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.cursofinalgrado.java.petcare.cfg.uapa.entidades.Cliente;
@@ -165,15 +164,12 @@ public class ServicioCliente extends ServicioPersistenciaBase{
 		return estado;
 	 }
 
-     private Cliente buildCliente(ResultSet rs){
+     private Cliente buildCliente(ResultSet rs) throws SQLException{
 
-     	Cliente cliente = null;
-
- 		try {
- 				Optional<Pais> opPais = ServicioPais.getInstancia().getPaisPorId(rs.getInt("pais_id"));
+ 			Optional<Pais> opPais = ServicioPais.getInstancia().getPaisPorId(rs.getInt("pais_id"));
 
 
- 				cliente =	new ClienteBuilder()
+ 			return	new ClienteBuilder()
 			 				.setId(rs.getInt("id"))
 			 				.setNombre(rs.getString("nombre"))
 			 				.setApellido(rs.getString("apellido"))
@@ -187,10 +183,5 @@ public class ServicioCliente extends ServicioPersistenciaBase{
 			 				.crearCliente();
 
 
- 		} catch (SQLException ex) {
- 		    Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
- 		}
-
-     	return cliente;
      }
 }
